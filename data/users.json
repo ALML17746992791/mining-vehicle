@@ -1,5 +1,5 @@
-{
-  "王焕垚": {
+[
+  {
     "username": "王焕垚",
     "password": "wyklb2026",
     "name": "王焕垚",
@@ -9,7 +9,7 @@
     "token": "e7a4314ef28534082a437d524b68fa22ca27360925623acbf75dda3b97674494",
     "lastLogin": "2026-06-11T14:13:13.265Z"
   },
-  "王焕埚": {
+  {
     "username": "王焕埚",
     "password": "wyklb2026",
     "name": "王焕埚",
@@ -17,7 +17,7 @@
     "status": "active",
     "createdAt": "2026-06-11T11:11:34.950Z"
   },
-  "马英": {
+  {
     "username": "马英",
     "password": "15649511600",
     "name": "马英",
@@ -25,4 +25,4 @@
     "status": "active",
     "createdAt": "2026-06-11T12:42:36.456Z"
   }
-}
+]
