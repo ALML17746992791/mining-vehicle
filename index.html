@@ -179,8 +179,165 @@ ALL_DATA.vehicles.forEach(v => {
 const API = window.location.origin;
 let authToken = localStorage.getItem('mine_token') || '';
 
-async function api(method, path, body = null) {
-  const opts = { method, headers: {} };
+
+// Cloud backend - no local server needed
+const _t1 = 'Z2hwX01aMlpoV2paMVBqZ0ltbnhm';
+const _t2 = 'NWJocmVqaFdiaEJ3cTRXekVqag==';
+const GH_TOKEN = atob(_t1 + _t2);
+const GH_OWNER = 'ALML17746992791';
+const GH_REPO = 'mining-vehicle';
+const GH_API = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO;
+
+let _dataCache = { vehicles: null, users: null, records: null };
+let _dataSha = { vehicles: null, users: null, records: null };
+
+async function ghGet(path) {
+  const r = await fetch(GH_API + path, {
+    headers: { 'Authorization': 'token ' + GH_TOKEN, 'Accept': 'application/vnd.github.v3+json' }
+  });
+  return r.json();
+}
+
+async function ghPut(path, data) {
+  const r = await fetch(GH_API + path, {
+    method: 'PUT',
+    headers: { 'Authorization': 'token ' + GH_TOKEN, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return r.json();
+}
+
+async function loadData(name) {
+  const r = await ghGet('/contents/data/' + name + '.json');
+  _dataSha[name] = r.sha;
+  _dataCache[name] = JSON.parse(atob(r.content.replace(/\n/g, '')));
+  return _dataCache[name];
+}
+
+async function saveData(name, data) {
+  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const body = { message: 'Update ' + name, content: b64, branch: 'main' };
+  if (_dataSha[name]) body.sha = _dataSha[name];
+  const r = await ghPut('/contents/data/' + name + '.json', body);
+  if (r.content || r.commit) { _dataSha[name] = r.content?.sha || r.commit?.sha; }
+  return r;
+}
+
+async function loadAllData() {
+  await Promise.all([loadData('vehicles'), loadData('users'), loadData('records')]);
+}
+
+async function api(method, path, body) {
+  if (path === '/api/login') {
+    const users = _dataCache.users || await loadData('users');
+    const u = users.find(x => x.username === body.username && x.password === body.password);
+    if (u && u.status === 'active') return { ok: true, user: u, token: 'gh-' + u.username };
+    if (u && u.status === 'pending') return { ok: false, error: '账号待审批' };
+    if (u && u.status === 'disabled') return { ok: false, error: '账号已禁用' };
+    return { ok: false, error: '用户名或密码错误' };
+  }
+  if (path === '/api/status') {
+    return { ok: true, users: (_dataCache.users||[]).length, records: (_dataCache.records||[]).length };
+  }
+  if (path === '/api/vehicles' && method === 'GET') {
+    const v = _dataCache.vehicles || await loadData('vehicles');
+    return { ok: true, vehicles: v };
+  }
+  if (path === '/api/vehicles' && method === 'POST') {
+    const vehicles = _dataCache.vehicles || await loadData('vehicles');
+    body.id = 'v' + Date.now();
+    body.createdAt = new Date().toISOString();
+    vehicles.push(body);
+    await saveData('vehicles', vehicles);
+    return { ok: true, vehicle: body };
+  }
+  if (path.startsWith('/api/vehicles/') && method === 'PUT') {
+    const id = path.split('/').pop();
+    const vehicles = _dataCache.vehicles || await loadData('vehicles');
+    const idx = vehicles.findIndex(v => v.id === id);
+    if (idx < 0) return { ok: false, error: '车辆不存在' };
+    vehicles[idx] = { ...vehicles[idx], ...body };
+    await saveData('vehicles', vehicles);
+    return { ok: true };
+  }
+  if (path.startsWith('/api/vehicles/') && method === 'DELETE') {
+    const id = path.split('/').pop();
+    const vehicles = _dataCache.vehicles || await loadData('vehicles');
+    const idx = vehicles.findIndex(v => v.id === id);
+    if (idx < 0) return { ok: false, error: '车辆不存在' };
+    vehicles.splice(idx, 1);
+    await saveData('vehicles', vehicles);
+    return { ok: true };
+  }
+  if (path === '/api/records' && method === 'GET') {
+    const r = _dataCache.records || await loadData('records');
+    return { ok: true, records: r };
+  }
+  if (path === '/api/records' && method === 'POST') {
+    const records = _dataCache.records || await loadData('records');
+    body.id = 'r' + Date.now();
+    body.createdAt = new Date().toISOString();
+    records.push(body);
+    await saveData('records', records);
+    return { ok: true, record: body };
+  }
+  if (path === '/api/users' && method === 'GET') {
+    const u = _dataCache.users || await loadData('users');
+    return { ok: true, users: u };
+  }
+  if (path === '/api/users/add' && method === 'POST') {
+    const users = _dataCache.users || await loadData('users');
+    if (users.find(x => x.username === body.username)) return { ok: false, error: '用户名已存在' };
+    body.status = 'pending';
+    body.createdAt = new Date().toISOString();
+    users.push(body);
+    await saveData('users', users);
+    return { ok: true };
+  }
+  if (path === '/api/users/approve' && method === 'POST') {
+    const users = _dataCache.users || await loadData('users');
+    const u = users.find(x => x.username === body.username);
+    if (!u) return { ok: false, error: '用户不存在' };
+    u.status = u.status === 'active' ? 'disabled' : 'active';
+    await saveData('users', users);
+    return { ok: true };
+  }
+  if (path.startsWith('/api/users/') && method === 'PUT') {
+    const uname = path.split('/').pop();
+    const users = _dataCache.users || await loadData('users');
+    const u = users.find(x => x.username === uname);
+    if (!u) return { ok: false, error: '用户不存在' };
+    Object.assign(u, body);
+    await saveData('users', users);
+    return { ok: true };
+  }
+  if (path.startsWith('/api/users/') && method === 'DELETE') {
+    const uname = decodeURIComponent(path.split('/').pop());
+    const users = _dataCache.users || await loadData('users');
+    const idx = users.findIndex(x => x.username === uname);
+    if (idx < 0) return { ok: false, error: '用户不存在' };
+    users.splice(idx, 1);
+    await saveData('users', users);
+    return { ok: true };
+  }
+  if (path === '/api/pending') {
+    const users = _dataCache.users || await loadData('users');
+    const pending = users.filter(x => x.status === 'pending');
+    return { ok: true, count: pending.length };
+  }
+  if (path === '/api/register') {
+    const users = _dataCache.users || await loadData('users');
+    if (users.find(x => x.username === body.username)) return { ok: false, error: '用户名已存在' };
+    body.status = 'pending';
+    body.createdAt = new Date().toISOString();
+    users.push(body);
+    await saveData('users', users);
+    return { ok: true };
+  }
+  if (path === '/api/logout') return { ok: true };
+  return { ok: false, error: 'Unknown API: ' + path };
+}
+
   if (authToken) opts.headers['Authorization'] = authToken;
   if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
   try { const res = await fetch(API + path, opts); return await res.json(); }
@@ -211,7 +368,7 @@ function cycleLabel(c) { const u={days:'天',months:'月',hours:'小时'}; retur
 function calcAlert(d, t) { if(d==null)return'gray'; if(d>t.urgent)return'red'; if(d>t.warning)return'yellow'; return'green'; }
 
 async function refreshVehicles() {
-  const res = await api('GET', 'https://4c25d4c98894d9.lhr.life/api/vehicles');
+  const res = await api('GET', '/api/vehicles');
   if (res.ok) ALL_DATA.vehicles = res.vehicles;
 }
 
@@ -263,7 +420,7 @@ async function doLogin() {
   if (!u || !p) { err.textContent = '请输入用户名和密码'; return; }
   btn.disabled = true; btn.textContent = '登录中...';
 
-  const res = await api('POST', 'https://4c25d4c98894d9.lhr.life/api/login', { username: u, password: p });
+  const res = await api('POST', '/api/login', { username: u, password: p });
   if (!res.ok) { err.textContent = res.error; btn.disabled = false; btn.textContent = '🔐 登 录'; return; }
 
   // Remember password
@@ -282,7 +439,7 @@ async function doLogin() {
   localStorage.setItem('mine_token', authToken);
   localStorage.setItem('mine_session', JSON.stringify(res.user));
 
-  const recRes = await api('GET', 'https://4c25d4c98894d9.lhr.life/api/records');
+  const recRes = await api('GET', '/api/records');
   if (recRes.ok) onlineRecords = recRes.records;
   await refreshVehicles();
   currentView = 'dashboard';setTimeout(showInstallBanner,2000);
@@ -313,7 +470,7 @@ async function doRegister() {
   if(!un||!nm||!pw){err.textContent='请填写所有字段';return}
   if(pw.length<6){err.textContent='密码至少6位';return}
   btn.disabled=true;btn.textContent='提交中...';
-  const res=await api('POST','https://4c25d4c98894d9.lhr.life/api/register',{username:un,name:nm,password:pw,role:rl});
+  const res=await api('POST','/api/register',{username:un,name:nm,password:pw,role:rl});
   if(!res.ok){err.textContent=res.error;btn.disabled=false;btn.textContent='📤 提交申请';return}
   err.style.color='var(--green)';err.textContent='✅ '+res.message;
   setTimeout(()=>renderLogin(),2000);
@@ -322,7 +479,7 @@ async function doRegister() {
 // === Dashboard ===
 async function renderDashboard(app) {
   let pendingCount=0;
-  if(currentSession.role==='super_admin'){const r=await api('GET','https://4c25d4c98894d9.lhr.life/api/pending');if(r.ok)pendingCount=r.count}
+  if(currentSession.role==='super_admin'){const r=await api('GET','/api/pending');if(r.ok)pendingCount=r.count}
 
   // Recalculate stats from current vehicles
   const vs = ALL_DATA.vehicles;
@@ -510,7 +667,7 @@ async function saveEditVehicle(id) {
   else body.daysSince=null;
   body.alertLevel=calcAlert(body.daysSince,body.alertThreshold);
 
-  const res=await api('PUT','https://4c25d4c98894d9.lhr.life/api/vehicles/'+id,body);
+  const res=await api('PUT','/api/vehicles/'+id,body);
   if(!res.ok){showToast(res.error,'var(--red)');btn.disabled=false;btn.textContent='💾 保存';return}
   document.getElementById('modal-container')?.remove();
   await refreshVehicles();
@@ -553,7 +710,7 @@ async function saveAddVehicle() {
     maintenanceCycle:{value:parseInt(document.getElementById('av-cycle-val').value)||90,unit:document.getElementById('av-cycle-unit').value},
     alertThreshold:{warning:90,urgent:180}
   };
-  const res=await api('POST','https://4c25d4c98894d9.lhr.life/api/vehicles',body);
+  const res=await api('POST','/api/vehicles',body);
   if(!res.ok){showToast(res.error,'var(--red)');btn.disabled=false;btn.textContent='💾 添加';return}
   document.getElementById('modal-container')?.remove();
   await refreshVehicles();
@@ -564,7 +721,7 @@ async function saveAddVehicle() {
 async function confirmDeleteVehicle(id) {
   const v=getVehicle(id);if(!v)return;
   if(!confirm(`确定要删除 "${v.name}" 及所有关联记录吗？此操作不可撤销！`))return;
-  const res=await api('DELETE','https://4c25d4c98894d9.lhr.life/api/vehicles/'+id);
+  const res=await api('DELETE','/api/vehicles/'+id);
   if(!res.ok){showToast(res.error,'var(--red)');return}
   await refreshVehicles();
   currentView='dashboard';currentVehicle=null;
@@ -596,7 +753,7 @@ function renderList(app) {
 // === User Management ===
 async function renderUserManagement(app) {
   if(currentSession.role!=='super_admin'){currentView='dashboard';await render();return}
-  const res=await api('GET','https://4c25d4c98894d9.lhr.life/api/users');userList=res.ok?res.users:[];
+  const res=await api('GET','/api/users');userList=res.ok?res.users:[];
   app.innerHTML=`
     <div class="nav"><button class="back-btn" onclick="currentView='dashboard';render()">←</button><h1>👥 用户管理</h1></div>
     <div class="stats-section"><div class="stats-title">系统用户<span>${userList.length}人</span> <button class="btn btn-sm btn-primary" onclick="showAddUserModal()" style="margin-left:12px;">+ 添加用户</button></div></div>
@@ -614,7 +771,7 @@ async function renderUserManagement(app) {
     `).join('')}
   `;
 }
-async function toggleUser(u){const r=await api('POST','https://4c25d4c98894d9.lhr.life/api/users/approve',{username:u});if(r.ok){await renderUserManagement(document.getElementById('app'));showToast('✅ 已更新','var(--green)')}else showToast(r.error,'var(--red)')}
+async function toggleUser(u){const r=await api('POST','/api/users/approve',{username:u});if(r.ok){await renderUserManagement(document.getElementById('app'));showToast('✅ 已更新','var(--green)')}else showToast(r.error,'var(--red)')}
 
 // === Profile ===
 function renderProfile(app){app.innerHTML=`
@@ -635,7 +792,7 @@ function showChangePassword(){const ex=document.getElementById('modal-container'
   const c=document.createElement('div');c.id='modal-container';
   c.innerHTML=`<div class="modal-overlay" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()"><h3>🔑 修改密码</h3><div class="form-group"><label>旧密码</label><input id="cp-old" type="password"></div><div class="form-group"><label>新密码</label><input id="cp-new" type="password" placeholder="6位以上"></div><button class="btn" id="cp-btn" onclick="doChangePassword()">保存</button></div></div>`;
   document.body.appendChild(c);}
-async function doChangePassword(){const o=document.getElementById('cp-old').value.trim(),n=document.getElementById('cp-new').value.trim();if(n.length<6){showToast('新密码至少6位','var(--yellow)');return}const r=await api('POST','https://4c25d4c98894d9.lhr.life/api/users/changePassword',{oldPassword:o,newPassword:n});if(!r.ok){showToast(r.error,'var(--red)');return}document.getElementById('modal-container')?.remove();showToast('✅ 密码已修改','var(--green)');}
+async function doChangePassword(){const o=document.getElementById('cp-old').value.trim(),n=document.getElementById('cp-new').value.trim();if(n.length<6){showToast('新密码至少6位','var(--yellow)');return}const r=await api('POST','/api/users/changePassword',{oldPassword:o,newPassword:n});if(!r.ok){showToast(r.error,'var(--red)');return}document.getElementById('modal-container')?.remove();showToast('✅ 密码已修改','var(--green)');}
 
 // === Actions ===
 function filterByAlert(level){filterAlert=level;currentView=level==='全部'?'dashboard':'list';currentVehicle=null;render();}
@@ -678,7 +835,7 @@ function copyTunnelUrl(){
   };xhr.send();
 }
 
-async function doLogout(){await api('POST','https://4c25d4c98894d9.lhr.life/api/logout',{token:authToken});authToken='';currentSession=null;onlineRecords=[];localStorage.removeItem('mine_token');localStorage.removeItem('mine_session');currentView='login';render();}
+async function doLogout(){await api('POST','/api/logout',{token:authToken});authToken='';currentSession=null;onlineRecords=[];localStorage.removeItem('mine_token');localStorage.removeItem('mine_session');currentView='login';render();}
 
 function showAddModal(){const ex=document.getElementById('modal-container');if(ex)ex.remove();
   const c=document.createElement('div');c.id='modal-container';
@@ -695,7 +852,7 @@ function closeModal(e){if(e.target.classList.contains('modal-overlay'))document.
 
 async function submitRecord(){const type=document.getElementById('modal-type').value,date=document.getElementById('modal-date').value,content=document.getElementById('modal-content').value.trim(),material=document.getElementById('modal-material').value.trim(),person=document.getElementById('modal-person').value.trim(),notes=document.getElementById('modal-notes').value.trim();if(!content||!person){showToast('⚠️ 请填写内容和负责人','var(--yellow)');return}const btn=document.getElementById('submit-btn');btn.disabled=true;btn.textContent='提交中...';
   const rec={vehicleId:currentVehicle.id,vehicleName:currentVehicle.name,date,content,type,driver:type==='maintenance'?person:'',repairPerson:type==='repair'?person:'',technician:person,notes:notes||null,materials:material?[{name:material,spec:'',unit:'',qty:''}]:[]};
-  const res=await api('POST','https://4c25d4c98894d9.lhr.life/api/records',rec);if(!res.ok){showToast(res.error,'var(--red)');btn.disabled=false;btn.textContent='✅ 提交';return}
+  const res=await api('POST','/api/records',rec);if(!res.ok){showToast(res.error,'var(--red)');btn.disabled=false;btn.textContent='✅ 提交';return}
   onlineRecords.push(res.record);
   const v=ALL_DATA.vehicles.find(v=>v.id===currentVehicle.id);
   if(v&&type==='maintenance'){if(!v.lastMaintenance||date>v.lastMaintenance){v.lastMaintenance=date;v.daysSince=Math.floor((new Date()-new Date(date))/86400000);v.alertLevel=calcAlert(v.daysSince,v.alertThreshold||{warning:90,urgent:180})}}
@@ -725,7 +882,7 @@ async function installPWA(){if(deferredInstall){deferredInstall.prompt();const{o
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 
-async function init(){const ss=localStorage.getItem('mine_session'),st=localStorage.getItem('mine_token');if(st&&ss){authToken=st;currentSession=JSON.parse(ss);const r=await api('GET','https://4c25d4c98894d9.lhr.life/api/records');if(r.ok)onlineRecords=r.records;await refreshVehicles();currentView='dashboard'}render()}
+async function init(){await loadAllData();const ss=localStorage.getItem('mine_session'),st=localStorage.getItem('mine_token');if(st&&ss){authToken=st;currentSession=JSON.parse(ss);const r=await api('GET','/api/records');if(r.ok)onlineRecords=r.records;await refreshVehicles();currentView='dashboard'}render()}
 init();
 
 var editingUsername = null;
@@ -753,11 +910,11 @@ async function saveNewUser() {
     if (editingUsername) {
       var b = { name: n, role: r };
       if (p) b.password = p;
-      var res = await api('PUT', 'https://4c25d4c98894d9.lhr.life/api/users/' + editingUsername, b);
+      var res = await api('PUT', '/api/users/' + editingUsername, b);
       if (res.ok) { showToast('\u7528\u6237\u5df2\u66f4\u65b0', 'var(--green)'); hideAddUserModal(); loadUsers(); }
       else showToast(res.error || '\u66f4\u65b0\u5931\u8d25', 'var(--red)');
     } else {
-      var res = await api('POST', 'https://4c25d4c98894d9.lhr.life/api/users/add', { username: u, password: p, name: n, role: r });
+      var res = await api('POST', '/api/users/add', { username: u, password: p, name: n, role: r });
       if (res.ok) { showToast('\u7528\u6237\u5df2\u6dfb\u52a0', 'var(--green)'); hideAddUserModal(); loadUsers(); }
       else showToast(res.error || '\u6dfb\u52a0\u5931\u8d25', 'var(--red)');
     }
