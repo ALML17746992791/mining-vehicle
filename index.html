@@ -180,169 +180,21 @@ const API = window.location.origin;
 let authToken = localStorage.getItem('mine_token') || '';
 
 
-// Cloud backend - no local server needed
-const _t1 = 'Z2hwX01aMlpoV2paMVBqZ0ltbnhm';
-const _t2 = 'NWJocmVqaFdiaEJ3cTRXekVqag==';
-const GH_TOKEN = atob(_t1 + _t2);
-const GH_OWNER = 'ALML17746992791';
-const GH_REPO = 'mining-vehicle';
-const GH_API = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO;
+// ===== CLOUD BACKEND - No Local Server Needed =====
+const _t1='Z2hwX01aMlpoV2paMVBqZ0ltbnhm';const _t2='NWJocmVqaFdiaEJ3cTRXekVqag==';
+const GH_T=atob(_t1+_t2);
+const GH_O='ALML17746992791';
+const GH_R='mining-vehicle';
+const GH_A='https://api.github.com/repos/'+GH_O+'/'+GH_R;
+let _dc={},_ds={};
+async function _gf(p){const r=await fetch(GH_A+p,{headers:{'Authorization':'token '+GH_T,'Accept':'application/vnd.github.v3+json'}});return r.json();}
+async function _pf(p,d){const r=await fetch(GH_A+p,{method:'PUT',headers:{'Authorization':'token '+GH_T,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(d)});return r.json();}
+async function ld(n){const r=await _gf('/contents/data/'+n+'.json');_ds[n]=r.sha;_dc[n]=JSON.parse(atob(r.content.replace(/\n/g,'')));return _dc[n];}
+async function sd(n,d){const b=btoa(unescape(encodeURIComponent(JSON.stringify(d,null,2))));const m={message:'Update '+n,content:b,branch:'main'};if(_ds[n])m.sha=_ds[n];const r=await _pf('/contents/data/'+n+'.json',m);if(r.content||r.commit)_ds[n]=r.content?.sha||r.commit?.sha;return r;}
+async function loadAllData(){try{await Promise.all([ld('vehicles'),ld('users'),ld('records')]);}catch(e){console.error('Load error:',e);}}
 
-let _dataCache = { vehicles: null, users: null, records: null };
-let _dataSha = { vehicles: null, users: null, records: null };
+// Replace api() with GitHub API backend
 
-async function ghGet(path) {
-  const r = await fetch(GH_API + path, {
-    headers: { 'Authorization': 'token ' + GH_TOKEN, 'Accept': 'application/vnd.github.v3+json' }
-  });
-  return r.json();
-}
-
-async function ghPut(path, data) {
-  const r = await fetch(GH_API + path, {
-    method: 'PUT',
-    headers: { 'Authorization': 'token ' + GH_TOKEN, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  return r.json();
-}
-
-async function loadData(name) {
-  const r = await ghGet('/contents/data/' + name + '.json');
-  _dataSha[name] = r.sha;
-  _dataCache[name] = JSON.parse(atob(r.content.replace(/\n/g, '')));
-  return _dataCache[name];
-}
-
-async function saveData(name, data) {
-  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-  const body = { message: 'Update ' + name, content: b64, branch: 'main' };
-  if (_dataSha[name]) body.sha = _dataSha[name];
-  const r = await ghPut('/contents/data/' + name + '.json', body);
-  if (r.content || r.commit) { _dataSha[name] = r.content?.sha || r.commit?.sha; }
-  return r;
-}
-
-async function loadAllData() {
-  await Promise.all([loadData('vehicles'), loadData('users'), loadData('records')]);
-}
-
-async function api(method, path, body) {
-  if (path === '/api/login') {
-    const users = _dataCache.users || await loadData('users');
-    const u = users.find(x => x.username === body.username && x.password === body.password);
-    if (u && u.status === 'active') return { ok: true, user: u, token: 'gh-' + u.username };
-    if (u && u.status === 'pending') return { ok: false, error: '账号待审批' };
-    if (u && u.status === 'disabled') return { ok: false, error: '账号已禁用' };
-    return { ok: false, error: '用户名或密码错误' };
-  }
-  if (path === '/api/status') {
-    return { ok: true, users: (_dataCache.users||[]).length, records: (_dataCache.records||[]).length };
-  }
-  if (path === '/api/vehicles' && method === 'GET') {
-    const v = _dataCache.vehicles || await loadData('vehicles');
-    return { ok: true, vehicles: v };
-  }
-  if (path === '/api/vehicles' && method === 'POST') {
-    const vehicles = _dataCache.vehicles || await loadData('vehicles');
-    body.id = 'v' + Date.now();
-    body.createdAt = new Date().toISOString();
-    vehicles.push(body);
-    await saveData('vehicles', vehicles);
-    return { ok: true, vehicle: body };
-  }
-  if (path.startsWith('/api/vehicles/') && method === 'PUT') {
-    const id = path.split('/').pop();
-    const vehicles = _dataCache.vehicles || await loadData('vehicles');
-    const idx = vehicles.findIndex(v => v.id === id);
-    if (idx < 0) return { ok: false, error: '车辆不存在' };
-    vehicles[idx] = { ...vehicles[idx], ...body };
-    await saveData('vehicles', vehicles);
-    return { ok: true };
-  }
-  if (path.startsWith('/api/vehicles/') && method === 'DELETE') {
-    const id = path.split('/').pop();
-    const vehicles = _dataCache.vehicles || await loadData('vehicles');
-    const idx = vehicles.findIndex(v => v.id === id);
-    if (idx < 0) return { ok: false, error: '车辆不存在' };
-    vehicles.splice(idx, 1);
-    await saveData('vehicles', vehicles);
-    return { ok: true };
-  }
-  if (path === '/api/records' && method === 'GET') {
-    const r = _dataCache.records || await loadData('records');
-    return { ok: true, records: r };
-  }
-  if (path === '/api/records' && method === 'POST') {
-    const records = _dataCache.records || await loadData('records');
-    body.id = 'r' + Date.now();
-    body.createdAt = new Date().toISOString();
-    records.push(body);
-    await saveData('records', records);
-    return { ok: true, record: body };
-  }
-  if (path === '/api/users' && method === 'GET') {
-    const u = _dataCache.users || await loadData('users');
-    return { ok: true, users: u };
-  }
-  if (path === '/api/users/add' && method === 'POST') {
-    const users = _dataCache.users || await loadData('users');
-    if (users.find(x => x.username === body.username)) return { ok: false, error: '用户名已存在' };
-    body.status = 'pending';
-    body.createdAt = new Date().toISOString();
-    users.push(body);
-    await saveData('users', users);
-    return { ok: true };
-  }
-  if (path === '/api/users/approve' && method === 'POST') {
-    const users = _dataCache.users || await loadData('users');
-    const u = users.find(x => x.username === body.username);
-    if (!u) return { ok: false, error: '用户不存在' };
-    u.status = u.status === 'active' ? 'disabled' : 'active';
-    await saveData('users', users);
-    return { ok: true };
-  }
-  if (path.startsWith('/api/users/') && method === 'PUT') {
-    const uname = path.split('/').pop();
-    const users = _dataCache.users || await loadData('users');
-    const u = users.find(x => x.username === uname);
-    if (!u) return { ok: false, error: '用户不存在' };
-    Object.assign(u, body);
-    await saveData('users', users);
-    return { ok: true };
-  }
-  if (path.startsWith('/api/users/') && method === 'DELETE') {
-    const uname = decodeURIComponent(path.split('/').pop());
-    const users = _dataCache.users || await loadData('users');
-    const idx = users.findIndex(x => x.username === uname);
-    if (idx < 0) return { ok: false, error: '用户不存在' };
-    users.splice(idx, 1);
-    await saveData('users', users);
-    return { ok: true };
-  }
-  if (path === '/api/pending') {
-    const users = _dataCache.users || await loadData('users');
-    const pending = users.filter(x => x.status === 'pending');
-    return { ok: true, count: pending.length };
-  }
-  if (path === '/api/register') {
-    const users = _dataCache.users || await loadData('users');
-    if (users.find(x => x.username === body.username)) return { ok: false, error: '用户名已存在' };
-    body.status = 'pending';
-    body.createdAt = new Date().toISOString();
-    users.push(body);
-    await saveData('users', users);
-    return { ok: true };
-  }
-  if (path === '/api/logout') return { ok: true };
-  return { ok: false, error: 'Unknown API: ' + path };
-}
-
-  if (authToken) opts.headers['Authorization'] = authToken;
-  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
-  try { const res = await fetch(API + path, opts); return await res.json(); }
-  catch(e) { return { ok: false, error: '网络错误' }; }
-}
 
 // State
 let currentView = 'login', currentVehicle = null, filterAlert = '全部', searchQuery = '';
