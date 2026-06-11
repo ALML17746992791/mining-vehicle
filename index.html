@@ -180,20 +180,18 @@ const API = window.location.origin;
 let authToken = localStorage.getItem('mine_token') || '';
 
 
-// ===== CLOUD BACKEND - No Local Server Needed =====
+// ===== CLOUD BACKEND v4 =====
 const _t1='Z2hwX01aMlpoV2paMVBqZ0ltbnhm';const _t2='NWJocmVqaFdiaEJ3cTRXekVqag==';
 const GH_T=atob(_t1+_t2);
 const GH_O='ALML17746992791';
 const GH_R='mining-vehicle';
 const GH_A='https://api.github.com/repos/'+GH_O+'/'+GH_R;
-let _dc={},_ds={};
-async function _gf(p){const r=await fetch(GH_A+p,{headers:{'Authorization':'token '+GH_T,'Accept':'application/vnd.github.v3+json'}});return r.json();}
-async function _pf(p,d){const r=await fetch(GH_A+p,{method:'PUT',headers:{'Authorization':'token '+GH_T,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(d)});return r.json();}
-async function ld(n){const r=await _gf('/contents/data/'+n+'.json');_ds[n]=r.sha;_dc[n]=JSON.parse(atob(r.content.replace(/\n/g,'')));return _dc[n];}
-async function sd(n,d){const b=btoa(unescape(encodeURIComponent(JSON.stringify(d,null,2))));const m={message:'Update '+n,content:b,branch:'main'};if(_ds[n])m.sha=_ds[n];const r=await _pf('/contents/data/'+n+'.json',m);if(r.content||r.commit)_ds[n]=r.content?.sha||r.commit?.sha;return r;}
-async function loadAllData(){try{await Promise.all([ld('vehicles'),ld('users'),ld('records')]);}catch(e){console.error('Load error:',e);}}
+let _dc={vehicles:[],users:[],records:[]},_ds={};
+async function ld(n){try{const r=await fetch(GH_A+'/contents/data/'+n+'.json',{headers:{'Authorization':'token '+GH_T,'Accept':'application/vnd.github.v3+json'}});const d=await r.json();_ds[n]=d.sha;_dc[n]=JSON.parse(atob(d.content.replace(/\n/g,''));return _dc[n];}catch(e){console.warn('Load '+n+':',e);return[];}}
+async function sd(n,d){try{const b=btoa(unescape(encodeURIComponent(JSON.stringify(d,null,2))));const m={message:'Update '+n,content:b,branch:'main'};if(_ds[n])m.sha=_ds[n];const r=await fetch(GH_A+'/contents/data/'+n+'.json',{method:'PUT',headers:{'Authorization':'token '+GH_T,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(m)});const rd=await r.json();if(rd.content||rd.commit)_ds[n]=rd.content?.sha||rd.commit?.sha;return rd;}catch(e){console.warn('Save '+n+':',e);return null;}}
+async function loadAllData(){try{document.getElementById('app').innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;color:#F5A623;font-size:16px"><div class="spinner"></div>正在加载云端数据...</div>';const[vs,us,rs]=await Promise.all([ld('vehicles'),ld('users'),ld('records')]);_dc.vehicles=vs||[];_dc.users=us||[];_dc.records=rs||[];console.log('Loaded:',vs.length,'vehicles',us.length,'users');}catch(e){console.error('loadAllData failed:',e);_dc.{vehicles:[],users:[],records:[]};}}
 
-// Replace api() with GitHub API backend
+// Replace api() 
 
 
 // State
