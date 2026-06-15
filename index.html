@@ -363,7 +363,7 @@ a { color:var(--accent); text-decoration:none; }
     <div class="header">
       <div class="header-left"><h1>⛏️ 掘进队车辆保养台账</h1></div>
       <div class="header-right">
-        <button class="btn btn-sm btn-secondary" style="margin-right:8px" onclick="exportAllData()">📥 导出</button>
+        <button class="btn btn-sm btn-secondary" style="margin-right:8px" onclick="exportAllData()">📥 导出台账</button><button class="btn btn-sm btn-secondary" style="margin-right:8px" onclick="exportRecords()">📋 导出记录</button>
         <div class="nav-tabs">
           <button class="nav-tab active" onclick="showDashboard()">📋 车辆列表</button>
           <button class="nav-tab" id="navUsers" onclick="showUserMgmt()" style="display:none">👥 用户管理</button>
@@ -1414,16 +1414,32 @@ $('recordModal').addEventListener('click', function(e) {
 checkSession();
 
 function exportAllData(){
-  var csv='\uFEFF车牌号,类型,状态,最后保养,距今天数,预警级别,保养记录数\n';
+  var csv='\uFEFF车牌号,类型,状态,最后保养,距今天数,预警级别,记录数\n';
   appState.vehicles.forEach(function(v){
     csv+='"'+(v.name||'')+'","'+(v.type||'')+'","'+(v.status||'')+'","'+(v.lastMaintenance||'')+'",'+(v.daysSince||0)+',"'+(v.alertLevel||'')+'",'+(v.maintenanceRecords?v.maintenanceRecords.length:0)+'\n';
   });
   var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  a.download='车辆保养台账_'+(new Date().toISOString().slice(0,10))+'.csv';
+  a.download='车辆台账_'+(new Date().toISOString().slice(0,10))+'.csv';
   a.click();
-  showToast('已导出CSV文件','var(--green)');
+  showToast('已导出','var(--green)');
+}
+function exportRecords(){
+  var csv='\uFEFF车牌号,日期,类型,内容,送修司机,故障描述,维修方案,修前注意,修后注意,维修结果,检修人,验收人,材料,备注\n';
+  appState.vehicles.forEach(function(v){
+    var recs=v.maintenanceRecords||[];
+    recs.forEach(function(r){
+      var mats=(r.materials||[]).map(function(m){return m.name||''}).join(';');
+      csv+='"'+(v.name||'')+'","'+(r.date||'')+'","'+(r.type||'')+'","'+(r.content||'')+'","'+(r.driver||'')+'","'+(r.faultDesc||'')+'","'+(r.repairPlan||'')+'","'+(r.preNote||'')+'","'+(r.postNote||'')+'","'+(r.repairResult||'')+'","'+(r.technician||r.repairPerson||'')+'","'+(r.acceptor||'')+'","'+mats+'","'+(r.notes||'')+'"\n';
+    });
+  });
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='维修保养记录_'+(new Date().toISOString().slice(0,10))+'.csv';
+  a.click();
+  showToast('已导出详细记录','var(--green)');
 }
 
 </script>
