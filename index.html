@@ -164,29 +164,21 @@ var _t1="Z2hwX01aMlpoV2paMVBqZ0ltbnhm",_t2="NWJocmVqaFdiaEJ3cTRXekVqag==";var GH
 var GH_RAW="https://raw.githubusercontent.com/ALML17746992791/mining-vehicle/main/data";
 
 // Load latest data from GitHub on startup
-async function loadLatestData(){
-  try{
-    var [rv,ru,rr]=await Promise.all([
-      fetch(GH_RAW+"/vehicles.json").then(function(r){return r.json()}),
-      fetch(GH_RAW+"/users.json").then(function(r){return r.json()}),
-      fetch(GH_RAW+"/records.json").then(function(r){return r.json()})
-    ]);
-    if(Array.isArray(rv))DB.vehicles=rv;
-    if(Array.isArray(ru))DB.users=ru;
-    if(Array.isArray(rr))DB.records=rr;
-    // Also get SHAs for future saves
-    var apiBase="https://api.github.com/repos/ALML17746992791/mining-vehicle/contents/data/";
-    var [sv,su,sr]=await Promise.all([
-      fetch(apiBase+"vehicles.json",{headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}}).then(function(r){return r.json()}),
-      fetch(apiBase+"users.json",{headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}}).then(function(r){return r.json()}),
-      fetch(apiBase+"records.json",{headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}}).then(function(r){return r.json()})
-    ]);
-    if(sv.sha)_sha.vehicles=sv.sha;if(su.sha)_sha.users=su.sha;if(sr.sha)_sha.records=sr.sha;
-    console.log("Synced from GitHub:",DB.vehicles.length,"v",DB.users.length,"u",DB.records.length,"r");
-  }catch(e){console.warn("Load from GitHub failed, using embedded data:",e)}
-}
-
-function syncSave(n){try{var b=btoa(unescape(encodeURIComponent(JSON.stringify(DB[n],null,2))));var m={message:"Update "+n,content:b,branch:"main"};if(_sha[n])m.sha=_sha[n];fetch("https://api.github.com/repos/ALML17746992791/mining-vehicle/contents/data/"+n+".json",{method:"PUT",headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify(m)}).then(function(r){return r.json()}).then(function(d){if(d.content||d.commit)_sha[n]=d.content?.sha||d.commit?.sha;console.log("Saved "+n+" to GitHub")})}catch(e){console.warn("Save failed:",e)}}
+async function loadLatestData(){{
+  try{{
+    // Load data files independently - one failure doesn't block others
+    async function loadFile(name){{
+      try{{var r=await fetch(GH_RAW+"/"+name+".json");if(!r.ok)throw new Error(r.status);var d=await r.json();if(Array.isArray(d))DB[name]=d;console.log("Loaded "+name+": "+d.length)}}catch(e){{console.warn("Load "+name+" failed:",e)}}
+    }}
+    await Promise.all([loadFile("vehicles"),loadFile("users"),loadFile("records")]);
+    // Get SHAs for saves
+    async function getSha(name){{
+      try{{var r=await fetch("https://api.github.com/repos/ALML17746992791/mining-vehicle/contents/data/"+name+".json",{{headers:{{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}}}});var d=await r.json();if(d.sha)_sha[name]=d.sha}}catch(e){{}}
+    }}
+    await Promise.all([getSha("vehicles"),getSha("users"),getSha("records")]);
+    console.log("Synced:",DB.vehicles.length,"v",DB.users.length,"u",DB.records.length,"r");
+  }}catch(e){{console.warn("Sync failed:",e)}}
+}}
 
 async function api(m,p,b){
 if(p==="/api/login"){await loadLatestData();var u=DB.users.find(function(x){return x.username===b.username&&x.password===b.password});if(!u)return{ok:false,error:"用户名或密码错误"};if(u.status==="disabled")return{ok:false,error:"账号已禁用"};return{ok:true,user:u,token:"gh-"+u.username}}
