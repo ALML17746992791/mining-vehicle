@@ -163,9 +163,9 @@ var DB={vehicles:[{"id": 1, "name": "\u7a7a\u538b\u673a1\u53f7", "type": "\u7a7a
 var _t1="Z2hwX01aMlpoV2paMVBqZ0ltbnhm",_t2="NWJocmVqaFdiaEJ3cTRXekVqag==";var GH_TK=atob(_t1+_t2);var _sha={};
 var GH_RAW="https://raw.githubusercontent.com/ALML17746992791/mining-vehicle/main/data";
 
-async function loadLatestData(){
+function bgSync(){
   try{
-    async function loadFile(name){
+    async function lf(name){
       try{
         var r=await fetch(GH_RAW+"/"+name+".json?v="+Date.now());
         if(!r.ok) throw new Error(r.status);
@@ -173,20 +173,10 @@ async function loadLatestData(){
         t=t.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'');
         var d=JSON.parse(t);
         if(Array.isArray(d)) DB[name]=d;
-      }catch(e){console.warn("Load "+name+" failed:",e)}
-    }
-    await Promise.all([loadFile("vehicles"),loadFile("users"),loadFile("records")]);
-    async function getSha(name){
-      try{
-        var r=await fetch("https://api.github.com/repos/ALML17746992791/mining-vehicle/contents/data/"+name+".json",{
-          headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}
-        });
-        var d=await r.json();
-        if(d.sha) _sha[name]=d.sha;
       }catch(e){}
     }
-    await Promise.all([getSha("vehicles"),getSha("users"),getSha("records")]);
-  }catch(e){console.warn("Sync failed:",e)}
+    Promise.all([lf("vehicles"),lf("users"),lf("records")]);
+  }catch(e){}
 }
 
 function syncSave(name){
@@ -206,21 +196,23 @@ function syncSave(name){
 }
 
 async function api(method,path,body){
+  // LOGIN: use embedded data immediately, start background sync
   if(path==="/api/login"){
-    await loadLatestData();
+    // Start background sync but DON'T wait for it
+    setTimeout(bgSync,100);
     var u=DB.users.find(function(x){return x.username===body.username&&x.password===body.password});
     if(!u) return{ok:false,error:"用户名或密码错误"};
     if(u.status==="disabled") return{ok:false,error:"账号已禁用"};
     return{ok:true,user:u,token:"gh-"+u.username};
   }
   if(path==="/api/status") return{ok:true};
-  if(path==="/api/vehicles"&&method==="GET") return{ok:true,vehicles:DB.vehicles};
+  if(path==="/api/vehicles"&&method==="GET"){bgSync();return{ok:true,vehicles:DB.vehicles}}
   if(path==="/api/vehicles"&&method==="POST"){body.id="v"+Date.now();DB.vehicles.push(body);syncSave("vehicles");return{ok:true,vehicle:body}}
   if(path.startsWith("/api/vehicles/")&&method==="PUT"){var i=DB.vehicles.findIndex(function(x){return String(x.id)===String(path.split("/").pop())});if(i<0)return{ok:false};Object.assign(DB.vehicles[i],body);syncSave("vehicles");return{ok:true}}
   if(path.startsWith("/api/vehicles/")&&method==="DELETE"){var i=DB.vehicles.findIndex(function(x){return String(x.id)===String(path.split("/").pop())});if(i<0)return{ok:false};DB.vehicles.splice(i,1);syncSave("vehicles");return{ok:true}}
   if(path==="/api/records"&&method==="GET") return{ok:true,records:DB.records};
   if(path==="/api/records"&&method==="POST"){body.id="r"+Date.now();body.createdAt=new Date().toISOString();body.createdBy=currentSession?currentSession.name:"";DB.records.push(body);syncSave("records");return{ok:true,record:body}}
-  if(path==="/api/users"&&method==="GET") return{ok:true,users:DB.users};
+  if(path==="/api/users"&&method==="GET"){bgSync();return{ok:true,users:DB.users}};
   if(path==="/api/users/add"&&method==="POST"){if(DB.users.find(function(x){return x.username===body.username}))return{ok:false,error:"已存在"};body.status="active";DB.users.push(body);syncSave("users");return{ok:true}}
   if(path==="/api/users/approve"&&method==="POST"){var u=DB.users.find(function(x){return x.username===body.username});if(u)u.status=u.status==="active"?"disabled":"active";syncSave("users");return{ok:true}}
   if(path.startsWith("/api/users/")&&method==="PUT"){var u=DB.users.find(function(x){return x.username===path.split("/").pop()});if(u)Object.assign(u,body);syncSave("users");return{ok:true}}
@@ -268,7 +260,7 @@ function roleName(r) { const m={super_admin:'超级管理员',admin:'管理员',
 function cycleLabel(c) { const u={days:'天',months:'月',hours:'小时'}; return (c?.value||90)+' '+((c?.unit&&u[c.unit])||'天'); }
 function calcAlert(d, t) { if(d==null)return'gray'; if(d>t.urgent)return'red'; if(d>t.warning)return'yellow'; return'green'; }
 
-async function refreshVehicles() {await loadLatestData();
+async function refreshVehicles() {
   const res = await api('GET', '/api/vehicles');
   if (res.ok) ALL_DATA.vehicles = res.vehicles;
 }
@@ -653,7 +645,7 @@ function renderList(app) {
 }
 
 // === User Management ===
-async function renderUserManagement(app) {await loadLatestData();
+async function renderUserManagement(app) {
   if(currentSession.role!=='super_admin'&&currentSession.role!=='admin'){currentView='dashboard';await render();return}
   const res=await api('GET','/api/users');userList=res.ok?res.users:[];
   const online=JSON.parse(localStorage.getItem('online_users')||'{}');
