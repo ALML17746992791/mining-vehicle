@@ -1,8 +1,8 @@
 [
   {
-    "username": "王焕垚",
+    "username": "\u738b\u7115\u579a",
     "password": "wyklb2026",
-    "name": "王焕垚",
+    "name": "\u738b\u7115\u579a",
     "role": "super_admin",
     "status": "active",
     "createdAt": "2026-06-11T06:38:28.157Z",
@@ -10,17 +10,17 @@
     "lastLogin": "2026-06-11T14:13:13.265Z"
   },
   {
-    "username": "王焕埚",
+    "username": "\u738b\u7115\u57da",
     "password": "wyklb2026",
-    "name": "王焕埚",
+    "name": "\u738b\u7115\u57da",
     "role": "super_admin",
     "status": "active",
     "createdAt": "2026-06-11T11:11:34.950Z"
   },
   {
-    "username": "马英",
+    "username": "\u9a6c\u82f1",
     "password": "15649511600",
-    "name": "马英",
+    "name": "\u9a6c\u82f1",
     "role": "admin",
     "status": "active",
     "createdAt": "2026-06-11T12:42:36.456Z"
