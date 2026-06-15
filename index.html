@@ -558,7 +558,7 @@ function findUser(username) {
   return appState.users.find(function(u) { return u.username === username; });
 }
 
-function handleLogin() {
+async function handleLogin() {
   const username = $('loginUsername').value.trim();
   const password = $('loginPassword').value.trim();
   const errEl = $('loginError');
@@ -567,16 +567,27 @@ function handleLogin() {
     errEl.style.display = 'block';
     return;
   }
-  // Check in loaded users first, fallback to hardcoded
+  errEl.style.display = 'none';
+  showLoading();
+  // Load users from GitHub first
+  if (appState.users.length === 0) {
+    try {
+      const result = await githubGet('users.json');
+      appState.users = result.content;
+      appState.usersSha = result.sha;
+    } catch(e) {
+      // Will try hardcoded fallback
+    }
+  }
+  hideLoading();
+  // Check in loaded users
   let user = findUser(username);
   if (!user) {
     // Try hardcoded defaults for first-time use
     if (username === '王焕垚' && password === 'wyklb2026') {
-      user = { username:'王焕垚', name:'王焕垚', role:'super_admin', status:'active' };
-    } else if (username === '王焕垚' && password === 'wyklb2026') {
-      user = { username:'王焕垚', name:'王焕垚', role:'super_admin', status:'active' };
+      user = { username:'王焕垚', password:'wyklb2026', name:'王焕垚', role:'super_admin', status:'active' };
     } else if (username === '马英' && password === '15649511600') {
-      user = { username:'马英', name:'马英', role:'admin', status:'active' };
+      user = { username:'马英', password:'15649511600', name:'马英', role:'admin', status:'active' };
     }
   }
   if (!user || user.password !== password) {
@@ -615,7 +626,7 @@ function handleLogout() {
   $('loginError').style.display = 'none';
 }
 
-function handleRegister() {
+async function handleRegister() {
   const username = $('regUsername').value.trim();
   const name = $('regName').value.trim();
   const password = $('regPassword').value.trim();
@@ -633,6 +644,20 @@ function handleRegister() {
     errEl.textContent = '两次密码不一致';
     errEl.style.display = 'block'; return;
   }
+  errEl.style.display = 'none';
+  showLoading();
+  // Load users from GitHub to check duplicate
+  try {
+    const result = await githubGet('users.json');
+    appState.users = result.content;
+    appState.usersSha = result.sha;
+  } catch(e) {
+    hideLoading();
+    errEl.textContent = '无法连接服务器，请稍后重试';
+    errEl.style.display = 'block';
+    return;
+  }
+  hideLoading();
   if (findUser(username)) {
     errEl.textContent = '用户名已存在';
     errEl.style.display = 'block'; return;
