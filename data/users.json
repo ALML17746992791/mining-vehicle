@@ -33,5 +33,14 @@
     "status": "active",
     "createdAt": "2026-06-15T04:26:26.921Z",
     "token": "id_1781497586921_j7hahrms7"
+  },
+  {
+    "username": "何邦江",
+    "password": "123456",
+    "name": "何邦江",
+    "role": "admin",
+    "status": "active",
+    "createdAt": "2026-06-15T04:26:59.251Z",
+    "token": "id_1781497619251_g5yl4szej"
   }
 ]
