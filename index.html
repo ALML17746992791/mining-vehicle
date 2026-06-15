@@ -884,4 +884,8 @@ async function saveNewUser() {
 }
 
 
+
+async function init(){const ss=localStorage.getItem('mine_session'),st=localStorage.getItem('mine_token');if(st&&ss){authToken=st;currentSession=JSON.parse(ss);currentView='dashboard'}render()}
+init();
+
 </script></body></html>
