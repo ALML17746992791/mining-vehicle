@@ -393,7 +393,7 @@
     "status": "在用",
     "lastMaintenance": "2026-05-02",
     "daysSince": 44,
-    "alertLevel": "green",
+    "alertLevel": "red",
     "maintenanceRecords": [
       {
         "date": "2023-06-06",
@@ -619,13 +619,14 @@
       }
     ],
     "maintenanceCycle": {
-      "value": 90,
-      "unit": "days"
+      "value": 500,
+      "unit": "hours"
     },
     "alertThreshold": {
-      "warning": 90,
-      "urgent": 180
-    }
+      "warning": 72,
+      "urgent": 72
+    },
+    "operatingHours": 0
   },
   {
     "id": 5,
@@ -635,7 +636,7 @@
     "status": "在用",
     "lastMaintenance": "2026-03-18",
     "daysSince": 89,
-    "alertLevel": "green",
+    "alertLevel": "yellow",
     "maintenanceRecords": [
       {
         "date": "2023-06-20",
@@ -1870,7 +1871,7 @@
     "status": "在用",
     "lastMaintenance": "2026-03-18",
     "daysSince": 89,
-    "alertLevel": "green",
+    "alertLevel": "yellow",
     "maintenanceRecords": [
       {
         "date": "2023-06-13",
