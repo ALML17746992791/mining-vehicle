@@ -454,18 +454,38 @@ function b64ToUtf8(str) {
 function generateId() { return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9); }
 function daysSince(dateStr) {
   if (!dateStr) return 999;
-  const d = new Date(dateStr);
-  const now = new Date();
+  var d = new Date(dateStr);
+  var now = new Date();
   return Math.floor((now - d) / (1000 * 60 * 60 * 24));
 }
+function hoursSince(dateStr) {
+  if (!dateStr) return 999999;
+  var d = new Date(dateStr);
+  var now = new Date();
+  return Math.floor((now - d) / (1000 * 60 * 60));
+}
+function getElapsed(v) {
+  var unit = (v.maintenanceCycle && v.maintenanceCycle.unit) || 'days';
+  if (unit === 'hours') return hoursSince(v.lastMaintenance);
+  return daysSince(v.lastMaintenance);
+}
+function getElapsedLabel(v) {
+  var unit = (v.maintenanceCycle && v.maintenanceCycle.unit) || 'days';
+  var el = getElapsed(v);
+  if (unit === 'hours') return el + ' 小时';
+  return el + ' 天';
+}
+
 function getAlertLevel(v) {
-  const days = v.daysSince || (v.lastMaintenance ? daysSince(v.lastMaintenance) : 999);
-  const urgent = (v.alertThreshold && v.alertThreshold.urgent) || 180;
-  const warning = (v.alertThreshold && v.alertThreshold.warning) || 90;
-  if (days > urgent) return 'red';
-  if (days > warning) return 'yellow';
+  var cycle = v.maintenanceCycle || { value: 90, unit: 'days' };
+  var warning = (v.alertThreshold && v.alertThreshold.warning) || (cycle.unit === 'hours' ? 100 : 90);
+  var urgent = (v.alertThreshold && v.alertThreshold.urgent) || (cycle.unit === 'hours' ? 200 : 180);
+  var elapsed = getElapsed(v);
+  if (elapsed >= urgent) return 'red';
+  if (elapsed >= warning) return 'yellow';
   return 'green';
 }
+
 
 /* ================================================================
    GITHUB API
@@ -750,33 +770,29 @@ function showVehicleMgmt() {
    STATS
    ================================================================ */
 function renderStats() {
-  const total = appState.vehicles.length;
-  let green = 0, yellow = 0, red = 0;
+  var total = appState.vehicles.length;
+  var green = 0, yellow = 0, red = 0, recCount = 0;
   appState.vehicles.forEach(function(v) {
-    const level = v.alertLevel || getAlertLevel(v);
-    if (level === 'red') red++;
+    var level = v.alertLevel || getAlertLevel(v);
+    if (level === 'green') green++;
     else if (level === 'yellow') yellow++;
-    else green++;
+    else red++;
+    recCount += (v.maintenanceRecords ? v.maintenanceRecords.length : 0);
   });
-  let allRecords = 0;
-  appState.vehicles.forEach(function(v) {
-    allRecords += (v.maintenanceRecords ? v.maintenanceRecords.length : 0);
-    allRecords += (v.repairRecords ? v.repairRecords.length : 0);
-  });
-  $('statsBar').innerHTML =
+  $('statsContainer').innerHTML =
     '<div class="stat-card blue"><div class="stat-num">' + total + '</div><div class="stat-label">车辆总数</div></div>' +
     '<div class="stat-card green"><div class="stat-num">' + green + '</div><div class="stat-label">正常</div></div>' +
     '<div class="stat-card yellow"><div class="stat-num">' + yellow + '</div><div class="stat-label">预警</div></div>' +
     '<div class="stat-card red"><div class="stat-num">' + red + '</div><div class="stat-label">超期</div></div>' +
-    '<div class="stat-card blue"><div class="stat-num">' + allRecords + '</div><div class="stat-label">保养/维修记录</div></div>';
+    '<div class="stat-card" style="background:rgba(68,138,255,0.1)"><div class="stat-num">' + recCount + '</div><div class="stat-label">保养/维修记录</div></div>';
 }
 
 /* ================================================================
    VEHICLE LIST
    ================================================================ */
 function renderVehicleList() {
-  const search = ($('vehicleSearch') ? $('vehicleSearch').value.toLowerCase() : '');
-  let filtered = appState.vehicles;
+  var search = ($('vehicleSearch') ? $('vehicleSearch').value.toLowerCase() : '');
+  var filtered = appState.vehicles;
   if (search) {
     filtered = appState.vehicles.filter(function(v) {
       return (v.name || '').toLowerCase().indexOf(search) >= 0 ||
@@ -784,27 +800,30 @@ function renderVehicleList() {
              (v.number || '').toLowerCase().indexOf(search) >= 0;
     });
   }
-  const grid = $('vehicleGrid');
+  var grid = $('vehicleGrid');
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><p>📭 没有找到匹配的车辆</p></div>';
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><p>没有找到匹配的车辆</p></div>';
     return;
   }
-  let html = '';
+  var html = '';
   filtered.forEach(function(v) {
-    const level = v.alertLevel || getAlertLevel(v);
-    const statusLabel = level === 'red' ? '⚠ 超期' : level === 'yellow' ? '⚡ 预警' : '✅ 正常';
-    const days = v.daysSince || (v.lastMaintenance ? daysSince(v.lastMaintenance) : 999);
+    var level = v.alertLevel || getAlertLevel(v);
+    var sl = level === 'red' ? '超期' : level === 'yellow' ? '预警' : '正常';
+    var el = getElapsedLabel(v);
+    var cycle = v.maintenanceCycle || { value: 90, unit: 'days' };
+    var cycleLabel = cycle.value + (cycle.unit === 'hours' ? '小时' : '天');
     html += '<div class="vehicle-card ' + level + '" onclick="showDetail(' + v.id + ')">' +
       '<div class="vc-alert-badge ' + level + '"></div>' +
       '<div class="vc-header">' +
-        '<div class="vc-name">' + (v.name || v.number || '未知') + '</div>' +
-        '<span class="vc-status ' + level + '">' + statusLabel + '</span>' +
+        '<div class="vc-name">' + (v.name || v.number || '') + '</div>' +
+        '<span class="vc-status ' + level + '">' + sl + '</span>' +
       '</div>' +
-      '<div class="vc-type">' + (v.type || '') + '</div>' +
+      '<div class="vc-type">' + (v.type || '') + ' · 周期: ' + cycleLabel + '</div>' +
       '<div class="vc-info">' +
-        '<span>状态:</span> ' + (v.status || '在用') + ' &nbsp; ' +
-        '<span>上次保养:</span> ' + (v.lastMaintenance || '未知') + '<br>' +
-        '<span>距上次保养:</span> ' + days + ' 天' +
+        '<span>状态:</span> ' + (v.status || '在用') +
+        ' &nbsp; <span>距上次保养:</span> ' + el +
+        ((v.operatingHours || 0) > 0 ? '<br><span>累计运行:</span> ' + v.operatingHours + ' 小时' : '') +
+        '<br><span>上次保养:</span> ' + (v.lastMaintenance || '未知') +
       '</div>' +
     '</div>';
   });
@@ -1257,17 +1276,26 @@ function renderVehicleMgmt() {
 
 function showAddVehicleModal() {
   $('recordModalContent').innerHTML =
-    '<h2>➕ 添加车辆</h2>' +
-    '<div class="form-group"><label>车辆名称</label><input type="text" id="vmName" placeholder="如: 空压机4号"></div>' +
+    '<h2>新增车辆</h2>' +
+    '<div class="form-group"><label>车辆名称</label><input type="text" id="vmName" placeholder="例：空压机1号"></div>' +
     '<div class="form-row">' +
-      '<div class="form-group"><label>车辆类型</label><input type="text" id="vmType" placeholder="如: 空压机"></div>' +
-      '<div class="form-group"><label>编号</label><input type="text" id="vmNumber" placeholder="如: 4号"></div>' +
+      '<div class="form-group"><label>车辆类型</label><input type="text" id="vmType" placeholder="例：空压机"></div>' +
+      '<div class="form-group"><label>编号</label><input type="text" id="vmNumber" placeholder="例：1号"></div>' +
+    '</div>' +
+    '<div class="form-group"><label>状态</label><select id="vmStatus"><option value="在用">在用</option><option value="维修">维修</option><option value="停用">停用</option></select></div>' +
+    '<div class="form-group"><label>保养周期</label></div>' +
+    '<div class="form-row">' +
+      '<div class="form-group"><label>数值</label><input type="number" id="vmCycle" value="90"></div>' +
+      '<div class="form-group"><label>单位</label><select id="vmCycleUnit"><option value="days">天</option><option value="hours">小时</option></select></div>' +
     '</div>' +
     '<div class="form-row">' +
-      '<div class="form-group"><label>保养周期（天）</label><input type="number" id="vmCycle" value="90"></div>' +
-      '<div class="form-group"><label>预警阈值（天）</label><input type="number" id="vmWarning" value="90"></div>' +
+      '<div class="form-group"><label>运行总小时</label><input type="number" id="vmOpHours" value="0"></div>' +
+      '<div class="form-group"><label>上次保养日期</label><input type="date" id="vmLastMaint"></div>' +
     '</div>' +
-    '<div class="form-group"><label>超期阈值（天）</label><input type="number" id="vmUrgent" value="180"></div>' +
+    '<div class="form-row">' +
+      '<div class="form-group"><label>预警阈值</label><input type="number" id="vmWarning" value="90"></div>' +
+      '<div class="form-group"><label>超期阈值</label><input type="number" id="vmUrgent" value="180"></div>' +
+    '</div>' +
     '<div class="modal-actions">' +
       '<button class="btn btn-secondary" onclick="closeRecordModal()">取消</button>' +
       '<button class="btn btn-primary" onclick="handleAddVehicle()">添加</button>' +
@@ -1276,36 +1304,42 @@ function showAddVehicleModal() {
 }
 
 async function handleAddVehicle() {
-  const name = $('vmName').value.trim();
-  if (!name) { showToast('请输入车辆名称', 'error'); return; }
-  const maxId = appState.vehicles.reduce(function(max, v) { return Math.max(max, v.id || 0); }, 0);
-  const newVehicle = {
-    id: maxId + 1,
+  var name = $('vmName').value.trim();
+  if (!name) { showToast('请输入车辆名称', 'warning'); return; }
+  var cv = parseInt($('vmCycle').value) || 90;
+  var cu = $('vmCycleUnit').value || 'days';
+  var v = {
+    id: generateId(),
     name: name,
     type: $('vmType').value.trim(),
     number: $('vmNumber').value.trim(),
-    status: '在用',
-    lastMaintenance: null,
-    daysSince: 999,
-    alertLevel: 'red',
+    status: $('vmStatus').value,
+    maintenanceCycle: { value: cv, unit: cu },
+    operatingHours: parseInt($('vmOpHours').value) || 0,
+    lastMaintenance: $('vmLastMaint').value,
+    alertThreshold: { warning: parseInt($('vmWarning').value) || 90, urgent: parseInt($('vmUrgent').value) || 180 },
     maintenanceRecords: [],
-    repairRecords: [],
-    maintenanceCycle: { value: parseInt($('vmCycle').value) || 90, unit: 'days' },
-    alertThreshold: { warning: parseInt($('vmWarning').value) || 90, urgent: parseInt($('vmUrgent').value) || 180 }
+    createdAt: new Date().toISOString()
   };
-  appState.vehicles.push(newVehicle);
-  const ok = await saveVehicles('Add vehicle: ' + name);
-  if (ok) {
-    closeRecordModal();
-    showToast('车辆添加成功！', 'success');
-    renderVehicleMgmt();
-  }
+  v.alertLevel = getAlertLevel(v);
+  appState.vehicles.push(v);
+  saveVehicles('Add vehicle: ' + name).then(function(ok) {
+    if (ok) {
+      closeRecordModal();
+      showToast('车辆已添加', 'success');
+      renderVehicleMgmt();
+    }
+  });
 }
 
 function showEditVehicleModal(index) {
-  const v = appState.vehicles[index];
+  var v = appState.vehicles[index];
+  var cycle = v.maintenanceCycle || { value: 90, unit: 'days' };
+  var selD = cycle.unit === 'days' ? 'selected' : '';
+  var selH = cycle.unit === 'hours' ? 'selected' : '';
+  var at = v.alertThreshold || { warning: (cycle.unit === 'hours' ? 100 : 90), urgent: (cycle.unit === 'hours' ? 200 : 180) };
   $('recordModalContent').innerHTML =
-    '<h2>✏️ 编辑车辆</h2>' +
+    '<h2>编辑车辆</h2>' +
     '<div class="form-group"><label>车辆名称</label><input type="text" id="vmName" value="' + (v.name || '') + '"></div>' +
     '<div class="form-row">' +
       '<div class="form-group"><label>车辆类型</label><input type="text" id="vmType" value="' + (v.type || '') + '"></div>' +
@@ -1314,11 +1348,19 @@ function showEditVehicleModal(index) {
     '<div class="form-group"><label>状态</label>' +
       '<select id="vmStatus"><option value="在用" ' + (v.status === '在用' ? 'selected' : '') + '>在用</option><option value="维修" ' + (v.status === '维修' ? 'selected' : '') + '>维修</option><option value="停用" ' + (v.status === '停用' ? 'selected' : '') + '>停用</option></select>' +
     '</div>' +
+    '<div class="form-group"><label>保养周期</label></div>' +
     '<div class="form-row">' +
-      '<div class="form-group"><label>保养周期（天）</label><input type="number" id="vmCycle" value="' + (v.maintenanceCycle ? v.maintenanceCycle.value : 90) + '"></div>' +
-      '<div class="form-group"><label>预警阈值（天）</label><input type="number" id="vmWarning" value="' + (v.alertThreshold ? v.alertThreshold.warning : 90) + '"></div>' +
+      '<div class="form-group"><label>数值</label><input type="number" id="vmCycle" value="' + cycle.value + '"></div>' +
+      '<div class="form-group"><label>单位</label><select id="vmCycleUnit"><option value="days" ' + selD + '>天</option><option value="hours" ' + selH + '>小时</option></select></div>' +
     '</div>' +
-    '<div class="form-group"><label>超期阈值（天）</label><input type="number" id="vmUrgent" value="' + (v.alertThreshold ? v.alertThreshold.urgent : 180) + '"></div>' +
+    '<div class="form-row">' +
+      '<div class="form-group"><label>运行总小时</label><input type="number" id="vmOpHours" value="' + (v.operatingHours || 0) + '"></div>' +
+      '<div class="form-group"><label>上次保养</label><input type="date" id="vmLastMaint" value="' + (v.lastMaintenance || '') + '"></div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div class="form-group"><label>预警阈值</label><input type="number" id="vmWarning" value="' + at.warning + '"></div>' +
+      '<div class="form-group"><label>超期阈值</label><input type="number" id="vmUrgent" value="' + at.urgent + '"></div>' +
+    '</div>' +
     '<div class="modal-actions">' +
       '<button class="btn btn-secondary" onclick="closeRecordModal()">取消</button>' +
       '<button class="btn btn-primary" onclick="handleEditVehicle(' + index + ')">保存</button>' +
@@ -1327,21 +1369,25 @@ function showEditVehicleModal(index) {
 }
 
 async function handleEditVehicle(index) {
-  const v = appState.vehicles[index];
+  var v = appState.vehicles[index];
   v.name = $('vmName').value.trim();
   v.type = $('vmType').value.trim();
   v.number = $('vmNumber').value.trim();
   v.status = $('vmStatus').value;
-  v.maintenanceCycle = { value: parseInt($('vmCycle').value) || 90, unit: 'days' };
+  var cv = parseInt($('vmCycle').value) || 90;
+  var cu = $('vmCycleUnit').value || 'days';
+  v.maintenanceCycle = { value: cv, unit: cu };
+  v.operatingHours = parseInt($('vmOpHours').value) || 0;
+  v.lastMaintenance = $('vmLastMaint').value || v.lastMaintenance;
   v.alertThreshold = { warning: parseInt($('vmWarning').value) || 90, urgent: parseInt($('vmUrgent').value) || 180 };
-  v.daysSince = v.lastMaintenance ? daysSince(v.lastMaintenance) : 999;
   v.alertLevel = getAlertLevel(v);
-  const ok = await saveVehicles('Edit vehicle: ' + (v.name || v.number));
-  if (ok) {
-    closeRecordModal();
-    showToast('车辆信息已更新', 'success');
-    renderVehicleMgmt();
-  }
+  saveVehicles('Edit vehicle: ' + (v.name || v.number)).then(function(ok) {
+    if (ok) {
+      closeRecordModal();
+      showToast('车辆信息已更新', 'success');
+      renderVehicleMgmt();
+    }
+  });
 }
 
 async function deleteVehicle(index) {
@@ -1414,9 +1460,11 @@ $('recordModal').addEventListener('click', function(e) {
 checkSession();
 
 function exportAllData(){
-  var csv='\uFEFF车牌号,类型,状态,最后保养,距今天数,预警级别,记录数\n';
+  var csv='\uFEFF车牌号,类型,状态,最后保养,距上次保养,保养周期,周期单位,运行小时,预警级别,记录数\n';
   appState.vehicles.forEach(function(v){
-    csv+='"'+(v.name||'')+'","'+(v.type||'')+'","'+(v.status||'')+'","'+(v.lastMaintenance||'')+'",'+(v.daysSince||0)+',"'+(v.alertLevel||'')+'",'+(v.maintenanceRecords?v.maintenanceRecords.length:0)+'\n';
+    var el=getElapsed(v);
+    var cycle=v.maintenanceCycle||{value:90,unit:'days'};
+    csv+='"'+(v.name||'')+'","'+(v.type||'')+'","'+(v.status||'')+'","'+(v.lastMaintenance||'')+'",'+el+','+cycle.value+',"'+(cycle.unit==='hours'?'小时':'天')+'",'+(v.operatingHours||0)+',"'+(v.alertLevel||'')+'",'+(v.maintenanceRecords?v.maintenanceRecords.length:0)+'\n';
   });
   var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   var a=document.createElement('a');
