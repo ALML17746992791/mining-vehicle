@@ -470,8 +470,18 @@ function hoursSince(dateStr) {
 }
 function getElapsed(v) {
   var unit = (v.maintenanceCycle && v.maintenanceCycle.unit) || 'days';
-  if (unit === 'hours') return hoursSince(v.lastMaintenance);
+  if (unit === 'hours') {
+    var mh = v.lastMaintenanceHours || 0;
+    var oh = v.operatingHours || 0;
+    return Math.max(0, oh - mh);
+  }
   return daysSince(v.lastMaintenance);
+}
+function getElapsedLabel(v) {
+  var unit = (v.maintenanceCycle && v.maintenanceCycle.unit) || 'days';
+  var el = getElapsed(v);
+  if (unit === 'hours') return el + ' 小时';
+  return el + ' 天';
 }
 function getElapsedLabel(v) {
   var unit = (v.maintenanceCycle && v.maintenanceCycle.unit) || 'days';
@@ -892,6 +902,7 @@ function renderDetail() {
           '<span class="rc-date">' + (r.date || '') + '</span>' +
         '</div>' +
         '<div class="rc-content">' + (r.content || '') + '</div>' +
+        (r.maintHours ? '<div style="font-size:0.78rem;color:var(--blue);margin-top:2px">保养时小时: ' + r.maintHours + ' 小时</div>' : '') +
         (r.driver ? '<div class="rc-driver">送修司机: ' + r.driver + '</div>' : '') +
         (r.inspector ? '<div class="rc-driver">检修人: ' + r.inspector + '</div>' : '') +
         (r.acceptor ? '<div class="rc-driver">验收人: ' + r.acceptor + '</div>' : '') +
@@ -921,6 +932,7 @@ function renderDetail() {
         '<div class="di-item"><span>编号:</span> ' + (v.number || '-') + '</div>' +
         '<div class="di-item"><span>状态:</span> ' + (v.status || '在用') + '</div>' +
         '<div class="di-item"><span>上次保养:</span> ' + (v.lastMaintenance || '无记录') + '</div>' +
+        (c.unit==='hours' && v.lastMaintenanceHours ? '<div class="di-item"><span>保养时小时:</span> ' + v.lastMaintenanceHours + ' 小时</div>' : '') +
         '<div class="di-item"><span>保养周期:</span> ' + (c.value||'') + (c.unit==='hours'?'小时':'天') + '</div>' +
       '</div>' +
     '</div>' +
@@ -952,6 +964,21 @@ function switchDetailTab(tab) {
 /* ================================================================
    RECORD MODAL
    ================================================================ */
+
+function getMaintenanceHoursField(){
+  var v=appState.vehicles.find(function(x){return x.id===appState.currentVehicleId;});
+  if(!v)return'';
+  var c=v.maintenanceCycle||{value:90,unit:'days'};
+  if(c.unit!=='hours')return'';
+  return'<div class="hours-section"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+
+    '<span style="font-weight:600;color:var(--blue)">计时表</span>'+
+    '<span style="font-size:0.78rem;color:var(--text-muted)">当前: '+ (v.operatingHours||0) +' 小时</span>'+
+    '</div>'+
+    '<div class="form-group"><label>保养时工作小时</label>'+
+    '<input type="number" id="recMaintHours" value="'+ (v.operatingHours||0) +'" placeholder="保养时计时表读数">'+
+    '</div></div>';
+}
+
 function openRecordModal() {
   const currentUser = appState.currentUser;
   $('recordModalContent').innerHTML =
@@ -1162,6 +1189,7 @@ async function saveRecord() {
     repairResult: $('recResult').value.trim(),
     inspector: $('recInspector').value.trim(),
     acceptor: $('recAcceptor').value.trim(),
+    maintHours: parseInt(($('recMaintHours')?$('recMaintHours').value:0))||0,
     remarks: $('recRemarks').value.trim(),
     materials: getMaterials(),
     signatureA: getSignatureData('sigCanvasA'),
@@ -1176,6 +1204,10 @@ async function saveRecord() {
     v.maintenanceRecords.push(record);
     // Update lastMaintenance
     if (record.date) v.lastMaintenance = record.date;
+    if (record.maintHours && record.maintHours > 0) {
+      v.lastMaintenanceHours = record.maintHours;
+      v.operatingHours = record.maintHours;
+    }
   } else {
     if (!v.repairRecords) v.repairRecords = [];
     v.repairRecords.push(record);
