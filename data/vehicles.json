@@ -393,7 +393,7 @@
     "status": "在用",
     "lastMaintenance": "2026-05-02",
     "daysSince": 44,
-    "alertLevel": "red",
+    "alertLevel": "green",
     "maintenanceRecords": [
       {
         "date": "2026-05-02",
@@ -623,8 +623,8 @@
       "unit": "hours"
     },
     "alertThreshold": {
-      "warning": 72,
-      "urgent": 72
+      "warning": 450,
+      "urgent": 550
     },
     "operatingHours": 800,
     "hoursUpdatedAt": "2026-06-16T03:04:19.194Z",
