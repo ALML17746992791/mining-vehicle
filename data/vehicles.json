@@ -396,33 +396,45 @@
     "alertLevel": "red",
     "maintenanceRecords": [
       {
-        "date": "2023-06-06",
-        "content": "发动机135",
+        "date": "2026-05-02",
+        "content": "发动机",
         "materials": [
-          {
-            "name": "机滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "柴滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "3.0"
-          },
           {
             "name": "机油",
             "spec": "",
             "unit": "桶",
-            "qty": "1.0"
+            "qty": ""
+          },
+          {
+            "name": "机滤",
+            "spec": "",
+            "unit": "个",
+            "qty": ""
+          },
+          {
+            "name": "柴油滤芯",
+            "spec": "",
+            "unit": "个",
+            "qty": ""
+          },
+          {
+            "name": "机油滤芯",
+            "spec": "",
+            "unit": "个",
+            "qty": ""
+          },
+          {
+            "name": "油水分离器",
+            "spec": "",
+            "unit": "个",
+            "qty": ""
           }
         ],
-        "driver": "掘进队"
+        "driver": ""
       },
       {
-        "date": "2024-07-27",
-        "content": "发动机732",
+        "date": "2025-05-28",
+        "content": "发动机",
         "materials": [
           {
             "name": "机滤",
@@ -431,19 +443,25 @@
             "qty": "1.0"
           },
           {
-            "name": "柴滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "3.0"
-          },
-          {
             "name": "机油",
             "spec": "",
             "unit": "桶",
             "qty": "1.0"
+          },
+          {
+            "name": "变速箱油",
+            "spec": "",
+            "unit": "桶",
+            "qty": "2.0"
+          },
+          {
+            "name": "前后桥油",
+            "spec": "",
+            "unit": "桶",
+            "qty": "2.0"
           }
         ],
-        "driver": "掘进队"
+        "driver": "何邦江"
       },
       {
         "date": "2025-01-03",
@@ -483,8 +501,8 @@
         "driver": "蒋胜财"
       },
       {
-        "date": "2025-05-28",
-        "content": "发动机",
+        "date": "2024-07-27",
+        "content": "发动机732",
         "materials": [
           {
             "name": "机滤",
@@ -493,62 +511,44 @@
             "qty": "1.0"
           },
           {
+            "name": "柴滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "3.0"
+          },
+          {
             "name": "机油",
             "spec": "",
             "unit": "桶",
             "qty": "1.0"
-          },
-          {
-            "name": "变速箱油",
-            "spec": "",
-            "unit": "桶",
-            "qty": "2.0"
-          },
-          {
-            "name": "前后桥油",
-            "spec": "",
-            "unit": "桶",
-            "qty": "2.0"
           }
         ],
-        "driver": "何邦江"
+        "driver": "掘进队"
       },
       {
-        "date": "2026-05-02",
-        "content": "发动机",
+        "date": "2023-06-06",
+        "content": "发动机135",
         "materials": [
-          {
-            "name": "机油",
-            "spec": "",
-            "unit": "桶",
-            "qty": ""
-          },
           {
             "name": "机滤",
             "spec": "",
             "unit": "个",
-            "qty": ""
+            "qty": "1.0"
           },
           {
-            "name": "柴油滤芯",
+            "name": "柴滤",
             "spec": "",
             "unit": "个",
-            "qty": ""
+            "qty": "3.0"
           },
           {
-            "name": "机油滤芯",
+            "name": "机油",
             "spec": "",
-            "unit": "个",
-            "qty": ""
-          },
-          {
-            "name": "油水分离器",
-            "spec": "",
-            "unit": "个",
-            "qty": ""
+            "unit": "桶",
+            "qty": "1.0"
           }
         ],
-        "driver": ""
+        "driver": "掘进队"
       }
     ],
     "repairRecords": [
@@ -626,7 +626,7 @@
       "warning": 72,
       "urgent": 72
     },
-    "operatingHours": 0
+    "operatingHours": 300
   },
   {
     "id": 5,
