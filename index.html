@@ -323,6 +323,10 @@ a { color:var(--accent); text-decoration:none; }
   .stats-bar { grid-template-columns:repeat(2,1fr); }
   .material-row { grid-template-columns:1fr 1fr 0.8fr; }
 }
+
+/* Hours input area */
+.hours-section { background:var(--blue-bg); border-radius:8px; padding:14px; margin-bottom:12px; }
+.hours-section input:focus { outline:none; border-color:var(--blue); }
 </style>
 </head>
 <body>
@@ -836,6 +840,7 @@ function renderVehicleList() {
         '状态: ' + (v.status || '在用') +
         ' | 距上次: ' + el +
         ((v.operatingHours || 0) > 0 ? ' | 运行: ' + v.operatingHours + 'h' : '') +
+        ((cycle.unit==='hours' && v.hoursUpdatedAt) ? '<br><span style="color:' + (daysSince(v.hoursUpdatedAt)>=7?'var(--red)':'var(--text-muted)') + ';font-size:0.78rem">上次更新: ' + hoursUpdateWarning(v) + '</span>' : '') +
         '<br>上次保养: ' + (v.lastMaintenance || '未知') +
       '</div>' +
     '</div>';
@@ -850,6 +855,7 @@ function renderDetail() {
   const v = appState.vehicles.find(function(x) { return x.id === appState.currentVehicleId; });
   if (!v) { showDashboard(); return; }
   const level = v.alertLevel || getAlertLevel(v);
+  const c = v.maintenanceCycle || { value:90, unit:'days' };
   const statusLabel = level === 'red' ? '⚠ 超期' : level === 'yellow' ? '⚡ 预警' : '✅ 正常';
   let recs = [];
   if (appState.detailTab === 'maintenance') {
@@ -915,7 +921,20 @@ function renderDetail() {
         '<div class="di-item"><span>编号:</span> ' + (v.number || '-') + '</div>' +
         '<div class="di-item"><span>状态:</span> ' + (v.status || '在用') + '</div>' +
         '<div class="di-item"><span>上次保养:</span> ' + (v.lastMaintenance || '无记录') + '</div>' +
-        '<div class="di-item"><span>保养周期:</span> ' + (v.maintenanceCycle ? v.maintenanceCycle.value : 90) + (v.maintenanceCycle ? v.maintenanceCycle.unit : '天') + '</div>' +
+        '<div class="di-item"><span>保养周期:</span> ' + (c.value||'') + (c.unit==='hours'?'小时':'天') + '</div>' +
+      '</div>' +
+    '</div>' +
+    (c.unit==='hours' ? '<div style="background:rgba(68,138,255,0.1);border-radius:8px;padding:14px;margin-bottom:12px">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">' +
+        '<span style="font-weight:600;color:var(--blue)">计时表工作小时</span>' +
+        '<span style="font-size:0.8rem;color:var(--text-muted)">上次更新: ' + hoursUpdateWarning(v) + '</span>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;align-items:center">' +
+        '<input type="number" id="hoursInput" value="' + (v.operatingHours||0) + '" style="flex:1;padding:8px 12px;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border);border-radius:6px;font-size:1.1rem" placeholder="输入当前工作小时">' +
+        '<button class="btn btn-primary btn-sm" onclick="updateOperatingHours(' + v.id + ')">更新小时</button>' +
+      '</div>' +
+      '<div style="margin-top:6px;font-size:0.78rem;color:var(--text-muted)">每7天更新一次，更新后自动刷新保养状态</div>' +
+    '</div>' : '') +
       '</div>' +
     '</div>' +
     '<div class="detail-tabs">' +
@@ -1475,6 +1494,27 @@ $('recordModal').addEventListener('click', function(e) {
 
 // Start app
 checkSession();
+
+
+async function updateOperatingHours(vehicleId){
+  var v=appState.vehicles.find(function(x){return x.id===vehicleId;});
+  if(!v)return;
+  var el=document.getElementById('hoursInput');
+  if(!el)return;
+  var h=parseInt(el.value)||0;
+  if(h<=0){showToast('请输入有效的工作小时数','warning');return;}
+  v.operatingHours=h;
+  v.hoursUpdatedAt=new Date().toISOString();
+  v.alertLevel=getAlertLevel(v);
+  var ok=await saveVehicles('Update hours: '+(v.name||v.number));
+  if(ok){showToast('工作小时已更新','success');renderDetail();}
+}
+function hoursUpdateWarning(v){
+  if(!v.hoursUpdatedAt)return '未更新过';
+  var days=daysSince(v.hoursUpdatedAt);
+  if(days>=7)return '<span style="color:var(--red)">'+days+'天前 请更新!</span>';
+  return days+'天前';
+}
 
 function exportAllData(){
   var csv='\uFEFF车牌号,类型,状态,最后保养,距上次保养,保养周期,周期单位,运行小时,预警级别,记录数\n';
