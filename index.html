@@ -1352,7 +1352,8 @@ function showAddVehicleModal() {
     '</div>' +
     '<div class="form-row">' +
       '<div class="form-group"><label>运行总小时</label><input type="number" id="vmOpHours" value="0"></div>' +
-      '<div class="form-group"><label>上次保养日期</label><input type="date" id="vmLastMaint"></div>' +
+      '<div class="form-group"><label>上次保养时间</label><input type="date" id="vmLastMaint"></div>' +
+      '<div class="form-group"><label>上次保养小时</label><input type="number" id="vmLastMaintHours" value="0"></div>' +
     '</div>' +
     '<div class="form-row">' +
       '<div class="form-group"><label>预警阈值</label><input type="number" id="vmWarning" value="90"></div>' +
@@ -1379,6 +1380,7 @@ async function handleAddVehicle() {
     maintenanceCycle: { value: cv, unit: cu },
     operatingHours: parseInt($('vmOpHours').value) || 0,
     lastMaintenance: $('vmLastMaint').value,
+    lastMaintenanceHours: parseInt($('vmLastMaintHours').value) || 0,
     alertThreshold: { warning: parseInt($('vmWarning').value) || 90, urgent: parseInt($('vmUrgent').value) || 180 },
     maintenanceRecords: [],
     createdAt: new Date().toISOString()
@@ -1417,7 +1419,8 @@ function showEditVehicleModal(index) {
     '</div>' +
     '<div class="form-row">' +
       '<div class="form-group"><label>运行总小时</label><input type="number" id="vmOpHours" value="' + (v.operatingHours || 0) + '"></div>' +
-      '<div class="form-group"><label>上次保养</label><input type="date" id="vmLastMaint" value="' + (v.lastMaintenance || '') + '"></div>' +
+      '<div class="form-group"><label>上次保养时间</label><input type="date" id="vmLastMaint" value="' + (v.lastMaintenance || '') + '"></div>' +
+    '<div class="form-group"><label>上次保养小时</label><input type="number" id="vmLastMaintHours" value="' + (v.lastMaintenanceHours || 0) + '"></div>' +
     '</div>' +
     '<div class="form-row">' +
       '<div class="form-group"><label>预警阈值</label><input type="number" id="vmWarning" value="' + at.warning + '"></div>' +
@@ -1441,6 +1444,7 @@ async function handleEditVehicle(index) {
   v.maintenanceCycle = { value: cv, unit: cu };
   v.operatingHours = parseInt($('vmOpHours').value) || 0;
   v.lastMaintenance = $('vmLastMaint').value || v.lastMaintenance;
+  v.lastMaintenanceHours = parseInt($('vmLastMaintHours').value) || v.lastMaintenanceHours || 0;
   v.alertThreshold = { warning: parseInt($('vmWarning').value) || 90, urgent: parseInt($('vmUrgent').value) || 180 };
   v.alertLevel = getAlertLevel(v);
   saveVehicles('Edit vehicle: ' + (v.name || v.number)).then(function(ok) {
