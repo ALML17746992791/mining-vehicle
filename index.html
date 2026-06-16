@@ -965,27 +965,28 @@ function switchDetailTab(tab) {
    RECORD MODAL
    ================================================================ */
 
-function getMaintenanceHoursField(){
-  var v=appState.vehicles.find(function(x){return x.id===appState.currentVehicleId;});
-  if(!v)return'';
-  var c=v.maintenanceCycle||{value:90,unit:'days'};
-  if(c.unit!=='hours')return'';
-  return'<div class="hours-section"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+
-    '<span style="font-weight:600;color:var(--blue)">计时表</span>'+
-    '<span style="font-size:0.78rem;color:var(--text-muted)">当前: '+ (v.operatingHours||0) +' 小时</span>'+
-    '</div>'+
-    '<div class="form-group"><label>保养时工作小时</label>'+
-    '<input type="number" id="recMaintHours" value="'+ (v.operatingHours||0) +'" placeholder="保养时计时表读数">'+
-    '</div></div>';
-}
+
 
 function openRecordModal() {
-  const currentUser = appState.currentUser;
+  var currentUser = appState.currentUser;
+  var v = appState.vehicles.find(function(x) { return x.id === appState.currentVehicleId; });
+  var c = v ? (v.maintenanceCycle || {value:90,unit:'days'}) : {value:90,unit:'days'};
+  var hourField = '';
+  if (c.unit === 'hours') {
+    hourField = '<div class="hours-section"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+
+      '<span style="font-weight:600;color:var(--blue)">计时表</span>'+
+      '<span style="font-size:0.78rem;color:var(--text-muted)">当前: '+ (v.operatingHours||0) +' 小时</span>'+
+      '</div>'+
+      '<div class="form-group"><label>保养时工作小时</label>'+
+      '<input type="number" id="recMaintHours" value="'+ (v.operatingHours||0) +'" placeholder="保养时计时表读数">'+
+      '</div></div>';
+  }
   $('recordModalContent').innerHTML =
     '<h2>📝 新增记录</h2>' +
     '<div class="form-group"><label>记录类型</label>' +
       '<select id="recType"><option value="maintenance">保养</option><option value="repair">维修</option></select>' +
     '</div>' +
+    hourField +
     '<div class="form-row">' +
       '<div class="form-group"><label>送修司机</label><input type="text" id="recDriver" placeholder="司机姓名"></div>' +
       '<div class="form-group"><label>日期</label><input type="date" id="recDate" value="' + formatDate(new Date()) + '"></div>' +
@@ -1003,13 +1004,11 @@ function openRecordModal() {
       '<div class="form-group"><label>验收人（乙方）</label><input type="text" id="recAcceptor" placeholder="验收人姓名"></div>' +
     '</div>' +
     '<div class="form-group"><label>备注</label><textarea id="recRemarks" placeholder="其他备注信息"></textarea></div>' +
-    // Materials
     '<div class="materials-section">' +
       '<h4>📦 材料清单</h4>' +
       '<div id="materialsList"></div>' +
       '<button class="btn btn-secondary btn-sm" onclick="addMaterialRow()">+ 添加材料</button>' +
     '</div>' +
-    // Canvas signatures
     '<div class="signature-section">' +
       '<h3>✍️ 手写签字</h3>' +
       '<div class="signature-box">' +
@@ -1037,7 +1036,6 @@ function openRecordModal() {
   $('recordModal').classList.add('active');
   addMaterialRow();
 
-  // Init canvas drawing
   setTimeout(function() {
     initCanvasDrawing('sigCanvasA');
     initCanvasDrawing('sigCanvasB');
