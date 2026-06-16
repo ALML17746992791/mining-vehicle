@@ -626,8 +626,9 @@
       "warning": 72,
       "urgent": 72
     },
-    "operatingHours": 300,
-    "hoursUpdatedAt": "2026-06-16T02:50:09.407Z"
+    "operatingHours": 800,
+    "hoursUpdatedAt": "2026-06-16T02:50:09.407Z",
+    "lastMaintenanceHours": 500
   },
   {
     "id": 5,
