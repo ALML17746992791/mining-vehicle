@@ -787,7 +787,7 @@ function renderStats() {
     else red++;
     recCount += (v.maintenanceRecords ? v.maintenanceRecords.length : 0);
   });
-  $('statsContainer').innerHTML =
+  $('statsBar').innerHTML =
     '<div class="stat-card blue"><div class="stat-num">' + total + '</div><div class="stat-label">车辆总数</div></div>' +
     '<div class="stat-card green"><div class="stat-num">' + green + '</div><div class="stat-label">正常</div></div>' +
     '<div class="stat-card yellow"><div class="stat-num">' + yellow + '</div><div class="stat-label">预警</div></div>' +
