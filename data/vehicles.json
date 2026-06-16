@@ -638,48 +638,142 @@
     "status": "在用",
     "lastMaintenance": "2026-03-18",
     "daysSince": 89,
-    "alertLevel": "yellow",
+    "alertLevel": "green",
     "maintenanceRecords": [
       {
-        "date": "2023-06-20",
-        "content": "发动机55",
+        "date": "2026-03-18",
+        "content": "",
         "materials": [
           {
-            "name": "机滤",
-            "spec": "3349.0",
+            "name": "更换方向.工作双联泵",
+            "spec": "",
             "unit": "个",
             "qty": "1.0"
-          },
+          }
+        ],
+        "driver": "何邦江"
+      },
+      {
+        "date": "2025-11-13",
+        "content": "发动机保养",
+        "materials": [
           {
-            "name": "柴滤",
-            "spec": "FF5767",
+            "name": "更换柴油泵",
+            "spec": "",
             "unit": "个",
             "qty": "1.0"
           },
           {
             "name": "机油",
-            "spec": "康明斯专用",
+            "spec": "",
+            "unit": "桶",
+            "qty": "1.0"
+          },
+          {
+            "name": "机滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          },
+          {
+            "name": "柴滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          }
+        ],
+        "driver": "龚泽涛"
+      },
+      {
+        "date": "2025-09-20",
+        "content": "发动机5009",
+        "materials": [
+          {
+            "name": "机滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          },
+          {
+            "name": "柴滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          },
+          {
+            "name": "机油",
+            "spec": "",
             "unit": "桶",
             "qty": "1.0"
           },
           {
             "name": "油水分离器",
-            "spec": "FS36210",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          }
+        ],
+        "driver": "掘进队"
+      },
+      {
+        "date": "2025-04-09",
+        "content": "发动机\n3600",
+        "materials": [
+          {
+            "name": "机滤",
+            "spec": "",
             "unit": "个",
             "qty": "1.0"
           },
           {
-            "name": "粗柴滤",
-            "spec": "FS36230",
+            "name": "柴滤",
+            "spec": "",
             "unit": "个",
             "qty": "1.0"
+          },
+          {
+            "name": "机油",
+            "spec": "",
+            "unit": "桶",
+            "qty": "1.0"
+          }
+        ],
+        "driver": "掘进队"
+      },
+      {
+        "date": "2025-01-03",
+        "content": "发动机",
+        "materials": [
+          {
+            "name": "机滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          },
+          {
+            "name": "柴滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "3.0"
+          },
+          {
+            "name": "机油",
+            "spec": "",
+            "unit": "桶",
+            "qty": "1.0"
+          },
+          {
+            "name": "变速箱油",
+            "spec": "",
+            "unit": "桶",
+            "qty": "2.0"
           }
         ],
         "driver": "蒋胜财"
       },
       {
-        "date": "2023-09-20",
-        "content": "发动机900",
+        "date": "2024-09-27",
+        "content": "发动机2132",
         "materials": [
           {
             "name": "机滤",
@@ -776,8 +870,8 @@
         "driver": "张银庆"
       },
       {
-        "date": "2024-09-27",
-        "content": "发动机2132",
+        "date": "2023-09-20",
+        "content": "发动机900",
         "materials": [
           {
             "name": "机滤",
@@ -837,135 +931,41 @@
         "driver": "蒋胜财"
       },
       {
-        "date": "2025-01-03",
-        "content": "发动机",
+        "date": "2023-06-20",
+        "content": "发动机55",
         "materials": [
           {
             "name": "机滤",
-            "spec": "",
+            "spec": "3349.0",
             "unit": "个",
             "qty": "1.0"
           },
           {
             "name": "柴滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "3.0"
-          },
-          {
-            "name": "机油",
-            "spec": "",
-            "unit": "桶",
-            "qty": "1.0"
-          },
-          {
-            "name": "变速箱油",
-            "spec": "",
-            "unit": "桶",
-            "qty": "2.0"
-          }
-        ],
-        "driver": "蒋胜财"
-      },
-      {
-        "date": "2025-04-09",
-        "content": "发动机\n3600",
-        "materials": [
-          {
-            "name": "机滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "柴滤",
-            "spec": "",
+            "spec": "FF5767",
             "unit": "个",
             "qty": "1.0"
           },
           {
             "name": "机油",
-            "spec": "",
-            "unit": "桶",
-            "qty": "1.0"
-          }
-        ],
-        "driver": "掘进队"
-      },
-      {
-        "date": "2025-09-20",
-        "content": "发动机5009",
-        "materials": [
-          {
-            "name": "机滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "柴滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "机油",
-            "spec": "",
+            "spec": "康明斯专用",
             "unit": "桶",
             "qty": "1.0"
           },
           {
             "name": "油水分离器",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          }
-        ],
-        "driver": "掘进队"
-      },
-      {
-        "date": "2025-11-13",
-        "content": "发动机保养",
-        "materials": [
-          {
-            "name": "更换柴油泵",
-            "spec": "",
+            "spec": "FS36210",
             "unit": "个",
             "qty": "1.0"
           },
           {
-            "name": "机油",
-            "spec": "",
-            "unit": "桶",
-            "qty": "1.0"
-          },
-          {
-            "name": "机滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "柴滤",
-            "spec": "",
+            "name": "粗柴滤",
+            "spec": "FS36230",
             "unit": "个",
             "qty": "1.0"
           }
         ],
-        "driver": "龚泽涛"
-      },
-      {
-        "date": "2026-03-18",
-        "content": "",
-        "materials": [
-          {
-            "name": "更换方向.工作双联泵",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          }
-        ],
-        "driver": "何邦江"
+        "driver": "蒋胜财"
       }
     ],
     "repairRecords": [
@@ -1030,12 +1030,14 @@
     ],
     "maintenanceCycle": {
       "value": 90,
-      "unit": "days"
+      "unit": "hours"
     },
     "alertThreshold": {
       "warning": 90,
       "urgent": 180
-    }
+    },
+    "operatingHours": 0,
+    "lastMaintenanceHours": 0
   },
   {
     "id": 6,
