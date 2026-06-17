@@ -5124,19 +5124,21 @@
     "type": "运人车1#",
     "number": "",
     "status": "在用",
-    "lastMaintenance": null,
+    "lastMaintenance": "2026-06-01",
     "daysSince": 999,
-    "alertLevel": "red",
+    "alertLevel": "green",
     "maintenanceRecords": [],
     "repairRecords": [],
     "maintenanceCycle": {
-      "value": 90,
-      "unit": "days"
+      "value": 500,
+      "unit": "hours"
     },
     "alertThreshold": {
-      "warning": 90,
-      "urgent": 180
-    }
+      "warning": 450,
+      "urgent": 550
+    },
+    "operatingHours": 15147,
+    "lastMaintenanceHours": 15000
   },
   {
     "id": 28,
