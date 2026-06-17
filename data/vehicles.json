@@ -5157,8 +5157,9 @@
       "warning": 450,
       "urgent": 550
     },
-    "operatingHours": 0,
-    "lastMaintenanceHours": 0
+    "operatingHours": 40,
+    "lastMaintenanceHours": 0,
+    "hoursUpdatedAt": "2026-06-17T01:44:47.864Z"
   },
   {
     "id": 29,
