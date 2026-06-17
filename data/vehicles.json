@@ -553,27 +553,27 @@
     ],
     "repairRecords": [
       {
-        "date": "2023-05-26",
+        "date": "2025-10-25",
         "content": "",
         "materials": [
           {
-            "name": "英制螺丝",
+            "name": "更换起动机",
             "spec": "",
-            "unit": "个",
-            "qty": "32.0"
+            "unit": "",
+            "qty": ""
           }
         ],
-        "repairPerson": "兴业"
+        "repairPerson": ""
       },
       {
-        "date": "2023-05-27",
+        "date": "2025-08-31",
         "content": "",
         "materials": [
           {
-            "name": "弹性板",
+            "name": "更换四维锁",
             "spec": "",
             "unit": "个",
-            "qty": "2.0"
+            "qty": "1.0"
           }
         ],
         "repairPerson": "掘进队"
@@ -592,30 +592,30 @@
         "repairPerson": "掘进队"
       },
       {
-        "date": "2025-08-31",
+        "date": "2023-05-27",
         "content": "",
         "materials": [
           {
-            "name": "更换四维锁",
+            "name": "弹性板",
             "spec": "",
             "unit": "个",
-            "qty": "1.0"
+            "qty": "2.0"
           }
         ],
         "repairPerson": "掘进队"
       },
       {
-        "date": "2025-10-25",
+        "date": "2023-05-26",
         "content": "",
         "materials": [
           {
-            "name": "更换起动机",
+            "name": "英制螺丝",
             "spec": "",
-            "unit": "",
-            "qty": ""
+            "unit": "个",
+            "qty": "32.0"
           }
         ],
-        "repairPerson": ""
+        "repairPerson": "兴业"
       }
     ],
     "maintenanceCycle": {
@@ -4928,50 +4928,6 @@
     "alertLevel": "yellow",
     "maintenanceRecords": [
       {
-        "date": "2025-05-13",
-        "content": "发动机450",
-        "materials": [
-          {
-            "name": "机滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "机油",
-            "spec": "",
-            "unit": "升",
-            "qty": "4.0"
-          }
-        ],
-        "driver": "何邦江"
-      },
-      {
-        "date": "2025-06-06",
-        "content": "更换行走油",
-        "materials": [],
-        "driver": ""
-      },
-      {
-        "date": "2025-08-16",
-        "content": "发动机450",
-        "materials": [
-          {
-            "name": "机滤",
-            "spec": "",
-            "unit": "个",
-            "qty": "1.0"
-          },
-          {
-            "name": "机油",
-            "spec": "",
-            "unit": "升",
-            "qty": "4.0"
-          }
-        ],
-        "driver": ""
-      },
-      {
         "date": "2026-03-13",
         "content": "保养内容",
         "materials": [
@@ -4995,6 +4951,50 @@
           }
         ],
         "driver": ""
+      },
+      {
+        "date": "2025-08-16",
+        "content": "发动机450",
+        "materials": [
+          {
+            "name": "机滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          },
+          {
+            "name": "机油",
+            "spec": "",
+            "unit": "升",
+            "qty": "4.0"
+          }
+        ],
+        "driver": ""
+      },
+      {
+        "date": "2025-06-06",
+        "content": "更换行走油",
+        "materials": [],
+        "driver": ""
+      },
+      {
+        "date": "2025-05-13",
+        "content": "发动机450",
+        "materials": [
+          {
+            "name": "机滤",
+            "spec": "",
+            "unit": "个",
+            "qty": "1.0"
+          },
+          {
+            "name": "机油",
+            "spec": "",
+            "unit": "升",
+            "qty": "4.0"
+          }
+        ],
+        "driver": "何邦江"
       }
     ],
     "repairRecords": [],
@@ -5144,19 +5144,21 @@
     "type": "运人车4#",
     "number": "",
     "status": "在用",
-    "lastMaintenance": null,
+    "lastMaintenance": "2026-06-10",
     "daysSince": 999,
-    "alertLevel": "red",
+    "alertLevel": "green",
     "maintenanceRecords": [],
     "repairRecords": [],
     "maintenanceCycle": {
-      "value": 90,
-      "unit": "days"
+      "value": 500,
+      "unit": "hours"
     },
     "alertThreshold": {
-      "warning": 90,
-      "urgent": 180
-    }
+      "warning": 450,
+      "urgent": 550
+    },
+    "operatingHours": 0,
+    "lastMaintenanceHours": 0
   },
   {
     "id": 29,
