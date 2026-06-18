@@ -99,8 +99,10 @@ td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}tr:hover{backg
 <div class="toast" id="toast"></div>
 <div class="modal-overlay hidden" id="modal"><div class="modal-box" id="modalBox"></div></div>
 
+<script src="data.js"></script>
 <script>
-/* ===== UTILITIES ===== */
+/* Data loaded first: VC vehicles + SEED_REGS regulations */
+
 function $(id){return document.getElementById(id);}
 var CUSER=null,_curPage='dashboard';
 var _idSeq={hazards:100,violations:200,equipment:300,vehicles:400,responsibilities:500,trainings:600,inspections:700,accidents:800,entry_exit:900,rectifications:1000,assessments:1100};
@@ -795,6 +797,6 @@ async function loadRegs(){
 var savedUser=localStorage.getItem('_savedUser');
 if(savedUser){$('loginUser').value=savedUser;}
 </script>
-<script src="data.js"></script>
+
 </body>
 </html>
