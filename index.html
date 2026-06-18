@@ -1,1 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0D2137">
+<link rel="manifest" href="manifest.json">
+<title>安全生产系统管理平台（浙江中炭建设集团有限公司驻宝玉石项目部）</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A1628;--header:#1A3A5C;--card:#14273E;--surface:#1C3552;--orange:#F5A623;--text:#F5F5F5;--sub:#B0BEC5;--hint:#78909C;--red:#E53935;--yellow:#FFC107;--green:#4CAF50}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:var(--header);padding:10px 14px;display:flex;align-items:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topbar h1{font-size:14px;font-weight:600;flex:1;line-height:1.3}
+.topbar .right{display:flex;align-items:center;gap:6px;font-size:12px;white-space:nowrap}
+.topbar .right button{background:rgba(255,255,255,.1);border:none;color:var(--text);padding:5px 9px;border-radius:6px;cursor:pointer;font-size:11px}
+.topbar .right button:hover{background:rgba(255,255,255,.2)}
+.nav{background:var(--card);padding:5px 8px;display:flex;overflow-x:auto;gap:1px;position:sticky;top:46px;z-index:199;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{background:none;border:none;color:var(--sub);padding:7px 10px;border-radius:6px;font-size:11px;white-space:nowrap;cursor:pointer;transition:.2s}
+.nav button.active{background:var(--orange);color:#000;font-weight:600}
+.content{padding:12px;max-width:1200px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-bottom:14px}
+.stat{background:var(--card);border-radius:10px;padding:10px;border-left:3px solid var(--orange)}
+.stat.red{border-color:var(--red)}.stat.yellow{border-color:var(--yellow)}.stat.green{border-color:var(--green)}
+.stat .num{font-size:1.5em;font-weight:700}.stat .label{color:var(--hint);font-size:10px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.card{background:var(--card);border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,.06)}
+.card.rb{border:2px solid var(--red)}.card.yb{border:2px solid var(--yellow)}
+.card h4{color:var(--orange);margin-bottom:4px;font-size:13px}
+.card .meta{font-size:11px;color:var(--sub);line-height:1.6}
+.card .a{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap}
+.badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600}
+.br{background:var(--red);color:#fff}.by{background:var(--yellow);color:#000}.bg{background:var(--green);color:#fff}.bb{background:#1976D2;color:#fff}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:var(--surface);padding:6px 7px;text-align:left;font-weight:600;color:var(--orange);white-space:nowrap}
+td{padding:5px 7px;border-bottom:1px solid rgba(255,255,255,.04)}tr:hover{background:rgba(255,255,255,.02)}
+.tb{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.tb select,.tb input{background:var(--surface);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:6px 9px;border-radius:6px;font-size:11px}
+.tb input[type=text]{min-width:110px}
+.btn{background:var(--surface);color:var(--text);border:1px solid rgba(255,255,255,.1);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:11px;white-space:nowrap;transition:.2s}
+.btn:hover{opacity:.85}.bp{background:var(--orange);color:#000;font-weight:600;border:none}.bd{background:var(--red);color:#fff;border:none}.bxs{padding:2px 6px;font-size:10px}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:14px;overflow-y:auto}
+.modal-box{background:var(--card);border-radius:14px;padding:18px;width:100%;max-width:560px;max-height:85vh;overflow-y:auto}
+.modal-box h2{color:var(--orange);margin-bottom:12px;font-size:15px}
+.modal-box label{display:block;color:var(--sub);font-size:11px;margin-top:7px;margin-bottom:1px}
+.modal-box input,.modal-box select,.modal-box textarea{width:100%;background:var(--surface);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:7px 9px;border-radius:6px;font-size:12px;font-family:inherit}
+.modal-box textarea{min-height:55px;resize:vertical}
+.ma{display:flex;gap:6px;margin-top:14px;justify-content:flex-end}
+.lp{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.lc{background:var(--card);border-radius:16px;padding:28px 22px;width:100%;max-width:360px;text-align:center}
+.lc h2{font-size:18px;margin-bottom:2px}.lc .sub{color:var(--hint);font-size:12px;margin-bottom:18px}
+.lc input{width:100%;background:var(--surface);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--text);font-size:14px;padding:11px;margin-bottom:8px}
+.lc .lbtn{width:100%;background:var(--orange);color:#000;border:none;border-radius:10px;padding:11px;font-size:15px;font-weight:600;cursor:pointer}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--orange);color:#000;padding:8px 18px;border-radius:8px;z-index:3000;font-weight:600;display:none;font-size:13px}
+.hidden{display:none!important}
+@media(max-width:600px){.topbar h1{font-size:12px}.nav button{font-size:10px;padding:5px 7px}.stats{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.modal-box{padding:12px}}
+</style>
+</head>
+<body>
+<div id="loginPage" class="lp">
+  <div class="lc">
+    <h2>⛏️ 安全生产系统管理平台</h2>
+    <div class="sub">浙江中炭建设集团有限公司驻宝玉石项目部</div>
+    <input type="text" id="loginUser" placeholder="用户名" autofocus>
+    <input type="password" id="loginPass" placeholder="密码">
+    <label style="font-size:11px;color:var(--hint);display:flex;align-items:center;gap:4px;margin-bottom:8px"><input type="checkbox" id="rememberMe" style="width:auto;margin:0"> 记住密码</label>
+    <button class="lbtn" onclick="doLogin()">🔐 登录</button>
+    <div style="margin-top:12px;font-size:10px;color:var(--hint)">默认: admin / admin123</div>
+  </div>
+</div>
 
+<div id="appPage" class="hidden">
+  <div class="topbar">
+    <h1>⛏️ 安全生产系统管理平台<br><small style="font-size:9px;color:var(--hint);font-weight:400">浙江中炭建设集团有限公司驻宝玉石项目部</small></h1>
+    <div class="right">
+      <span id="userName" style="color:var(--orange);font-size:12px"></span>
+      <button onclick="showAdmin()" id="adminBtn" class="hidden">👥</button>
+      <button onclick="showPwd()">🔑</button>
+      <button onclick="doLogout()">退出</button>
+    </div>
+  </div>
+  <div class="nav" id="navBar">
+    <button class="active" data-page="dashboard">📊工作台</button>
+    <button data-page="hazards">🔍隐患</button>
+    <button data-page="violations">⚠️三违</button>
+    <button data-page="equipment">🔧设备</button>
+    <button data-page="vehicles">🚛车辆保养</button>
+    <button data-page="responsibility">👤责任制</button>
+    <button data-page="training">📚培训</button>
+    <button data-page="inspections">✅检查</button>
+    <button data-page="accidents">🚨事故</button>
+    <button data-page="entry">🚪出入井</button>
+    <button data-page="regulations">📜法规</button>
+  </div>
+  <div class="content" id="mainContent"></div>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal-overlay hidden" id="modal"><div class="modal-box" id="modalBox"></div></div>
+
+<script>
+const SB='https://wvlesqgadnlnmnjhyom.supabase.co',AK='sb_publishable_zGhOGUFCOZkrOBG2a1DURQ_4cIletWc';
+let TOKEN='',CUSER=null;
+const $=s=>document.getElementById(s);
+
+function supabaseHeaders(){return{apikey:AK,Authorization:'Bearer '+AK,'Content-Type':'application/json',Prefer:'return=representation'}}
+
+async function get(tbl,qs=''){
+  const u=`${SB}/rest/v1/${tbl}?${qs}`;
+  const r=await fetch(u,{headers:supabaseHeaders()});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
+async function post(tbl,data){
+  const r=await fetch(`${SB}/rest/v1/${tbl}`,{method:'POST',headers:{...supabaseHeaders(),Prefer:'return=representation'},body:JSON.stringify(data)});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
+async function patch(tbl,id,data){
+  const r=await fetch(`${SB}/rest/v1/${tbl}?${tbl==='users'?'username':'id'}=eq.${encodeURIComponent(id)}`,{method:'PATCH',headers:supabaseHeaders(),body:JSON.stringify(data)});
+  if(!r.ok)throw new Error(r.status);
+}
+async function del(tbl,id,idCol='id'){
+  await fetch(`${SB}/rest/v1/${tbl}?${idCol}=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:supabaseHeaders()});
+}
+
+function toast(m,t=2000){const e=$('toast');e.textContent=m;e.style.display='block';setTimeout(()=>e.style.display='none',t)}
+function showModal(h){$('modalBox').innerHTML=h;$('modal').classList.remove('hidden')}
+function closeModal(){$('modal').classList.add('hidden')}
+$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
+
+// ===== Auth via Supabase users table =====
+async function doLogin(){
+  const u=$('loginUser').value.trim(),p=$('loginPass').value.trim();
+  if(!u||!p)return toast('请输入用户名和密码');
+  try{
+    const users=await get('users','username=eq.'+encodeURIComponent(u));
+    const user=users[0];
+    if(!user)return toast('用户不存在');
+    if(user.status==='pending')return toast('待审批');
+    if(user.status==='disabled')return toast('已禁用');
+    if(user.password!==p)return toast('密码错误');
+    const token=btoa(user.username+':'+Date.now());
+    await patch('users',user.username,{token,last_login:new Date().toISOString()});
+    TOKEN=token;CUSER=user;
+    if($('rememberMe').checked){localStorage.setItem('sb_token',token);localStorage.setItem('sb_user',u)}
+    $('loginPage').classList.add('hidden');$('appPage').classList.remove('hidden');
+    $('userName').textContent='👤 '+user.name;
+    if(user.role==='super_admin')$('adminBtn').classList.remove('hidden');
+    initNav();navTo('dashboard');
+  }catch(e){toast('登录失败: '+e.message)}
+}
+async function doLogout(){
+  try{await patch('users',CUSER.username,{token:null})}catch(e){}
+  TOKEN='';CUSER=null;localStorage.removeItem('sb_token');
+  $('loginPage').classList.remove('hidden');$('appPage').classList.add('hidden');
+}
+function showPwd(){
+  showModal(`<h2>🔑 修改密码</h2><form onsubmit="submitPwd(event)"><label>原密码</label><input type="password" name="old" required><label>新密码</label><input type="password" name="new" required minlength="6"><label>确认</label><input type="password" name="confirm" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">修改</button></div></form>`);
+}
+async function submitPwd(e){
+  e.preventDefault();const fd=new FormData(e.target);
+  if(fd.get('old')!==CUSER.password)return toast('原密码错误');
+  if(fd.get('new')!==fd.get('confirm'))return toast('两次不一致');
+  await patch('users',CUSER.username,{password:fd.get('new')});closeModal();toast('已修改');
+}
+
+// ===== Admin =====
+async function showAdmin(){
+  const users=await get('users','order=created_at');
+  let r=users.map(u=>`<tr><td>${u.username}</td><td>${u.name}</td><td>${u.role}</td><td>${u.status}</td><td>${u.username!=='admin'?`<button class="btn bxs bd" onclick="delUser('${u.username}')">删除</button><button class="btn bxs" onclick="toggleUser('${u.username}','${u.status}')">${u.status==='active'?'禁用':'启用'}</button>`:'-'}</td></tr>`).join('');
+  showModal(`<h2>👥 用户管理</h2><div style="overflow-x:auto"><table><thead><tr><th>用户</th><th>姓名</th><th>角色</th><th>状态</th><th>操作</th></tr></thead><tbody>${r}</tbody></table></div><hr style="border-color:rgba(255,255,255,.1);margin:12px 0"><h3>添加用户</h3><form onsubmit="addUser(event)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div><label>用户名</label><input type="text" name="username" required></div><div><label>姓名</label><input type="text" name="name" required></div><div><label>密码</label><input type="password" name="password" required></div><div><label>角色</label><select name="role"><option value="user">用户</option><option value="admin">管理员</option></select></div></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">关闭</button><button type="submit" class="btn bp">添加</button></div></form>`);
+}
+async function addUser(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));await post('users',{...d,status:'active',created_at:new Date().toISOString()});closeModal();toast('已添加')}
+async function delUser(uname){if(!confirm('确定?'))return;await del('users',uname,'username');closeModal();toast('已删除')}
+async function toggleUser(uname,st){await patch('users',uname,{status:st==='active'?'disabled':'active'});closeModal();toast('状态已更新')}
+
+// ===== Nav =====
+function initNav(){
+  document.querySelectorAll('#navBar button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#navBar button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');navTo(b.dataset.page);
+  }));
+}
+async function navTo(p){
+  const c=$('mainContent');c.innerHTML='<div style="text-align:center;padding:40px;color:var(--hint)">加载中...</div>';
+  try{
+    const fns={dashboard:loadDashboard,hazards:loadHazards,violations:loadViolations,equipment:loadEquip,vehicles:loadVehicles,responsibility:loadResp,training:loadTraining,inspections:loadInsp,accidents:loadAcc,entry:loadEntry,regulations:loadRegs};
+    if(fns[p])await fns[p]();else c.innerHTML='<p style="color:var(--hint)">建设中</p>';
+  }catch(e){c.innerHTML=`<p style="color:var(--red)">加载失败: ${e.message}</p>`}
+}
+
+// ===== Dashboard =====
+async function loadDashboard(){
+  const[h,v,eq,ac,tr]=await Promise.all([get('hazard_checks'),get('violations'),get('equipment'),get('accidents'),get('trainings')]);
+  const vehicles=await get('vehicles');
+  const totalH=h.length,pending=h.filter(x=>['待整改','整改中'].includes(x.status)).length,rectified=h.filter(x=>x.status==='已验收').length;
+  const major=h.filter(x=>['重大隐患','紧急隐患'].includes(x.hazard_level)&&['待整改','整改中'].includes(x.status)).length;
+  const vMonth=v.filter(x=>!x.is_reward).length,redV=vehicles.filter(x=>x.alert_level==='red').length;
+  $('mainContent').innerHTML=`
+    <div class="stats">
+      <div class="stat"><div class="num">${totalH}</div><div class="label">累计隐患</div></div>
+      <div class="stat red"><div class="num">${major}</div><div class="label">重大/紧急未闭环</div></div>
+      <div class="stat yellow"><div class="num">${pending}</div><div class="label">待整改/整改中</div></div>
+      <div class="stat green"><div class="num">${rectified}</div><div class="label">已验收</div></div>
+      <div class="stat red"><div class="num">${vMonth}</div><div class="label">三违记录</div></div>
+      <div class="stat red"><div class="num">${redV}</div><div class="label">超期未保养</div></div>
+      <div class="stat"><div class="num">${eq.length+vehicles.length}</div><div class="label">设备+车辆</div></div>
+      <div class="stat green"><div class="num">${rectified>0?Math.round(rectified/totalH*100):0}%</div><div class="label">整改率</div></div>
+    </div>
+    <h4 style="color:var(--orange);margin-bottom:8px">📋 最近隐患</h4>
+    <div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>位置</th><th>等级</th><th>描述</th><th>状态</th></tr></thead><tbody>${
+      [...h].reverse().slice(0,8).map(x=>`<tr><td>${x.check_date||''}</td><td>${(x.check_location||'').slice(0,12)}</td><td><span class="badge ${x.hazard_level==='重大隐患'?'br':x.hazard_level==='紧急隐患'?'br':'by'}">${x.hazard_level}</span></td><td>${(x.hazard_description||'').slice(0,30)}</td><td><span class="badge ${x.status==='已验收'?'bg':'bb'}">${x.status}</span></td></tr>`).join('')
+    }</tbody></table></div>`;
+}
+
+// ===== Hazards =====
+async function loadHazards(){
+  const h=await get('hazard_checks','order=created_at.desc');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showHazardForm()">➕ 新增隐患</button></div><div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>日期</th><th>位置</th><th>等级</th><th>描述</th><th>状态</th><th>操作</th></tr></thead><tbody>${
+    h.map(x=>`<tr><td>${x.id}</td><td>${x.check_date}</td><td>${(x.check_location||'').slice(0,12)}</td><td><span class="badge ${x.hazard_level==='重大隐患'?'br':x.hazard_level==='紧急隐患'?'br':'by'}">${x.hazard_level}</span></td><td>${(x.hazard_description||'').slice(0,30)}</td><td><span class="badge ${x.status==='已验收'?'bg':'bb'}">${x.status}</span></td><td><button class="btn bxs" onclick="editHazard(${x.id},'${x.status}')">改</button><button class="btn bxs bp" onclick="viewRect(${x.id})">整改</button><button class="btn bxs bd" onclick="delHazard(${x.id})">删</button></td></tr>`).join('')
+  }</tbody></table></div>`;
+}
+function showHazardForm(){
+  showModal(`<h2>➕ 新增隐患排查</h2><form onsubmit="submitHazard(event)"><label>日期*</label><input type="date" name="check_date" value="${new Date().toISOString().split('T')[0]}" required><label>位置*</label><input type="text" name="check_location" required><label>类型</label><select name="hazard_type"><option>顶板管理</option><option>通风防尘</option><option>电气安全</option><option>爆破安全</option><option>机械设备</option><option>运输安全</option><option>火灾防治</option><option>水害防治</option><option>安全管理</option><option>其他</option></select><label>等级*</label><select name="hazard_level" required><option>一般隐患</option><option>重大隐患</option><option>紧急隐患</option></select><label>描述*</label><textarea name="hazard_description" required></textarea><label>法规</label><input type="text" name="reference_standard"><label>发现人</label><input type="text" name="discoverer"><label>检查人*</label><input type="text" name="checker" value="${CUSER?.name||''}" required><hr style="border-color:rgba(255,255,255,.1);margin:8px 0"><h4 style="color:var(--orange)">整改措施</h4><label>措施</label><textarea name="rect_measure"></textarea><label>责任人</label><input type="text" name="responsible_person"><label>期限</label><input type="date" name="deadline"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`);
+}
+async function submitHazard(e){
+  e.preventDefault();const d=Object.fromEntries(new FormData(e.target));
+  d.check_category='日常检查';d.status='待整改';d.created_by=CUSER?.username;d.created_at=new Date().toISOString();
+  const[result]=await post('hazard_checks',d);
+  if(d.rect_measure)await post('rectifications',{hazard_id:result.id,rect_measure:d.rect_measure,responsible_person:d.responsible_person||'',deadline:d.deadline||'',status:'未完成'});
+  closeModal();loadHazards();toast('已登记');
+}
+async function editHazard(id,cur){const s=prompt('新状态: 待整改/整改中/已验收',cur);if(!s)return;await patch('hazard_checks',id,{status:s});loadHazards()}
+async function delHazard(id){if(!confirm('确定?'))return;await del('rectifications',id,'hazard_id');await del('hazard_checks',id);loadHazards()}
+async function viewRect(hid){
+  const r=await get('rectifications','hazard_id=eq.'+hid);const d=r[0]||{};
+  showModal(`<h2>🔧 整改管理 #${hid}</h2><form onsubmit="submitRect(event,${hid})"><label>措施</label><textarea name="rect_measure">${d.rect_measure||''}</textarea><label>责任人</label><input type="text" name="responsible_person" value="${d.responsible_person||''}"><label>期限</label><input type="date" name="deadline" value="${d.deadline||''}"><label>完成日期</label><input type="date" name="completed_date" value="${d.completed_date||''}"><label>费用</label><input type="number" name="cost" value="${d.cost||0}"><label>状态</label><select name="status"><option value="未完成" ${d.status==='未完成'?'selected':''}>未完成</option><option value="已完成" ${d.status==='已完成'?'selected':''}>已完成</option></select><label>验收人</label><input type="text" name="validator" value="${d.validator||CUSER?.name||''}"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">保存</button></div></form>`);
+}
+async function submitRect(e,hid){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.cost=+d.cost;await patch('rectifications',hid,d,'hazard_id');if(d.status==='已完成')await patch('hazard_checks',hid,{status:'已验收'});closeModal();loadHazards();toast('已更新')}
+
+// ===== Violations =====
+async function loadViolations(){
+  const v=await get('violations','order=created_at.desc');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showViolationForm()">➕ 新记录</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>姓名</th><th>类型</th><th>类别</th><th>详情</th><th>金额</th></tr></thead><tbody>${v.map(x=>`<tr><td>${x.violation_date}</td><td>${x.violator_name}</td><td><span class="badge ${x.violation_type==='违章指挥'?'br':x.violation_type==='违章作业'?'by':'bb'}">${x.violation_type}</span></td><td>${x.violation_category}</td><td>${(x.violation_detail||'').slice(0,35)}</td><td>${x.is_reward?'<span style="color:var(--green)">+¥'+x.reward_amount+'</span>':'<span style="color:var(--red)">-¥'+x.penalty_amount+'</span>'}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function showViolationForm(){
+  showModal(`<h2>⚠️ 三违/奖励</h2><form onsubmit="submitViolation(event)"><label>姓名*</label><input type="text" name="violator_name" required><label>岗位</label><input type="text" name="violator_job"><label>日期*</label><input type="date" name="violation_date" value="${new Date().toISOString().split('T')[0]}" required><label>类型*</label><select name="violation_type" required><option>违章指挥</option><option>违章作业</option><option>违反劳动纪律</option></select><label>类别</label><select name="violation_category"><option>劳动防护用品</option><option>安全操作规程</option><option>现场安全管理</option><option>违反劳动纪律</option></select><label>详情*</label><textarea name="violation_detail" required></textarea><label>处罚/奖励</label><select name="is_reward"><option value="0">处罚</option><option value="1">奖励</option></select><label>金额</label><input type="number" name="amount" value="0"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`);
+}
+async function submitViolation(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const isR=+d.is_reward;await post('violations',{...d,penalty_amount:isR?0:+d.amount,reward_amount:isR?+d.amount:0,is_reward:isR,recorder:CUSER?.name,created_at:new Date().toISOString()});closeModal();loadViolations()}
+
+// ===== Equipment =====
+async function loadEquip(){
+  const eq=await get('equipment');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showEquipForm()">➕ 新设备</button></div><div class="g">${eq.map(e=>`<div class="card"><h4>🔧 ${e.name}</h4><div class="meta"><span>类型: ${e.equip_type} | 位置: ${e.location||'-'}</span><span>状态: <span class="badge ${e.status==='正常'?'bg':'by'}">${e.status}</span></span></div><div class="a"><button class="btn bxs bp" onclick="quickMaint(${e.id})">保养</button><button class="btn bxs" onclick="editEquip(${e.id})">编辑</button></div></div>`).join('')}</div>`;
+}
+function showEquipForm(){showModal(`<h2>➕ 新设备</h2><form onsubmit="submitEquip(event)"><label>名称*</label><input type="text" name="name" required><label>类型*</label><select name="equip_type" required><option>采掘设备</option><option>运输设备</option><option>支护设备</option><option>通风设备</option><option>排水设备</option><option>动力设备</option><option>电气设备</option></select><label>位置</label><input type="text" name="location"><label>负责人</label><input type="text" name="responsible_person"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">添加</button></div></form>`);}
+async function submitEquip(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));await post('equipment',{...d,status:'正常'});closeModal();loadEquip()}
+async function quickMaint(id){const t=new Date().toISOString().split('T')[0],n=new Date(Date.now()+30*86400000).toISOString().split('T')[0];await patch('equipment',id,{last_maintenance_date:t,next_maintenance_date:n,status:'正常'});loadEquip();toast('已记录')}
+function editEquip(id){showModal(`<h2>编辑设备</h2><form onsubmit="submitEditEquip(event,${id})"><label>名称</label><input type="text" name="name" required><label>类型</label><input type="text" name="equip_type" required><label>状态</label><select name="status"><option>正常</option><option>待保养</option><option>故障</option><option>停用</option></select><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">保存</button></div></form>`);}
+async function submitEditEquip(e,id){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));await patch('equipment',id,d);closeModal();loadEquip()}
+
+// ===== Vehicles =====
+async function loadVehicles(){
+  const v=await get('vehicles');
+  const red=v.filter(x=>x.alert_level==='red').length,yellow=v.filter(x=>x.alert_level==='yellow').length;
+  $('mainContent').innerHTML=`<div class="stats"><div class="stat"><div class="num">${v.length}</div><div class="label">车辆总数</div></div><div class="stat red"><div class="num">${red}</div><div class="label">🔴 超期</div></div><div class="stat yellow"><div class="num">${yellow}</div><div class="label">🟡 将到期</div></div><div class="stat green"><div class="num">${v.length-red-yellow}</div><div class="label">🟢 正常</div></div></div><div class="g">${v.map(x=>`<div class="card ${x.alert_level==='red'?'rb':x.alert_level==='yellow'?'yb':''}"><h4>🚛 ${x.name} <span class="badge ${x.alert_level==='red'?'br':x.alert_level==='yellow'?'by':'bg'}">${x.alert_level==='red'?'超期!':x.alert_level==='yellow'?'将到期':'正常'}</span></h4><div class="meta"><span>类型: ${x.type} | 编号: ${x.number||'-'}</span><span style="color:${x.alert_level==='red'?'var(--red)':'var(--sub)'}">上次: ${x.last_maintenance||'无'} (${x.days_since>0?x.days_since+'天前':'今日'})</span><span>保养: ${(x.maintenance_records||[]).length}次</span></div><div class="a"><button class="btn bxs bp" onclick="showVRecords(${x.id})">📋 记录</button><button class="btn bxs" onclick="addVMaint(${x.id},'${x.name}')">🔧 保养</button></div></div>`).join('')}</div>`;
+}
+async function showVRecords(vid){
+  const v=await get('vehicles','id=eq.'+vid);const d=v[0];if(!d)return;
+  let h='';const recs=d.maintenance_records||[];
+  recs.reverse().forEach(r=>{h+=`<div style="background:var(--surface);border-radius:8px;padding:8px;margin-bottom:6px"><strong>📅 ${r.date} — ${r.content}</strong><div style="font-size:10px;color:var(--hint)">操作: ${r.driver||'-'}</div>${r.materials&&r.materials.length?'<div style="font-size:10px;color:var(--sub)">配件: '+r.materials.map(m=>m.name+' x'+m.qty+m.unit).join(', ')+'</div>':''}</div>`});
+  showModal(`<h2>🚛 ${d.name} 保养记录</h2>${h||'<p style="color:var(--hint)">暂无</p>'}<div class="ma"><button class="btn bp" onclick="addVMaint(${vid},'${d.name}')">🔧 添加保养</button><button class="btn" onclick="closeModal()">关闭</button></div>`);
+}
+function addVMaint(vid,vname){
+  showModal(`<h2>🔧 保养 — ${vname}</h2><form onsubmit="submitVMaint(event,${vid})"><label>日期*</label><input type="date" name="rd" value="${new Date().toISOString().split('T')[0]}" required><label>内容*</label><input type="text" name="rc" required><label>操作人</label><input type="text" name="rdr"><label>工时</label><input type="text" name="rh"><button type="button" class="btn bxs" style="margin-top:6px" onclick="addPRow()">+ 配件</button><div id="prs"></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">保存</button></div></form>`);
+}
+function addPRow(){const i=$('prs').children.length;$('prs').innerHTML+=`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3px;margin-top:3px"><input type="text" name="pn_${i}" placeholder="配件"><input type="text" name="ps_${i}" placeholder="规格"><input type="text" name="pu_${i}" placeholder="单位"><input type="number" name="pq_${i}" placeholder="数量" value="1" step="0.1"></div>`}
+async function submitVMaint(e,vid){e.preventDefault();const fd=new FormData(e.target);const v=await get('vehicles','id=eq.'+vid);const d=v[0];if(!d)return;const recs=d.maintenance_records||[];const parts=[];for(let i=0;;i++){const n=fd.get('pn_'+i);if(!n||!n.trim())break;parts.push({name:n.trim(),spec:fd.get('ps_'+i)||'',unit:fd.get('pu_'+i)||'',qty:+fd.get('pq_'+i)||1})}recs.push({date:fd.get('rd'),content:fd.get('rc'),driver:fd.get('rdr'),materials:parts,runningHours:fd.get('rh')});await patch('vehicles',vid,{maintenance_records:recs,last_maintenance:fd.get('rd'),days_since:0,alert_level:'green',status:'在用'});closeModal();loadVehicles();toast('已记录')}
+
+// ===== Responsibility =====
+async function loadResp(){
+  const r=await get('responsibilities','order=position_name');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showAssess()">➕ 考核</button></div><div class="g">${r.map(x=>{const due=x.next_assessment_date&&x.next_assessment_date<new Date().toISOString().split('T')[0];return`<div class="card"><h4>👤 ${x.position_name} ${due?'<span class="badge by">待考核</span>':''}</h4><div class="meta"><span>上次: ${x.last_assessment_date||'—'}</span></div><div class="a"><button class="btn bxs bp" onclick="showAssess('${x.position_name}')">考核</button></div></div>`}).join('')}</div>`;
+}
+function showAssess(pos=''){
+  showModal(`<h2>责任制考核</h2><form onsubmit="submitAssess(event)"><label>岗位*</label><input type="text" name="position_name" value="${pos}" required><label>被考核人*</label><input type="text" name="person_name" required><label>日期*</label><input type="date" name="assessment_date" value="${new Date().toISOString().split('T')[0]}" required><label>周期</label><select name="assessment_period"><option>月度</option><option>季度</option><option>年度</option></select><label>得分</label><input type="number" name="score" value="100" min="0" max="100" required><label>扣分原因</label><textarea name="deduction_reasons"></textarea><label>考核人</label><input type="text" name="assessor" value="${CUSER?.name||''}" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`);
+}
+async function submitAssess(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.score=+d.score;d.is_qualified=d.score>=60?1:0;await post('assessments',d);const nd=new Date(Date.now()+30*86400000).toISOString().split('T')[0];await patch('responsibilities',d.position_name,{last_assessment_date:d.assessment_date,next_assessment_date:nd},'position_name');closeModal();loadResp();toast('已提交')}
+
+// ===== Training =====
+async function loadTraining(){
+  const t=await get('trainings','order=training_date.desc');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showTrainingForm()">➕ 培训</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>主题</th><th>讲师</th><th>学时</th><th>人数</th></tr></thead><tbody>${t.map(x=>`<tr><td>${x.training_date}</td><td>${x.training_type}</td><td>${x.training_topic}</td><td>${x.trainer||'-'}</td><td>${x.training_hours}h</td><td>${x.attendees_count}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function showTrainingForm(){showModal(`<h2>📚 安全培训</h2><form onsubmit="submitTraining(event)"><label>日期*</label><input type="date" name="training_date" value="${new Date().toISOString().split('T')[0]}" required><label>类型*</label><select name="training_type" required><option>三级安全教育</option><option>一般安全教育</option><option>调岗培训</option><option>特种作业</option><option>管理人员</option></select><label>主题*</label><input type="text" name="training_topic" required><label>讲师</label><input type="text" name="trainer"><label>学时</label><input type="number" name="training_hours" value="2" step="0.5"><label>人数</label><input type="number" name="attendees_count" value="0"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`);}
+async function submitTraining(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.training_hours=+d.training_hours;d.attendees_count=+d.attendees_count;await post('trainings',d);closeModal();loadTraining()}
+
+// ===== Inspections =====
+async function loadInsp(){
+  const i=await get('inspections','order=inspection_date.desc');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showInspForm()">➕ 检查</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>区域</th><th>检查人</th><th>合格/总数</th></tr></thead><tbody>${i.map(x=>`<tr><td>${x.inspection_date}</td><td>${x.inspection_type}</td><td>${x.inspection_area}</td><td>${x.inspector}</td><td>${(x.items_checked||0)-(x.items_unqualified||0)}/${x.items_checked||0}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function showInspForm(){showModal(`<h2>✅ 安全检查</h2><form onsubmit="submitInsp(event)"><label>日期*</label><input type="date" name="inspection_date" value="${new Date().toISOString().split('T')[0]}" required><label>类型*</label><select name="inspection_type" required><option>日常检查</option><option>专项检查</option><option>综合检查</option><option>季节性检查</option><option>节假日检查</option></select><label>区域*</label><input type="text" name="inspection_area" required><label>检查人*</label><input type="text" name="inspector" value="${CUSER?.name||''}" required><label>检查项</label><input type="number" name="items_checked" value="0"><label>不合格</label><input type="number" name="items_unqualified" value="0"><label>发现</label><textarea name="findings"></textarea><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`);}
+async function submitInsp(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.items_checked=+d.items_checked;d.items_unqualified=+d.items_unqualified;await post('inspections',d);closeModal();loadInsp()}
+
+// ===== Accidents =====
+async function loadAcc(){
+  const a=await get('accidents','order=accident_date.desc');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bd" onclick="showAccForm()">🚨 报告事故</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>地点</th><th>严重</th><th>描述</th></tr></thead><tbody>${a.map(x=>`<tr><td>${x.accident_date}</td><td>${x.accident_type}</td><td>${x.accident_location}</td><td><span class="badge ${x.severity==='死亡'?'br':x.severity==='重伤'?'br':'by'}">${x.severity}</span></td><td>${(x.accident_description||'').slice(0,30)}</td></tr>`).join('')||'<tr><td colspan="5" style="color:var(--green);text-align:center">✅ 无事故</td></tr>'}</tbody></table></div>`;
+}
+function showAccForm(){showModal(`<h2>🚨 事故报告</h2><form onsubmit="submitAcc(event)"><label>日期*</label><input type="date" name="accident_date" required><label>时间</label><input type="time" name="accident_time"><label>地点*</label><input type="text" name="accident_location" required><label>类型*</label><select name="accident_type" required><option>冒顶片帮</option><option>爆破事故</option><option>运输事故</option><option>触电</option><option>机械伤害</option><option>高处坠落</option><option>火灾</option><option>中毒窒息</option><option>其他</option></select><label>严重*</label><select name="severity" required><option>未遂事故</option><option>轻伤</option><option>重伤</option><option>死亡</option><option>财产损失</option></select><label>受伤</label><input type="number" name="injured_count" value="0"><label>死亡</label><input type="number" name="fatality_count" value="0"><label>描述*</label><textarea name="accident_description" required></textarea><label>直接原因</label><textarea name="direct_cause"></textarea><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bd">提交</button></div></form>`);}
+async function submitAcc(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.injured_count=+d.injured_count;d.fatality_count=+d.fatality_count;await post('accidents',d);closeModal();loadAcc()}
+
+// ===== Entry/Exit =====
+async function loadEntry(){
+  const e=await get('entry_exit','order=entry_time.desc&limit=50');
+  $('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showEntryForm()">➕ 入井</button></div><div style="overflow-x:auto"><table><thead><tr><th>姓名</th><th>入井</th><th>出井</th><th>自救器</th><th>检测仪</th><th>矿灯</th><th>操作</th></tr></thead><tbody>${e.map(x=>`<tr><td>${x.person_name}</td><td>${(x.entry_time||'').slice(11,19)}</td><td>${x.exit_time?x.exit_time.slice(11,19):'<span class="badge by">井下</span>'}</td><td>${x.has_self_rescuer?'✅':'❌'}</td><td>${x.has_gas_detector?'✅':'❌'}</td><td>${x.has_cap_lamp?'✅':'❌'}</td><td>${x.exit_time?'-':`<button class="btn bxs bp" onclick="recExit(${x.id})">出井</button>`}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function showEntryForm(){showModal(`<h2>🚪 入井登记</h2><form onsubmit="submitEntry(event)"><label>姓名*</label><input type="text" name="person_name" required><label>定位卡</label><input type="text" name="card_id"><label>自救器</label><select name="has_self_rescuer"><option value="1">携带</option><option value="0">未携带</option></select><label>检测仪</label><select name="has_gas_detector"><option value="1">携带</option><option value="0">未携带</option></select><label>矿灯</label><select name="has_cap_lamp"><option value="1">携带</option><option value="0">未携带</option></select><label>车辆</label><input type="text" name="vehicle_id"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">确认</button></div></form>`);}
+async function submitEntry(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));['has_self_rescuer','has_gas_detector','has_cap_lamp'].forEach(k=>d[k]=+d[k]);await post('entry_exit',d);closeModal();loadEntry()}
+async function recExit(id){await patch('entry_exit',id,{exit_time:new Date().toISOString()});loadEntry()}
+
+// ===== Regulations =====
+async function loadRegs(){
+  const r=await get('regulations','order=category,code');
+  const cats={};r.forEach(x=>{if(!cats[x.category])cats[x.category]=[];cats[x.category].push(x)});
+  let h='';
+  for(const[c,items]of Object.entries(cats)){h+=`<h4 style="color:var(--orange);margin:10px 0 4px">${c} (${items.length})</h4>`;items.forEach(i=>{h+=`<div style="background:var(--surface);border-radius:6px;padding:7px 10px;margin-bottom:3px;font-size:11px"><strong>${i.code}</strong> — ${i.name}</div>`})}
+  $('mainContent').innerHTML=h;
+}
+
+// ===== Auto-login =====
+const st=localStorage.getItem('sb_token'),su=localStorage.getItem('sb_user');
+if(st&&su){(async()=>{
+  try{const u=await get('users','username=eq.'+encodeURIComponent(su));const user=u[0];if(user&&user.token===st){TOKEN=st;CUSER=user;$('loginPage').classList.add('hidden');$('appPage').classList.remove('hidden');$('userName').textContent='👤 '+user.name;if(user.role==='super_admin')$('adminBtn').classList.remove('hidden');initNav();navTo('dashboard')}}catch(e){}
+})()}
+</script>
+</body>
+</html>
