@@ -13,7 +13,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
 .topbar h1{font-size:16px;font-weight:600;flex:1;line-height:1.4;min-width:0}
 .topbar .right{display:flex;align-items:center;gap:8px;font-size:13px;white-space:nowrap;flex-shrink:0}
 .topbar .right button{background:rgba(255,255,255,.1);border:none;color:var(--text);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:12px}
-.topbar .right button:hover{background:rgba(255,255,255,.2)}
 #syncStatus{font-size:14px;padding:3px 6px;border-radius:4px;margin-right:4px}
 .sync-ok{color:#4CAF50}.sync-ing{color:#FFC107}.sync-err{color:#E53935}
 .nav{background:var(--card);padding:6px 10px;display:flex;overflow-x:auto;gap:2px;position:sticky;top:52px;z-index:199;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -53,7 +52,6 @@ td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}tr:hover{backg
 .lc input{width:100%;background:var(--surface);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--text);font-size:16px;padding:12px;margin-bottom:10px}
 .lc .lbtn{width:100%;background:var(--orange);color:#000;border:none;border-radius:10px;padding:12px;font-size:16px;font-weight:600;cursor:pointer}
 .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--orange);color:#000;padding:10px 22px;border-radius:8px;z-index:3000;font-weight:600;display:none;font-size:14px}
-.photo-preview{max-width:200px;max-height:150px;border-radius:6px;margin-top:4px}
 .hidden{display:none!important}
 @media(max-width:600px){.topbar h1{font-size:14px}.nav button{font-size:12px;padding:6px 9px}.stats{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.modal-box{padding:14px}}
 </style>
@@ -61,40 +59,40 @@ td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}tr:hover{backg
 <body>
 <div id="loginPage" class="lp">
   <div class="lc">
-    <h2>⛏️ 安全生产系统管理平台</h2>
+    <h2>&#9935;&#65039; 安全生产系统管理平台</h2>
     <div class="sub">浙江中炭建设集团有限公司驻宝玉石项目部</div>
     <input type="text" id="loginUser" placeholder="用户名" autofocus>
     <input type="password" id="loginPass" placeholder="密码">
     <label style="font-size:12px;color:var(--hint)"><input type="checkbox" id="rememberMe" style="width:auto;margin-right:4px"> 记住密码</label>
-    <button class="lbtn" onclick="doLogin()">🔐 登录</button>
+    <button class="lbtn" onclick="doLogin()">&#128274; 登录</button>
     <div style="margin-top:12px;font-size:11px;color:var(--hint)">默认: admin / admin123（超级管理员）</div>
   </div>
 </div>
 
 <div id="appPage" class="hidden">
   <div class="topbar">
-    <h1>⛏️ 安全生产系统管理平台<br><small style="font-size:10px;color:var(--hint);font-weight:400">浙江中炭建设集团有限公司驻宝玉石项目部</small></h1>
+    <h1>&#9935;&#65039; 安全生产系统管理平台<br><small style="font-size:10px;color:var(--hint);font-weight:400">浙江中炭建设集团有限公司驻宝玉石项目部</small></h1>
     <div class="right">
-      <span id="syncStatus" class="sync-ok">☁️</span>
+      <span id="syncStatus" class="sync-ok">&#9729;&#65039;</span>
       <span id="userName" style="color:var(--orange);font-size:13px"></span>
-      <button onclick="showAdmin()" id="adminBtn">👥</button>
-      <button onclick="showPwd()">🔑</button>
-      <button onclick="manualSync()" title="同步">🔄</button>
+      <button onclick="showAdmin()" id="adminBtn">&#128101;</button>
+      <button onclick="showPwd()">&#128273;</button>
+      <button onclick="manualSync()" title="同步">&#8635;</button>
       <button onclick="doLogout()">退出</button>
     </div>
   </div>
   <div class="nav" id="navBar">
-    <button class="active" data-page="dashboard">📊 工作台</button>
-    <button data-page="hazards">🔍 隐患</button>
-    <button data-page="violations">⚠️ 三违</button>
-    <button data-page="equipment">🔧 设备</button>
-    <button data-page="vehicles">🚛 车辆保养</button>
-    <button data-page="responsibility">👤 责任制</button>
-    <button data-page="training">📚 培训</button>
-    <button data-page="inspections">✅ 检查</button>
-    <button data-page="accidents">🚨 事故</button>
-    <button data-page="entry">🚪 出入井</button>
-    <button data-page="regulations">📜 法规</button>
+    <button class="active" data-page="dashboard">&#128202; 工作台</button>
+    <button data-page="hazards">&#128269; 隐患</button>
+    <button data-page="violations">&#9888;&#65039; 三违</button>
+    <button data-page="equipment">&#128295; 设备</button>
+    <button data-page="vehicles">&#128663; 车辆保养</button>
+    <button data-page="responsibility">&#128100; 责任制</button>
+    <button data-page="training">&#128218; 培训</button>
+    <button data-page="inspections">&#9989; 检查</button>
+    <button data-page="accidents">&#128682; 事故</button>
+    <button data-page="entry">&#128682; 出入井</button>
+    <button data-page="regulations">&#128220; 法规</button>
   </div>
   <div class="content" id="mainContent"></div>
 </div>
@@ -102,57 +100,129 @@ td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}tr:hover{backg
 <div class="modal-overlay hidden" id="modal"><div class="modal-box" id="modalBox"></div></div>
 
 <script>
-const $=s=>document.getElementById(s);
-let CUSER=null,_curPage='dashboard';
-let _idSeq={hazards:100,violations:200,equipment:300,vehicles:400,responsibilities:500,trainings:600,inspections:700,accidents:800,entry_exit:900,rectifications:1000,assessments:1100};
+/* ===== UTILITIES ===== */
+function $(id){return document.getElementById(id);}
+var CUSER=null,_curPage='dashboard';
+var _idSeq={hazards:100,violations:200,equipment:300,vehicles:400,responsibilities:500,trainings:600,inspections:700,accidents:800,entry_exit:900,rectifications:1000,assessments:1100};
 
-// ===== GitHub Sync =====
-const GHAPI='https://api.github.com/repos/alml17746992791/mining-vehicle/contents/data/db.json';
-const GH_H={Authorization:'token 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',Accept:'application/vnd.github.v3+json'};
-let _sha=null;
-function b64e(s){return btoa(unescape(encodeURIComponent(s)))}
-function b64d(s){return decodeURIComponent(escape(atob(s)))}
+/* ===== GITHUB SYNC ===== */
+var GHAPI='https://api.github.com/repos/alml17746992791/mining-vehicle/contents/data/db.json';
+var GH_H={Authorization:'token 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',Accept:'application/vnd.github.v3+json'};
+var _sha=null;
+function b64e(s){return btoa(unescape(encodeURIComponent(s)));}
+function b64d(s){return decodeURIComponent(escape(atob(s)));}
 
-async function ghPull(){try{const r=await fetch(GHAPI,{headers:GH_H});if(r.status===404)return _sha=null;if(!r.ok)throw new Error(r.status);const d=await r.json();_sha=d.sha;return JSON.parse(b64d(d.content))}catch(e){console.log('Pull err:',e);return null}}
-async function ghPush(data){try{const body={message:'同步 '+new Date().toLocaleString('zh-CN').slice(0,16),content:b64e(JSON.stringify(data))};if(_sha)body.sha=_sha;const r=await fetch(GHAPI,{method:'PUT',headers:{...GH_H,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error(r.status);_sha=(await r.json()).content.sha;return true}catch(e){console.log('Push err:',e);return false}}
-function setSync(s){const e=$('syncStatus');e.className=s==='ok'?'sync-ok':s==='ing'?'sync-ing':'sync-err';e.textContent=s==='ok'?'☁️':s==='ing'?'🔄':'❌'}
-async function pullAndMerge(){setSync('ing');const rd=await ghPull();if(rd){Object.keys(rd).forEach(k=>{if(k.startsWith('db_'))localStorage.setItem(k,JSON.stringify(rd[k]));if(k==='_idSeq')Object.assign(_idSeq,rd[k])});setSync('ok')}else{setSync('err');setTimeout(()=>setSync('ok'),3000)}}
-let _pt=null;function schedulePush(){clearTimeout(_pt);_pt=setTimeout(async()=>{setSync('ing');const d={};['db_users','db_hazards','db_violations','db_equipment','db_vehicles','db_responsibilities','db_trainings','db_inspections','db_accidents','db_entry_exit','db_regulations','db_hazard_sources','db_rectifications','db_assessments'].forEach(k=>{d[k]=JSON.parse(localStorage.getItem(k)||'[]')});d._idSeq=_idSeq;(await ghPush(d))?setSync('ok'):setSync('err')},2000)}
-async function manualSync(){setSync('ing');await pullAndMerge();setSync('ok');toast('同步完成');navTo(_curPage)}
+async function ghPull(){
+  try{
+    var r=await fetch(GHAPI,{headers:GH_H});
+    if(r.status===404){_sha=null;return null;}
+    if(!r.ok)throw new Error(''+r.status);
+    var d=await r.json();
+    _sha=d.sha;
+    return JSON.parse(b64d(d.content));
+  }catch(e){
+    console.log('Pull err:',e);
+    return null;
+  }
+}
 
-// ===== Local DB =====
-function db(tbl){return JSON.parse(localStorage.getItem('db_'+tbl)||'[]')}
-function save(tbl,data){localStorage.setItem('db_'+tbl,JSON.stringify(data));schedulePush()}
-function nid(tbl){return ++_idSeq[tbl]}
-function addRow(tbl,row){row.id=nid(tbl);let d=db(tbl);d.push(row);save(tbl,d);return row}
-function findRow(tbl,id){return db(tbl).find(x=>x.id===id)}
-function updateRow(tbl,id,patch){let d=db(tbl),i=d.findIndex(x=>x.id===id);if(i>=0){Object.assign(d[i],patch);save(tbl,d)}}
-function delRow(tbl,id){let d=db(tbl);d=d.filter(x=>x.id!==id);save(tbl,d)}
+async function ghPush(data){
+  try{
+    var body={message:'sync '+new Date().toLocaleString().slice(0,16),content:b64e(JSON.stringify(data))};
+    if(_sha){body.sha=_sha;}
+    var r=await fetch(GHAPI,{method:'PUT',headers:Object.assign({},GH_H,{'Content-Type':'application/json'}),body:JSON.stringify(body)});
+    if(!r.ok)throw new Error(''+r.status);
+    _sha=(await r.json()).content.sha;
+    return true;
+  }catch(e){
+    console.log('Push err:',e);
+    return false;
+  }
+}
 
-// ===== 法规关键词匹配（拍照自动引用） =====
-const REG_KEYWORDS={
+function setSync(st){
+  var el=$('syncStatus');
+  el.className=st==='ok'?'sync-ok':st==='ing'?'sync-ing':'sync-err';
+  el.textContent=st==='ok'?'&#9729;&#65039;':st==='ing'?'&#8635;':'&#10060;';
+}
+
+async function pullAndMerge(){
+  setSync('ing');
+  var rd=await ghPull();
+  if(rd){
+    Object.keys(rd).forEach(function(k){
+      if(k.indexOf('db_')===0){localStorage.setItem(k,JSON.stringify(rd[k]));}
+      if(k==='_idSeq'){Object.keys(rd[k]).forEach(function(kk){_idSeq[kk]=rd[k][kk];});}
+    });
+    setSync('ok');
+  }else{
+    setSync('err');
+    setTimeout(function(){setSync('ok');},3000);
+  }
+}
+
+var _pt=null;
+function schedulePush(){
+  clearTimeout(_pt);
+  _pt=setTimeout(async function(){
+    setSync('ing');
+    var d={};
+    ['db_users','db_hazards','db_violations','db_equipment','db_vehicles','db_responsibilities','db_trainings','db_inspections','db_accidents','db_entry_exit','db_regulations','db_hazard_sources','db_rectifications','db_assessments'].forEach(function(k){
+      d[k]=JSON.parse(localStorage.getItem(k)||'[]');
+    });
+    d._idSeq=_idSeq;
+    var ok=await ghPush(d);
+    setSync(ok?'ok':'err');
+  },2000);
+}
+
+async function manualSync(){
+  setSync('ing');
+  await pullAndMerge();
+  setSync('ok');
+  toast('done');
+  navTo(_curPage);
+}
+
+/* ===== LOCAL DB ===== */
+function db(tbl){return JSON.parse(localStorage.getItem('db_'+tbl)||'[]');}
+function save(tbl,data){localStorage.setItem('db_'+tbl,JSON.stringify(data));schedulePush();}
+function nid(tbl){return ++_idSeq[tbl];}
+function addRow(tbl,row){row.id=nid(tbl);var arr=db(tbl);arr.push(row);save(tbl,arr);return row;}
+function findRow(tbl,id){return db(tbl).find(function(x){return x.id===id;});}
+function updateRow(tbl,id,patch){var arr=db(tbl),i=arr.findIndex(function(x){return x.id===id;});if(i>=0){Object.assign(arr[i],patch);save(tbl,arr);}}
+function delRow(tbl,id){var arr=db(tbl);arr=arr.filter(function(x){return x.id!==id;});save(tbl,arr);}
+
+/* ===== REGULATION KEYWORD MATCHING ===== */
+var REG_KEYWORDS={
   'GB16423-2020':['顶板','浮石','支护','通风','风量','凿岩','爆破','运输','提升','电气'],
   'GB6722-2014':['爆破','炸药','雷管','盲炮','起爆','炮眼','装药','哑炮'],
   'GB/T11651-2008':['安全帽','劳保','防护','手套','口罩','防护服','安全带'],
   'GB50653-2011':['井巷','掘进','支护','锚杆','喷浆','混凝土','巷道'],
   'AQ2031-2011':['通风','风量','风质','风机','风筒','风门','局扇'],
   'AQ2061-2018':['水害','排水','防水','透水','涌水','水泵','水位'],
-  '安监总局令75号':['重大隐患','重大危险源','判定','停产','停产整顿'],
+  '安监总局令75号':['重大隐患','重大危险源','判定','停产'],
   '安法2021':['安全生产','责任制','应急预案','事故','培训','投入'],
   '矿山法2009':['矿山安全','采矿','矿井','矿长','安全检查'],
   'AQ2026-2010':['提升','绞车','提升机','钢丝绳','罐笼','信号']
 };
+
 function matchRegs(desc,type){
-  const matches=[],kw=(desc+' '+type).toLowerCase();
-  Object.entries(REG_KEYWORDS).forEach(([code,kws])=>{
-    let score=0;kws.forEach(w=>{if(kw.includes(w))score++});
-    if(score>0)matches.push({code,score});
+  var matches=[],kw=(desc+' '+type).toLowerCase();
+  Object.keys(REG_KEYWORDS).forEach(function(code){
+    var kws=REG_KEYWORDS[code],score=0;
+    kws.forEach(function(w){if(kw.indexOf(w)>=0){score++;}});
+    if(score>0){matches.push({code:code,score:score};}
   });
-  matches.sort((a,b)=>b.score-a.score);
-  return matches.slice(0,5).map(m=>m.code);
+  matches.sort(function(a,b){return b.score-a.score;});
+  return matches.slice(0,5).map(function(m){return m.code;});
 }
 
-// ===== 初始化预置数据 =====
+/* ===== SEED REGULATIONS (86 items) ===== */
+  /* Data loaded from data.js: VC + SEED_REGS */
+
+
+/* ===== INIT DB ===== */
 function initDB(){
   if(!localStorage.getItem('db_users')){
     save('users',[
@@ -160,39 +230,41 @@ function initDB(){
       {id:2,username:'user',password:'user123',name:'安全员',role:'user',status:'active'}
     ]);
   }
-const VC=[{n:"\u7a7a\u538b\u673a1\u53f7",t:"\u7a7a\u538b\u673a",b:"1\u53f7",s:"\u5728\u7528",l:"2024-12-09",d:549,a:"red",r:[{d:"2023-10-10",c:"\u7a7a\u538b\u673a500\u5c0f\u65f6",r:"\u848b\u80dc\u8d22",m:[{n:"\u68c0\u67e5\u7a7a\u538b\u673a\u673a\u6cb9",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5168\u673a",s:"",u:"\u6b21",q:1.0},{n:"\u5439\u7a7a\u6c14\u6ee4\u82af",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5b89\u5168\u9600\u662f\u5426\u6b63\u5e38\u8fd0\u884c",s:"",u:"\u6b21",q:1.0}]},{d:"2023-12-12",c:"\u7a7a\u538b\u673a776\u5c0f\u65f6",r:"\u535a\u83b1\u7279\u552e\u540e",m:[{n:"\u7a7a\u6c14\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"\u4e2a",q:1.0},{n:"\u6cb9\u8fc7\u6ee4\u5668",s:"",u:"\u4e2a",q:2.0},{n:"\u7a7a\u538b\u673a\u673a\u6cb9",s:"",u:"\u6876",q:5.0}]},{d:"2024-08-10",c:"\u7a7a\u538b\u673a790\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u68c0\u67e5\u7a7a\u538b\u673a\u673a\u6cb9",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5168\u673a",s:"",u:"\u6b21",q:1.0},{n:"\u5439\u7a7a\u6c14\u6ee4\u82af",s:"",u:"\u6b21",q:1.0}]},{d:"2024-12-09",c:"\u7a7a\u538b\u673a1200\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u7a7a\u538b\u673a\u673a\u6cb9",s:"",u:"\u6876",q:5.0},{n:"\u68c0\u67e5\u5168\u673a",s:"",u:"\u6b21",q:1.0},{n:"\u5439\u7a7a\u6c14\u6ee4\u82af",s:"",u:"\u6b21",q:1.0}]}]},{n:"\u7a7a\u538b\u673a2\u53f7",t:"\u7a7a\u538b\u673a",b:"2\u53f7",s:"\u5728\u7528",l:"2024-08-15",d:665,a:"red",r:[{d:"2023-12-15",c:"\u7a7a\u538b\u673a100\u5c0f\u65f6",r:"\u848b\u80dc\u8d22",m:[{n:"\u6e05\u7406\u7a7a\u6ee4",s:"",u:"\u6b21",q:1.0},{n:"\u52a0\u6ce8\u6da6\u6ed1\u6cb9",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u7535\u6c14\u7cfb\u7edf",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u6cb9\u4f4d",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5168\u673a\u8def\u7ebf",s:"",u:"\u6b21",q:1.0}]},{d:"2024-08-15",c:"\u7a7a\u538b\u673a243\u5c0f\u65f6",r:"\u848b\u80dc\u8d22",m:[{n:"\u6e05\u7406\u7a7a\u6ee4",s:"",u:"\u6b21",q:1.0},{n:"\u6392\u653e\u6cb9\u6c14\u6876\u5185\u7684\u6c34",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5b89\u5168\u9600\u7684\u6392\u653e\u529f\u80fd",s:"",u:"\u6b21",q:1.0}]}]},{n:"\u7a7a\u538b\u673a3\u53f7",t:"\u7a7a\u538b\u673a",b:"3\u53f7",s:"\u5728\u7528",l:"2025-05-04",d:403,a:"red",r:[{d:"2023-01-06",c:"\u7a7a\u538b\u673a100\u5c0f\u65f6",r:"\u848b\u80dc\u8d22",m:[{n:"\u68c0\u67e5\u7a7a\u6c14\u6ee4\u82af",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5b89\u5168\u9600\u662f\u5426\u6b63\u5e38\u8fd0\u884c",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u6da6\u6ed1\u6cb9",s:"",u:"\u6b21",q:1.0}]},{d:"2023-07-15",c:"\u7a7a\u538b\u673a500\u5c0f\u65f6",r:"\u848b\u80dc\u8d22",m:[{n:"\u68c0\u67e5\u6e05\u7406\u7a7a\u6ee4",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u6cb9\u4f4d",s:"",u:"\u6b21",q:1.0},{n:"\u6392\u653e\u6cb9\u6c14\u6876\u5185\u51b7\u51dd\u6c34",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5168\u673a\u7ebf\u8def",s:"",u:"\u6b21",q:1.0}]},{d:"2024-01-17",c:"\u7a7a\u538b\u673a800\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u68c0\u67e5\u6e05\u7406\u7a7a\u6ee4",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u6cb9.\u6c14.\u7535\u8def",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5b89\u5168\u9600\u6392\u653e\u529f\u80fd",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u6e29\u5ea6\u4f20\u611f\u5668",s:"",u:"\u6b21",q:1.0}]},{d:"2024-08-12",c:"\u7a7a\u538b\u673a1000\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u6e05\u7406\u7a7a\u6ee4",s:"",u:"\u6b21",q:1.0},{n:"\u52a0\u6ce8\u6da6\u6ed1\u6cb9",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u6da8\u7d27\u76ae\u5e26",s:"",u:"\u6b21",q:1.0},{n:"\u68c0\u67e5\u5b89\u5168\u6392\u6c14\u9600",s:"",u:"\u6b21",q:1.0}]},{d:"2025-05-04",c:"\u7a7a\u538b\u673a1098\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u51b7\u5374\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u6cb9\u5668\u79bb\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u51b7\u5374\u6db2",s:"",u:"\u6876",q:3.0}]}]},{n:"1\u53f7\u5174\u4e1a\u94f2\u8fd0\u8f66",t:"\u94f2\u8fd0\u8f66",b:"1\u53f7",s:"\u5728\u7528",l:"2026-05-02",d:40,a:"green",r:[{d:"2023-06-06",c:"\u53d1\u52a8\u673a135",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:3.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2024-07-27",c:"\u53d1\u52a8\u673a732",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:3.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-01-03",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:3.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u56de\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2025-05-28",c:"\u53d1\u52a8\u673a",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u524d\u540e\u6865\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2026-05-02",c:"\u53d1\u52a8\u673a",r:"",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:0.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:0.0},{n:"\u67f4\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:0.0},{n:"\u673a\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:0.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"\u4e2a",q:0.0}]}]},{n:"2\u53f7\u4e34\u5de5\u94f2\u8fd0\u8f66",t:"\u94f2\u8fd0\u8f66",b:"2\u53f7",s:"\u5728\u7528",l:"2026-03-18",d:85,a:"green",r:[{d:"2023-06-20",c:"\u53d1\u52a8\u673a55",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0}]},{d:"2023-09-20",c:"\u53d1\u52a8\u673a900",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0},{n:"8\u53f7\u4f20\u52a8\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u4f20\u52a8\u6cb9\u6ee4\u82af",s:"C16001",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u6cb9\u9ad8\u538b\u8fc7\u6ee4\u5668\u6ee4\u82af",s:"C1265001",u:"\u4e2a",q:1.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u6876",q:3.0}]},{d:"2023-11-29",c:"\u53d1\u52a8\u673a1600",r:"\u5f20\u94f6\u5e86",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a2132",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0},{n:"8\u53f7\u4f20\u52a8\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u4f20\u52a8\u6cb9\u6ee4\u82af",s:"C16001",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u6cb9\u9ad8\u538b\u8fc7\u6ee4\u5668\u6ee4\u82af",s:"C1265001",u:"\u4e2a",q:1.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u6876",q:3.0}]},{d:"2025-01-03",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:3.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2025-04-09",c:"\u53d1\u52a8\u673a\n3600",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-09-20",c:"\u53d1\u52a8\u673a5009",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-11-13",c:"\u53d1\u52a8\u673a\u4fdd\u517b",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u67f4\u6cb9\u6cf5",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-18",c:"",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u66f4\u6362\u65b9\u5411.\u5de5\u4f5c\u53cc\u8054\u6cf5",s:"",u:"\u4e2a",q:1.0}]}]},{n:"3\u53f7\u4e34\u5de5\u94f2\u8fd0\u8f66",t:"\u94f2\u8fd0\u8f66",b:"3\u53f7",s:"\u5728\u7528",l:"2026-03-13",d:90,a:"green",r:[{d:"2023-09-27",c:"\u53d1\u52a8\u673a370",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0},{n:"8\u53f7\u4f20\u52a8\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u4f20\u52a8\u6cb9\u6ee4\u82af",s:"C16001",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u6cb9\u9ad8\u538b\u8fc7\u6ee4\u5668\u6ee4\u82af",s:"C1265001",u:"\u4e2a",q:1.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u6876",q:3.0}]},{d:"2024-01-03",c:"\u53d1\u52a8\u673a1100",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0},{n:"8\u53f7\u4f20\u52a8\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u4f20\u52a8\u6cb9\u6ee4\u82af",s:"C16001",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u6cb9\u9ad8\u538b\u8fc7\u6ee4\u5668\u6ee4\u82af",s:"C1265001",u:"\u4e2a",q:1.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u6876",q:3.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a3021",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"3349.0",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"FF5767",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"\u5eb7\u660e\u65af\u4e13\u7528",u:"\u6876",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"FS36210",u:"\u4e2a",q:1.0},{n:"\u7c97\u67f4\u6ee4",s:"FS36230",u:"\u4e2a",q:1.0},{n:"8\u53f7\u4f20\u52a8\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u4f20\u52a8\u6cb9\u6ee4\u82af",s:"C16001",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u6cb9\u9ad8\u538b\u8fc7\u6ee4\u5668\u6ee4\u82af",s:"C1265001",u:"\u4e2a",q:1.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u6876",q:3.0}]},{d:"2025-06-01",c:"\u53d1\u52a8\u673a3021",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u6876",q:2.0},{n:"8#\u4f20\u52a8\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2025-10-24",c:"\u53d1\u52a8\u673a3021",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u67f4\u6cb9\u6ee4\u82af",s:"",u:"",q:0.0},{n:"\u66f4\u6362\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"",q:0.0},{n:"\u66f4\u6362\u67f4\u6cb9\u7c97\u8fc7\u6ee4\u5668",s:"",u:"",q:0.0}]},{d:"2026-03-13",c:"\u7ef4\u4fee\u53d1\u52a8\u673a",r:"",m:[]}]},{n:"4\u53f7\u4e34\u5de5\u94f2\u8fd0\u8f66",t:"\u94f2\u8fd0\u8f66",b:"4\u53f7",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u81ea\u5378\u8f661\u53f7",t:"\u5730\u4e0b\u81ea\u5378\u8f66",b:"1\u53f7",s:"\u5728\u7528",l:"2026-04-15",d:57,a:"green",r:[{d:"2023-06-13",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2023-09-20",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u5347",q:18.0}]},{d:"2023-12-28",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1\uff1b\u6db2\u538b\u6cb9\u7f38",r:"\u4e54\u7389\u6587",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-05-26",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-08-31",c:"\u673a\u6ee4\uff1b\u67f4\u6ee4\uff1b\u673a\u6cb9",r:"",m:[]},{d:"2025-11-16",c:"\u540e\u6865\uff1b\u524d\u6865",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u534a\u8f74\u87ba\u4e1d",s:"\u4e2a",u:"6.0",q:0.0},{n:"\u94a2\u677f\u4e2d\u5fc3\u87ba\u4e1d",s:"",u:"1.0",q:0.0},{n:"\u94a2\u677f\u5361\u5b50",s:"",u:"2.0",q:0.0}]},{d:"2025-11-28",c:"\u53d1\u52a8\u673a",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4.\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u6d6e\u52a8\u6cb9\u5c01",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-13",c:"\u4fdd\u517b\u5185\u5bb9",r:"",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u710a\u63a5\u53d1\u52a8\u673a\u652f\u67b6",s:"",u:"\u4e2a",q:0.0},{n:"\u66f4\u6362\u53f3\u524d\u8f6e\u6d6e\u52a8\u6cb9\u5c01",s:"",u:"\u4e2a",q:0.0},{n:"\u66f4\u6362\u5de6\u524d\u8f6e\u8f74\u5934\u87ba\u6bcd",s:"",u:"\u4e2a",q:0.0},{n:"\u66f4\u6362\u55b7\u6cb9\u5634",s:"",u:"\u4e2a",q:4.0}]},{d:"2026-03-14",c:"",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u88c5\u5587\u53ed",s:"",u:"\u4e2a",q:2.0}]},{d:"2026-03-18",c:"",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u67f4\u6cb9\u5927\u6cf5",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-28",c:"\u53d1\u52a8\u673a",r:"",m:[{n:"\u66f4\u6362\u56db\u914d\u5957",s:"",u:"\u4e2a",q:4.0},{n:"\u8fde\u6746",s:"",u:"\u4e2a",q:4.0},{n:"\u5c0f\u74e6",s:"",u:"\u4e2a",q:4.0},{n:"\u8fdb\u6392\u6c14\u95e8",s:"",u:"\u5957",q:1.0},{n:"\u67f4\u6cb9\u6cf5",s:"",u:"\u4e2a",q:1.0},{n:"\u6253\u6c14\u6cf5",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u65b9\u5411\u52a9\u529b\u6cf5",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-04-14",c:"",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u66f4\u6362\u6c34\u6cf5",s:"",u:"\u4e2a",q:0.0},{n:"\u98ce\u6247",s:"",u:"\u4e2a",q:0.0}]},{d:"2026-04-15",c:"",r:"",m:[{n:"\u66f4\u6362\u53f3\u524d\u8f6e\u6d6e\u52a8\u6cb9\u5c01",s:"",u:"",q:0.0}]}]},{n:"\u81ea\u5378\u8f662\u53f7",t:"\u5730\u4e0b\u81ea\u5378\u8f66",b:"2\u53f7",s:"\u5728\u7528",l:"2026-03-18",d:85,a:"green",r:[{d:"2023-06-13",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2023-09-20",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u5347",q:18.0}]},{d:"2023-12-28",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1\uff1b\u6db2\u538b\u6cb9\u7f38",r:"\u4e54\u7389\u6587",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-01-03",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-05-25",c:"\u53d8\u901f\u7bb1\uff1b\u5dee\u901f\u5668\uff1b\u53d1\u52a8\u673a",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-09-02",c:"",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-18",c:"",r:"\u5bab\u6cfd\u6d9b",m:[{n:"\u7ef4\u4fee\u5de6\u524d\u8f6e\u8f74\u627f",s:"",u:"\u4e2a",q:2.0}]}]},{n:"\u81ea\u5378\u8f663\u53f7",t:"\u5730\u4e0b\u81ea\u5378\u8f66",b:"3\u53f7",s:"\u5728\u7528",l:"2026-04-26",d:46,a:"green",r:[{d:"2023-09-20",c:"\u53d1\u52a8\u673a\u9996\u4fdd",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u5347",q:18.0}]},{d:"2024-02-28",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2024-02-28",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1\uff1b\u6db2\u538b\u6cb9\u7f38",r:"\u4e54\u7389\u6587",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-05-27",c:"\u53d1\u52a8\u673a\uff1b\u53d8\u901f\u7bb1",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-09-11",c:"\u53d1\u52a8\u673a",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2025-10-31",c:"\u66f4\u6362\u65b9\u5411\u673a\u6a2a\u62c9\u6746\u5e26\u7403\u5934",r:"\u4f55\u90a6\u6c5f",m:[]},{d:"2025-11-13",c:"\u53d8\u901f\u7bb1",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u9f7f\u8f6e\u6cf5",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-13",c:"\u53d1\u52a8\u673a",r:"",m:[{n:"\u66f4\u6362\u589e\u538b\u5668\u63a5\u53e3\u57ab",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-18",c:"",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u8d77\u52a8\u673a",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-04-26",c:"\u66f4\u6362\u53d1\u52a8\u673a\uff1b\u6c34\u6cf5\uff1b\u55b7\u6cb9\u5634\uff1b\u4fee\u7406\u5305\uff1b\u79bb\u5408\u5668\u56db\u4ef6\u5957\uff1b\u673a\u6cb9\u6cf5\uff1b\u673a\u6cb9\uff1b\u673a\u6ee4\uff1b\u67f4\u6cb9\u6ee4\u82af\uff1b\u6cb9\u6c34\u5206\u79bb\u5668\uff1b\u7cbe\u6ee4",r:"",m:[]},{d:"2026-04-26",c:"\u5347\u964d\u6c14\u63a7\u624b\u67c4\uff1b\u6db2\u538b\u9650\u4f4d\u9600",r:"",m:[]}]},{n:"\u81ea\u5378\u8f664\u53f7",t:"\u5730\u4e0b\u81ea\u5378\u8f66",b:"4\u53f7",s:"\u5728\u7528",l:"2026-04-14",d:58,a:"green",r:[{d:"2023-11-21",c:"\u53d1\u52a8\u673a\u9996\u4fdd",r:"\u5f20\u94f6\u5e86",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u5347",q:18.0}]},{d:"2024-02-28",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1\uff1b\u6db2\u538b\u6cb9\u7f38",r:"\u4e54\u7389\u6587",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-01-03",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-05-25",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2026-04-14",c:"\u66f4\u6362\u6db2\u538b\u6cf5",r:"",m:[]}]},{n:"\u81ea\u5378\u8f665\u53f7",t:"\u5730\u4e0b\u81ea\u5378\u8f66",b:"5\u53f7",s:"\u5728\u7528",l:"2026-04-13",d:59,a:"green",r:[{d:"2023-09-20",c:"\u53d1\u52a8\u673a\u9996\u4fdd",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u9f7f\u8f6e\u6cb9",s:"",u:"\u5347",q:18.0}]},{d:"2023-12-28",c:"\u53d1\u52a8\u673a",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2024-09-27",c:"\u53d1\u52a8\u673a\uff1b\u5dee\u901f\u5668\uff1b\u53d8\u901f\u7bb1\uff1b\u6db2\u538b\u6cb9\u7f38",r:"\u4e54\u7389\u6587",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-05-29",c:"\u53d1\u52a8\u673a\uff1b\u53d8\u901f\u7bb1\uff1b\u5dee\u901f\u5668",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u53d8\u901f\u7bb1\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6865\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2025-11-03",c:"\u53d1\u52a8\u673a\uff1b\u53d8\u901f\u7bb1",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u66f4\u6362\u542f\u52a8\u673a",s:"",u:"\u4e2a",q:1.0},{n:"\u66f4\u6362\u6362\u6321\u62c9\u7ebf",s:"",u:"\u5957",q:1.0}]},{d:"2026-03-14",c:"",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u6cb9\u6cf5\u9f7f\u8f6e\u6cf5",s:"",u:"\u4e2a",q:1.0},{n:"\u55b7\u6cb9\u5634",s:"",u:"\u4e2a",q:4.0}]},{d:"2026-03-28",c:"",r:"",m:[{n:"\u67f4\u6cb9\u6cf5",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u5171\u8f68\u538b\u529b\u4f20\u611f\u5668",s:"",u:"\u4e2a",q:1.0},{n:"\u538b\u529b\u9600",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-04-13",c:"",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u5171\u8f68\u7ba1",s:"",u:"\u4e2a",q:1.0}]}]},{n:"\u81ea\u5378\u8f666\u53f7",t:"\u81ea\u5378\u8f666\u53f7",b:"YCD4J33T6-130",s:"\u5728\u7528",l:"2026-03-12",d:91,a:"yellow",r:[{d:"2025-04-28",c:"\u53d1\u52a8\u673a\n570\uff0838\uff09",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"JX0813",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"YCX-6591A",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"C1-4",u:"\u6876",q:1.0}]},{d:"2025-07-25",c:"\u53d1\u52a8\u673a\n570\uff0838\uff09",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6cb9",s:"",u:"",q:0.0},{n:"\u673a\u6ee4",s:"",u:"",q:0.0},{n:"\u67f4\u6ee4",s:"",u:"",q:0.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"",q:0.0}]},{d:"2025-08-31",c:"",r:"",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-11-03",c:"\u53d8\u901f\u7bb1",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u542f\u52a8\u673a",s:"",u:"\u4e2a",q:1.0},{n:"\u66f4\u6362\u79bb\u5408\u5668\u4e09\u4ef6\u5957",s:"",u:"\u5957",q:1.0},{n:"\u66f4\u6362\u79bb\u5408\u5668\u603b\u6cf5",s:"",u:"\u4e2a",q:1.0},{n:"\u66f4\u6362\u79bb\u5408\u5668\u5206\u6cf5",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-11-14",c:"\u524d\u6865",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u53f3\u524d\u8f6e\u5185\u5916\u8f74\u627f",s:"",u:"\u5957",q:1.0}]},{d:"2025-11-28",c:"\u53d1\u52a8\u673a",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u66f4\u6362\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4.\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-10",c:"\u53d1\u52a8\u673a",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6cb9",s:"",u:"",q:0.0},{n:"\u673a\u6ee4",s:"",u:"",q:0.0},{n:"\u7a7a\u6ee4",s:"",u:"",q:0.0}]},{d:"2026-03-12",c:"\u53d1\u52a8\u673a",r:"",m:[{n:"\u66f4\u6362\u55b7\u6cb9\u5634",s:"",u:"",q:0.0}]}]},{n:"\u81ea\u5378\u8f667\u53f7",t:"\u81ea\u5378\u8f667\u53f7",b:"YCD4J33T6-130",s:"\u5728\u7528",l:"2026-04-14",d:58,a:"green",r:[{d:"2025-04-03",c:"\u9996\u4fdd575\uff1b\u4e8c\u4fdd1089",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6ee4",s:"YJX-6555",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"C1-4",u:"\u6876",q:1.0},{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6ee4",s:"YJX-6555",u:"\u4e2a",q:1.0}]},{d:"2025-05-13",c:"",r:"",m:[{n:"\u67f4\u6ee4",s:"YJX-6555",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"C1-4",u:"\u6876",q:1.0}]},{d:"2025-09-08",c:"",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-11-13",c:"\u4fdd\u517b",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"YJX-6555",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"YJX-6555",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2026-03-10",c:"\u4fdd\u517b",r:"\u9f9a\u6cfd\u6d9b",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:0.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:0.0},{n:"\u7a7a\u6ee4",s:"",u:"\u4e2a",q:0.0}]},{d:"202.4.13",c:"\u540e\u6865\u51cf\u901f\u5668\u603b\u6210\u4e00\u4e2a\uff1b\u534a\u8f74\u4e00\u6839\uff1b\u9f7f\u8f6e\u6cb9\uff1b\u6392\u6c14\u7ba1\u4e00\u6839",r:"",m:[]},{d:"2026-04-14",c:"\u79bb\u5408\u5668\u538b\u76d8\u4e00\u4e2a\uff1b\u5206\u79bb\u8f74\u627f\u4e00\u4e2a",r:"\u9f9a\u6cfd\u6d9b",m:[]}]},{n:"8\u53f7\u56db\u4e0d\u50cf",t:"8\u53f7\u56db\u4e0d\u50cf",b:"YCD4T22-110",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"9\u53f7\u56db\u4e0d\u50cf",t:"9\u53f7\u56db\u4e0d\u50cf",b:"YCD4T22-110",s:"\u5728\u7528",l:"2026-04-13",d:59,a:"green",r:[{d:"2026-04-13",c:"\u66f4\u6362\u5de6\u540e\u4ed8\u94a2\u677f",r:"",m:[]}]},{n:"10\u53f7\u56db\u4e0d\u50cf",t:"10\u53f7\u56db\u4e0d\u50cf",b:"",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"11\u53f7\u56db\u4e0d\u50cf",t:"11\u53f7\u56db\u4e0d\u50cf",b:"",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u53f0\u8f66291\uff081\uff09",t:"\u51ff\u5ca9\u673a",b:"291.0",s:"\u5728\u7528",l:"2026-03-11",d:92,a:"yellow",r:[{d:"2023-07-12",c:"\u53d1\u52a8\u673a80\u5c0f\u65f6",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2023-09-01",c:"\u7535\u673a868\u5c0f\u65f6\u53d1\u52a8\u673a138\u5c0f\u65f6",r:"",m:[]},{d:"2023-12-08",c:"\u53d1\u52a8\u673a297\u5c0f\u65f6\uff1b\u7535\u673a1718\u5c0f\u65f6\uff1b\u51ff\u5ca9\u673a1083\u5c0f\u65f6",r:"",m:[{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u56de\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0}]},{d:"2024-09-07",c:"\u51ff\u5ca9\u673a1616\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u56de\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u8fdb\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-01-03",c:"\u53d1\u52a8\u673a\u5c0f\u65f6",r:"\u848b\u80dc\u8d22",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u7a7a\u538b\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u7a7a\u538b\u673a\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u8f6e\u8fb9\u6865\u6cb9",s:"",u:"\u6876",q:2.0}]},{d:"2025-10-28",c:"\u53d1\u52a8\u673a",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u8f6e\u8fb9\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u524d\u540e\u6865\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u56de\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u7a7a\u538b\u673a\u6cb9",s:"",u:"\u6876",q:1.0}]},{d:"2026-03-11",c:"\u53d1\u52a8\u673a",r:"",m:[{n:"\u53d1\u52a8\u673a\u6ee4\u82af",s:"",u:"",q:0.0},{n:"\u7a7a\u538b\u673a\u6ee4\u82af",s:"",u:"",q:0.0}]}]},{n:"K41\uff082\uff09",t:"K41\uff082\uff09",b:"YCF3075-T480",s:"\u5728\u7528",l:"2026-04-18",d:54,a:"green",r:[{d:"2023-09-22",c:"\u53d1\u52a8\u673a90\u5c0f\u65f6",r:"\u963f\u7279\u62c9\u65af",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:3.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"\u4e2a",q:1.0}]},{d:"2023-11-01",c:"\u53d1\u52a8\u673a111\u5c0f\u65f6",r:"",m:[]},{d:"2023-11-29",c:"\u53d1\u52a8\u673a156\u5c0f\u65f6",r:"",m:[]},{d:"2024-09-08",c:"\u53d1\u52a8\u673a378\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:3.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"\u4e2a",q:1.0}]},{d:"2024-09-08",c:"\u51ff\u5ca9\u673a432\u5c0f\u65f6",r:"\u4e54\u7389\u6587",m:[{n:"\u6db2\u538b\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u6db2\u538b\u56de\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u6db2\u538b\u8fdb\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0}]}]},{n:"291(3\u53f7\uff09",t:"\u53f0\u8f66291\uff083\u53f7\uff09",b:"3.0",s:"\u5728\u7528",l:"2026-04-16",d:56,a:"green",r:[{d:"2025-07-24",c:"\u53d1\u52a8\u673a\uff08146\uff09\uff1b\u51ff\u5ca9\u673a355\u5c0f\u65f6",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u6cb9\u6c34\u5206\u79bb\u5668",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2025-08-15",c:"\u51ff\u5ca9\u673a500\u5c0f\u65f6",r:"\u6398\u8fdb\u961f",m:[{n:"\u673a\u6cb9",s:"",u:"\u6876",q:1.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-20",c:"",r:"",m:[{n:"\u66f4\u6362\u6c34\u6cf5\u7535\u78c1\u5f00\u5173",s:"",u:"\u4e2a",q:1.0},{n:"\u66f4\u6362\u7535\u74f6",s:"",u:"\u4e2a",q:2.0}]},{d:"2026-04-04",c:"",r:"",m:[{n:"\u66f4\u6362\u6db2\u538b\u6cb9\u6ee4\u82af",s:"",u:"\u4e2a",q:1.0},{n:"\u66f4\u6362\u4e0d\u5e73\u884c\u6309\u94ae",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-04-16",c:"",r:"",m:[{n:"\u6362\u7275\u5f15\u8f6e",s:"",u:"\u4e2a",q:1.0},{n:"\u8f74\u627f",s:"",u:"\u4e2a",q:2.0},{n:"\u8f74",s:"",u:"\u4e2a",q:1.0}]}]},{n:"5\u53f7\u53f0\u8f66",t:"5\u53f7\u53f0\u8f66",b:"YCF3090-T482",s:"\u5728\u7528",l:"2026-06-09",d:2,a:"green",r:[{d:"2025-10-28",c:"\u53d1\u52a8\u673a",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u6876",q:2.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-11",c:"\u53d1\u52a8\u673a",r:"",m:[{n:"\u66f4\u6362\u7a7a\u6ee4",s:"",u:"",q:0.0},{n:"\u7a7a\u538b\u673a\u6ee4\u82af",s:"",u:"",q:0.0},{n:"\u68c0\u67e5\u84c4\u80fd\u5668\u538b\u529b",s:"",u:"",q:0.0},{n:"\u52a0\u9632\u51bb\u6db2",s:"",u:"",q:0.0}]},{d:"2026-04-16",c:"",r:"",m:[{n:"\u51ff\u5ca9\u673a\u4fdd\u517b",s:"",u:"",q:0.0}]},{d:"2026-04-18",c:"",r:"",m:[{n:"\u6362\u524d\u7aef\u94dc\u5957",s:"",u:"\u4e2a",q:1.0},{n:"\u6c34\u5c01",s:"",u:"\u4e2a",q:1.0},{n:"\u7ea4\u7ef4",s:"",u:"\u6839",q:1.0}]},{d:"2026-06-09",c:"\u53d1\u52a8\u673a\u5de5\u4f5c280\u5c0f\u65f6",r:"\u5f90\u9f99\u6bc5\n\u5d14\u94c1\u9524",m:[{n:"\u6e05\u7406\u7535\u673a\u7070\u5c18",s:"",u:"",q:0.0},{n:"\u66f4\u6362\u53d1\u52a8\u673a\u673a\u6cb9",s:"",u:"\u6876",q:2.0}]}]},{n:"CAT303",t:"CAT303",b:"64-4413",s:"\u5728\u7528",l:"2026-03-13",d:90,a:"green",r:[{d:"2025-05-13",c:"\u53d1\u52a8\u673a450",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u5347",q:4.0}]},{d:"2025-06-06",c:"\u66f4\u6362\u884c\u8d70\u6cb9",r:"",m:[]},{d:"2025-08-16",c:"\u53d1\u52a8\u673a450",r:"",m:[{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u673a\u6cb9",s:"",u:"\u5347",q:4.0}]},{d:"2026-03-13",c:"\u4fdd\u517b\u5185\u5bb9",r:"",m:[{n:"\u673a\u6cb9",s:"",u:"",q:0.0},{n:"\u673a\u6ee4",s:"",u:"",q:0.0},{n:"\u7a7a\u6ee4",s:"",u:"",q:0.0}]}]},{n:"CAT307",t:"CAT307",b:"C2.4-M-DI-T-CF03b",s:"\u5728\u7528",l:"2026-03-12",d:91,a:"yellow",r:[{d:"2025-10-31",c:"\u53d1\u52a8\u673a\n530",r:"\u4f55\u90a6\u6c5f",m:[{n:"\u673a\u6cb9",s:"",u:"\u5347",q:9.0},{n:"\u673a\u6ee4",s:"",u:"\u4e2a",q:1.0},{n:"\u67f4\u6ee4",s:"",u:"\u4e2a",q:1.0}]},{d:"2026-03-12",c:"\u4fdd\u517b\u5185\u5bb9",r:"",m:[{n:"\u673a\u6cb9",s:"",u:"",q:0.0},{n:"\u673a\u6ee4",s:"",u:"",q:0.0},{n:"\u7a7a\u6ee4",s:"",u:"",q:0.0}]}]},{n:"CAT307 (2)",t:"CAT307 (2)",b:"C2.4-M-DI-T-CF03b",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u64ac\u6bdb\u53f0\u8f66",t:"\u64ac\u6bdb\u53f0\u8f66",b:"",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u8fd0\u4eba\u8f661#",t:"\u8fd0\u4eba\u8f661#",b:"",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u8fd0\u4eba\u8f664#",t:"\u8fd0\u4eba\u8f664#",b:"",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u53c9\u8f661\u53f7",t:"\u53c9\u8f661\u53f7",b:"1.0",s:"\u5728\u7528",l:null,d:None,a:"gray",r:[]},{n:"\u53c9\u8f662\u53f7",t:"\u53c9\u8f662\u53f7",b:"93436169.0",s:"\u5728\u7528",l:"2025-07-27",d:319,a:"red",r:[]}];
-
   if(!localStorage.getItem('db_vehicles')){
-    var vs=VC.map(function(v,i){return {id:i+1,name:v.n,type:v.t,number:v.b||'',status:v.s||'在用',lastMaintenance:v.l,daysSince:v.d,alertLevel:v.a,maintenanceRecords:v.r||[]}});
-    save('vehicles',vs);_idSeq.vehicles=vs.length+1;
+    var vs=VC.map(function(v,i){return {id:i+1,name:v.n,type:v.t,number:v.b||'',status:v.s||'在用',lastMaintenance:v.l,daysSince:v.d,alertLevel:v.a,maintenanceRecords:v.r||[]};});
+    save('vehicles',vs);
+    _idSeq.vehicles=vs.length+1;
   }
-  // placeholder_removed  if(!localStorage.getItem('db_equipment')){
+  if(!localStorage.getItem('db_equipment')){
     save('equipment',[
-      {id:1,name:'挖掘机',equip_type:'采掘设备',sop_summary:'启动前鸣笛示警，铲斗/臂杆/履带上严禁站人',status:'正常'},
-      {id:2,name:'凿岩台车',equip_type:'采掘设备',sop_summary:'作业前检查钻臂/钻杆/管路/电气/制动/防护',status:'正常'},
-      {id:3,name:'铲运机',equip_type:'采掘设备',sop_summary:'启动前检查轮胎/制动/转向/铲斗/液压/灯光',status:'正常'},
+      {id:1,name:'挖掘机',equip_type:'采掘设备',sop_summary:'启动前鸣笛示警，铲斗臂杆履带上严禁站人',status:'正常'},
+      {id:2,name:'凿岩台车',equip_type:'采掘设备',sop_summary:'作业前检查钻臂钻杆管路电气制动防护',status:'正常'},
+      {id:3,name:'铲运机',equip_type:'采掘设备',sop_summary:'启动前检查轮胎制动转向铲斗液压灯光',status:'正常'},
       {id:4,name:'无轨胶轮运输矿车',equip_type:'运输设备',sop_summary:'严格按核定载重量，严禁超载偏载，不得人货混装',status:'正常'},
       {id:5,name:'无轨胶轮运输人车',equip_type:'运输设备',sop_summary:'严格核定载客人数严禁超员，入井必须佩戴安全带',status:'正常'},
       {id:6,name:'撬毛台车',equip_type:'支护设备',sop_summary:'由外向内由上向下逐块清理浮石，撬毛时下方严禁站人',status:'正常'},
       {id:7,name:'探矿钻机',equip_type:'勘探设备',sop_summary:'钻机稳固放置工作平台平整坚实，操作人员持证上岗',status:'正常'},
-      {id:8,name:'空压机',equip_type:'动力设备',sop_summary:'每2小时检查电压/电流/温度/压力，储气罐定期排水',status:'正常'},
+      {id:8,name:'空压机',equip_type:'动力设备',sop_summary:'每2小时检查电压电流温度压力，储气罐定期排水',status:'正常'},
       {id:9,name:'通风机',equip_type:'通风设备',sop_summary:'主通风机连续运转不得随意停机，备用风机保持完好',status:'正常'},
-      {id:10,name:'水泵',equip_type:'排水设备',sop_summary:'运行中监测水位/流量/电机温度，水仓定期清淤',status:'正常'},
+      {id:10,name:'水泵',equip_type:'排水设备',sop_summary:'运行中监测水位流量电机温度，水仓定期清淤',status:'正常'},
       {id:11,name:'电焊机',equip_type:'维修设备',sop_summary:'持证上岗作业不少于两人，动火作业必须办理审批',status:'正常'},
-      {id:12,name:'配电柜/变压器',equip_type:'电气设备',sop_summary:'配电室地面铺绝缘胶垫，严禁非电气人员操作',status:'正常'},
-      {id:13,name:'钢筋调直机',equip_type:'加工设备',sop_summary:'开机前检查防护罩/接地/刀片，钢筋调直时两侧禁站人',status:'正常'},
+      {id:12,name:'配电柜变压器',equip_type:'电气设备',sop_summary:'配电室地面铺绝缘胶垫，严禁非电气人员操作',status:'正常'},
+      {id:13,name:'钢筋调直机',equip_type:'加工设备',sop_summary:'开机前检查防护罩接地刀片，钢筋调直时两侧禁站人',status:'正常'},
       {id:14,name:'钢筋切断机',equip_type:'加工设备',sop_summary:'禁止超规格切断，断料时手离刀口不少于15cm',status:'正常'},
       {id:15,name:'钢筋弯曲机',equip_type:'加工设备',sop_summary:'弯曲钢筋时禁站弯曲方向，更换模具必须断电',status:'正常'},
       {id:16,name:'混凝土搅拌机',equip_type:'施工设备',sop_summary:'运转中禁手入搅拌筒，清理料斗时必须停机断电',status:'正常'},
       {id:17,name:'混凝土泵机',equip_type:'施工设备',sop_summary:'泵送中严禁拆接管路，堵管时先泄压后处理',status:'正常'}
-    ]);_idSeq.equipment=18;
+    ]);
+    _idSeq.equipment=18;
   }
   if(!localStorage.getItem('db_responsibilities')){
-    save('responsibilities','主要负责人,安全经理,生产经理,安全员,采矿技术员,地质技术员,测量技术员,机电技术员,焊工,空压工,维修工,通风工,排水工,电工,凿岩工,支柱工,安全检查工,铲运机司机,挖掘机司机,运输车司机,撬毛台车司机,探矿钻工,辅助工,仓库管理员,采购员,保洁员,食堂厨师,爆破员'.split(',').map((n,i)=>({id:i+1,position_name:n,responsibility_list:n+'安全生产责任',assessment_cycle:'月度'})));
-    _idSeq.responsibilities=28;
+    var posList='主要负责人,安全经理,生产经理,安全员,采矿技术员,地质技术员,测量技术员,机电技术员,焊工,空压工,维修工,通风工,排水工,电工,凿岩工,支柱工,安全检查工,铲运机司机,挖掘机司机,运输车司机,撬毛台车司机,探矿钻工,辅助工,仓库管理员,采购员,保洁员,食堂厨师,爆破员'.split(',');
+    save('responsibilities',posList.map(function(n,i){return {id:i+1,position_name:n,responsibility_list:n+'安全生产责任',assessment_cycle:'月度'};}));
+    _idSeq.responsibilities=posList.length+1;
   }
   if(!localStorage.getItem('db_regulations')){
-    save('regulations',SEED_REGS);_idSeq.regulations=SEED_REGS.length+1;
+    save('regulations',SEED_REGS);
+    _idSeq.regulations=SEED_REGS.length+1;
   }
   if(!localStorage.getItem('db_hazard_sources')){
     save('hazard_sources',[
@@ -207,227 +279,522 @@ const VC=[{n:"\u7a7a\u538b\u673a1\u53f7",t:"\u7a7a\u538b\u673a",b:"1\u53f7",s:"\
   }
 }
 
-// ===== 全部86部法规库 =====
-const SEED_REGS=[
-{id:1,code:'安法2021',name:'中华人民共和国安全生产法（2021修订版）',category:'🏛️ 法律'},
-{id:2,code:'矿山法2009',name:'中华人民共和国矿山安全法（2009修订）',category:'🏛️ 法律'},
-{id:3,code:'突发事件应对法',name:'中华人民共和国突发事件应对法',category:'🏛️ 法律'},
-{id:4,code:'矿产资源法2009',name:'中华人民共和国矿产资源法（2009修正）',category:'🏛️ 法律'},
-{id:5,code:'建筑法2019',name:'中华人民共和国建筑法（2019修正）',category:'🏛️ 法律'},
-{id:6,code:'环境保护法2014',name:'中华人民共和国环境保护法（2014修订版）',category:'🏛️ 法律'},
-{id:7,code:'职业病防治法2018',name:'中华人民共和国职业病防治法（2018修订）',category:'🏛️ 法律'},
-{id:8,code:'GB16423-2020',name:'金属非金属矿山安全规程',category:'📐 国家标准'},
-{id:9,code:'GB6722-2014',name:'爆破安全规程',category:'📐 国家标准'},
-{id:10,code:'GB14161-2008',name:'矿山安全标志',category:'📐 国家标准'},
-{id:11,code:'GB/T11651-2008',name:'个体防护装备选用规范',category:'📐 国家标准'},
-{id:12,code:'GB50653-2011',name:'有色金属矿山井巷工程施工规范',category:'📐 国家标准'},
-{id:13,code:'GB51036-2014',name:'有色金属矿山井巷工程质量验收规范',category:'📐 国家标准'},
-{id:14,code:'GB50086-2015',name:'岩土锚杆与喷射混凝土支护工程技术规范',category:'📐 国家标准'},
-{id:15,code:'GB50300-2013',name:'建筑工程施工质量验收统一标准',category:'📐 国家标准'},
-{id:16,code:'GB/T50328-2014',name:'建设工程文件归档规范',category:'📐 国家标准'},
-{id:17,code:'AQ2031-2011',name:'金属非金属地下矿山通风技术规范',category:'📋 行业标准'},
-{id:18,code:'AQ2061-2018',name:'金属非金属地下矿山防治水技术规范',category:'📋 行业标准'},
-{id:19,code:'AQ2026-2010',name:'金属非金属矿山提升系统安全技术规范',category:'📋 行业标准'},
-{id:20,code:'AQ2013.1~5',name:'金属非金属地下矿山五大系统规范',category:'📋 行业标准'},
-{id:21,code:'AQ2004-2005',name:'金属非金属地下矿山安全技术规程',category:'📋 行业标准'},
-{id:22,code:'AQ2041-2012',name:'金属非金属矿山排土场安全生产规则',category:'📋 行业标准'},
-{id:23,code:'AQ/T2050-2016',name:'金属非金属地下矿山紧急避险系统建设规范',category:'📋 行业标准'},
-{id:24,code:'安监总局令75号',name:'金属非金属非煤矿山重大隐患判定标准',category:'⚖️ 部门规章'},
-{id:25,code:'安监总局令67号',name:'安全设施设计审查与竣工验收办法',category:'⚖️ 部门规章'},
-{id:26,code:'安监总局令39号',name:'领导带班下井及监督检查暂行规定',category:'⚖️ 部门规章'},
-{id:27,code:'安监总局令20号',name:'金属非金属矿山安全标准化规范',category:'⚖️ 部门规章'},
-{id:28,code:'公司制度_01',name:'安全生产责任制度',category:'🏢 企业制度'},
-{id:29,code:'公司制度_02',name:'安全生产管理制度',category:'🏢 企业制度'},
-{id:30,code:'公司制度_03',name:'安全教育培训制度',category:'🏢 企业制度'},
-{id:31,code:'公司制度_04',name:'劳动防护用品配备和管理制度',category:'🏢 企业制度'},
-{id:32,code:'公司制度_05',name:'隐患排查治理制度',category:'🏢 企业制度'},
-{id:33,code:'公司制度_06',name:'安全检查制度',category:'🏢 企业制度'},
-{id:34,code:'公司制度_07',name:'安全生产事故报告和调查处理制度',category:'🏢 企业制度'},
-{id:35,code:'公司制度_08',name:'安全生产责任制考核奖惩责任追究制度',category:'🏢 企业制度'},
-{id:36,code:'公司制度_09',name:'安全设施设备管理制度',category:'🏢 企业制度'},
-{id:37,code:'公司制度_10',name:'安全生产档案管理制度',category:'🏢 企业制度'},
-{id:38,code:'公司制度_11',name:'安全标志管理制度',category:'🏢 企业制度'},
-{id:39,code:'公司制度_12',name:'交接班制度',category:'🏢 企业制度'},
-{id:40,code:'公司制度_13',name:'重大危险源检测监控管理制度',category:'🏢 企业制度'},
-{id:41,code:'公司制度_14',name:'安全用电制度',category:'🏢 企业制度'},
-{id:42,code:'公司制度_15',name:'特种作业人员管理制度',category:'🏢 企业制度'},
-{id:43,code:'公司制度_16',name:'职业安全健康管理制度',category:'🏢 企业制度'},
-{id:44,code:'公司制度_17',name:'消防安全管理制度',category:'🏢 企业制度'},
-{id:45,code:'公司制度_18',name:'地面、井下防火制度',category:'🏢 企业制度'},
-{id:46,code:'公司制度_19',name:'动火审批制度',category:'🏢 企业制度'},
-{id:47,code:'公司制度_20',name:'易燃易爆危险品安全管理制度',category:'🏢 企业制度'},
-{id:48,code:'公司制度_21',name:'爆炸物品的安全管理制度',category:'🏢 企业制度'},
-{id:49,code:'公司制度_22',name:'爆破审批制度',category:'🏢 企业制度'},
-{id:50,code:'公司制度_23',name:'溜井管理制度',category:'🏢 企业制度'},
-{id:51,code:'公司制度_24',name:'排水管理制度',category:'🏢 企业制度'},
-{id:52,code:'公司制度_25',name:'通风管理制度',category:'🏢 企业制度'},
-{id:53,code:'公司制度_26',name:'敲帮问顶制度',category:'🏢 企业制度'},
-{id:54,code:'公司制度_27',name:'采掘作业面支护管理制度',category:'🏢 企业制度'},
-{id:55,code:'公司制度_28',name:'运输管理制度',category:'🏢 企业制度'},
-{id:56,code:'公司制度_29',name:'提升系统管理制度',category:'🏢 企业制度'},
-{id:57,code:'公司制度_30',name:'井下爆破管理制度',category:'🏢 企业制度'},
-{id:58,code:'公司制度_31',name:'安全技术措施审批制度',category:'🏢 企业制度'},
-{id:59,code:'公司制度_32',name:'安全会议制度',category:'🏢 企业制度'},
-{id:60,code:'公司制度_33',name:'安全费用提取和使用管理制度',category:'🏢 企业制度'},
-{id:61,code:'公司制度_34',name:'应急管理制度',category:'🏢 企业制度'},
-{id:62,code:'公司制度_35',name:'事故预防及应急救援制度',category:'🏢 企业制度'},
-{id:63,code:'公司制度_36',name:'领导值班带班制度',category:'🏢 企业制度'},
-{id:64,code:'公司制度_37',name:'安全风险分级管控和隐患排查治理双重预防机制',category:'🏢 企业制度'},
-{id:65,code:'公司制度_38',name:'外包工程安全管理制度',category:'🏢 企业制度'},
-{id:66,code:'公司制度_39',name:'安全生产承诺制度',category:'🏢 企业制度'},
-{id:67,code:'公司制度_40',name:'安全生产一票否决制度',category:'🏢 企业制度'},
-{id:68,code:'公司制度_41',name:'爆破物品发放清退制度',category:'🏢 企业制度'},
-{id:69,code:'公司制度_42',name:'作业区域安全风险告知制度',category:'🏢 企业制度'},
-{id:70,code:'公司制度_43',name:'事故隐患整改验收销号制度',category:'🏢 企业制度'},
-{id:71,code:'公司制度_44',name:'劳动纪律管理制度',category:'🏢 企业制度'},
-{id:72,code:'公司制度_45',name:'职业病危害防治责任制度',category:'🏢 企业制度'},
-{id:73,code:'公司制度_46',name:'职业病危害警示与告知制度',category:'🏢 企业制度'},
-{id:74,code:'公司制度_47',name:'职业病危害项目申报制度',category:'🏢 企业制度'},
-{id:75,code:'公司制度_48',name:'职业病防护设施维护检修制度',category:'🏢 企业制度'},
-{id:76,code:'公司制度_49',name:'职业健康监护及其档案管理制度',category:'🏢 企业制度'},
-{id:77,code:'公司制度_50',name:'职业病危害事故处置与报告制度',category:'🏢 企业制度'},
-{id:78,code:'设备规程_01',name:'挖掘机安全操作规程',category:'🏢 企业制度'},
-{id:79,code:'设备规程_02',name:'凿岩台车安全操作规程',category:'🏢 企业制度'},
-{id:80,code:'设备规程_03',name:'铲运机安全操作规程',category:'🏢 企业制度'},
-{id:81,code:'设备规程_04',name:'空压机安全操作规程',category:'🏢 企业制度'},
-{id:82,code:'设备规程_05',name:'通风机安全操作规程',category:'🏢 企业制度'},
-{id:83,code:'设备规程_06',name:'电焊机安全操作规程',category:'🏢 企业制度'},
-{id:84,code:'设备规程_07',name:'撬毛台车安全操作规程',category:'🏢 企业制度'},
-{id:85,code:'设备规程_08',name:'运输车辆安全操作规程',category:'🏢 企业制度'},
-{id:86,code:'设备规程_09',name:'配电柜/变压器操作安全规程',category:'🏢 企业制度'}
-];
+/* ===== TOAST / MODAL ===== */
+function toast(msg,t){if(typeof t!=='number'){t=2500;}var el=$('toast');el.textContent=msg;el.style.display='block';setTimeout(function(){el.style.display='none';},t);}
+function showModal(html){$('modalBox').innerHTML=html;$('modal').classList.remove('hidden');}
+function closeModal(){$('modal').classList.add('hidden');}
+$('modal').addEventListener('click',function(e){if(e.target===$('modal')){closeModal();}});
 
-// ===== Toast/Modal =====
-function toast(m,t=2500){const e=$('toast');e.textContent=m;e.style.display='block';setTimeout(()=>e.style.display='none',t)}
-function showModal(h){$('modalBox').innerHTML=h;$('modal').classList.remove('hidden')}
-function closeModal(){$('modal').classList.add('hidden')}
-$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
-
-// ===== Auth =====
+/* ===== AUTH ===== */
 async function doLogin(){
-  const u=$('loginUser').value.trim(),p=$('loginPass').value.trim();
-  if(!u||!p)return toast('请输入用户名和密码');
+  var u=$('loginUser').value.trim(),p=$('loginPass').value.trim();
+  if(!u||!p){return toast('请输入用户名和密码');}
   initDB();
-  const users=db('users'),user=users.find(x=>x.username===u);
-  if(!user)return toast('用户不存在');
-  if(user.status==='disabled')return toast('账号已禁用');
-  if(user.password!==p)return toast('密码错误');
+  var users=db('users');
+  var user=users.find(function(x){return x.username===u;});
+  if(!user){return toast('用户不存在');}
+  if(user.status==='disabled'){return toast('账号已禁用');}
+  if(user.password!==p){return toast('密码错误');}
   CUSER=user;
-  if($('rememberMe').checked)localStorage.setItem('_savedUser',u);
-  $('loginPage').classList.add('hidden');$('appPage').classList.remove('hidden');
-  $('userName').textContent='👤 '+user.name;
+  if($('rememberUser').checked){localStorage.setItem('_savedUser',u);}
+  $('loginPage').classList.add('hidden');
+  $('appPage').classList.remove('hidden');
+  $('userName').textContent='&#128100; '+user.name;
   $('adminBtn').classList.remove('hidden');
   initNav();
-  setTimeout(()=>{try{pullAndMerge().then(()=>navTo('dashboard'))}catch(e){navTo('dashboard')}},300);
+  setTimeout(function(){
+    try{pullAndMerge().then(function(){navTo('dashboard');});}catch(e){navTo('dashboard');}
+  },300);
 }
-function doLogout(){CUSER=null;$('loginPage').classList.remove('hidden');$('appPage').classList.add('hidden')}
-function showPwd(){showModal(`<h2>🔑 修改密码</h2><form onsubmit="submitPwd(event)"><label>原密码</label><input type="password" name="old" required><label>新密码</label><input type="password" name="new" required minlength="6"><label>确认</label><input type="password" name="confirm" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">修改</button></div></form>`)}
-async function submitPwd(e){e.preventDefault();const fd=new FormData(e.target);if(fd.get('old')!==CUSER.password)return toast('原密码错误');if(fd.get('new')!==fd.get('confirm'))return toast('两次不一致');updateRow('users',CUSER.id,{password:fd.get('new')});CUSER.password=fd.get('new');closeModal();toast('已修改')}
+function doLogout(){CUSER=null;$('loginPage').classList.remove('hidden');$('appPage').classList.add('hidden');}
+function showPwd(){
+  showModal('<h2>&#128273; 修改密码</h2><form onsubmit="submitPwd(event)"><label>原密码</label><input type="password" name="old" required><label>新密码</label><input type="password" name="new" required minlength="6"><label>确认</label><input type="password" name="confirm" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">修改</button></div></form>');
+}
+async function submitPwd(e){
+  e.preventDefault();
+  var fd=new FormData(e.target);
+  if(fd.get('old')!==CUSER.password){return toast('原密码错误');}
+  if(fd.get('new')!==fd.get('confirm')){return toast('两次不一致');}
+  updateRow('users',CUSER.id,{password:fd.get('new')});
+  CUSER.password=fd.get('new');
+  closeModal();
+  toast('已修改');
+}
 
-// ===== Admin（超级管理员：增删用户） =====
+/* ===== ADMIN (Super Admin: Add/Delete Users) ===== */
 async function showAdmin(){
-  if(!CUSER||CUSER.role!=='super_admin')return toast('仅超级管理员');
-  const users=db('users');
-  let r=users.map(u=>`<tr><td>${u.username}</td><td>${u.name}</td><td>${u.role}</td><td>${u.status}</td><td>${u.username!=='admin'?`<button class="btn bxs bd" onclick="delUser(${u.id})">🗑️</button><button class="btn bxs" onclick="toggleUser(${u.id})">${u.status==='active'?'禁用':'启用'}</button>`:'—'}</td></tr>`).join('');
-  showModal(`<h2>👥 用户管理</h2><div style="overflow-x:auto"><table><thead><tr><th>用户名</th><th>姓名</th><th>角色</th><th>状态</th><th>操作</th></tr></thead><tbody>${r}</tbody></table></div><hr style="border-color:rgba(255,255,255,.1);margin:12px 0"><h3 style="color:var(--orange)">➕ 添加用户</h3><form onsubmit="addUser(event)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>用户名*</label><input type="text" name="username" required></div><div><label>姓名*</label><input type="text" name="name" required></div><div><label>密码*</label><input type="password" name="password" required></div><div><label>角色</label><select name="role"><option value="user">普通用户</option><option value="admin">管理员</option><option value="super_admin">超级管理员</option></select></div></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">关闭</button><button type="submit" class="btn bp">添加</button></div></form>`);
+  if(!CUSER||CUSER.role!=='super_admin'){return toast('仅超级管理员');}
+  var users=db('users');
+  var rows=users.map(function(u){
+    return '<tr><td>'+u.username+'</td><td>'+u.name+'</td><td>'+u.role+'</td><td>'+u.status+'</td><td>'+(u.username!=='admin'?'<button class="btn bxs bd" onclick="delUser('+u.id+')">删除</button><button class="btn bxs" onclick="toggleUser('+u.id+')">'+(u.status==='active'?'禁用':'启用')+'</button>':'—')+'</td></tr>';
+  }).join('');
+  showModal('<h2>&#128101; 用户管理</h2><div style="overflow-x:auto"><table><thead><tr><th>用户名</th><th>姓名</th><th>角色</th><th>状态</th><th>操作</th></tr></thead><tbody>'+rows+'</tbody></table></div><hr style="border-color:rgba(255,255,255,.1);margin:12px 0"><h3 style="color:var(--orange)">添加用户</h3><form onsubmit="addUser(event)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>用户名*</label><input type="text" name="username" required></div><div><label>姓名*</label><input type="text" name="name" required></div><div><label>密码*</label><input type="password" name="password" required></div><div><label>角色</label><select name="role"><option value="user">普通用户</option><option value="admin">管理员</option><option value="super_admin">超级管理员</option></select></div></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">关闭</button><button type="submit" class="btn bp">添加</button></div></form>');
 }
-async function addUser(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const ex=db('users').find(x=>x.username===d.username);if(ex)return toast('用户名已存在');addRow('users',{...d,status:'active'});closeModal();toast('✅ 用户 '+d.username+' 已添加')}
-async function delUser(id){if(!confirm('确定删除？'))return;delRow('users',id);closeModal();toast('已删除')}
-async function toggleUser(id){const u=findRow('users',id);updateRow('users',id,{status:u.status==='active'?'disabled':'active'});closeModal();toast('状态已更新')}
+async function addUser(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  var ex=db('users').find(function(x){return x.username===d.username;});
+  if(ex){return toast('用户名已存在');}
+  addRow('users',Object.assign({},d,{status:'active'}));
+  closeModal();
+  toast('OK: '+d.username);
+}
+async function delUser(id){
+  if(!confirm('确定删除？')){return;}
+  delRow('users',id);
+  closeModal();
+  toast('已删除');
+}
+async function toggleUser(id){
+  var u=findRow('users',id);
+  updateRow('users',id,{status:u.status==='active'?'disabled':'active'});
+  closeModal();
+  toast('状态已更新');
+}
 
-// ===== Nav =====
+/* ===== NAV ===== */
 function initNav(){
-  document.querySelectorAll('#navBar button').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('#navBar button').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');_curPage=b.dataset.page;navTo(b.dataset.page);
-  }));
+  document.querySelectorAll('#navBar button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#navBar button').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      _curPage=b.dataset.page;
+      navTo(b.dataset.page);
+    });
+  });
 }
-async function navTo(p){_curPage=p;const c=$('mainContent');c.innerHTML='<div style="text-align:center;padding:50px;color:var(--hint)">⏳ 加载中...</div>';const fns={dashboard:loadDashboard,hazards:loadHazards,violations:loadViolations,equipment:loadEquip,vehicles:loadVehicles,responsibility:loadResp,training:loadTraining,inspections:loadInsp,accidents:loadAcc,entry:loadEntry,regulations:loadRegs};if(fns[p])await fns[p]()}
+async function navTo(p){
+  _curPage=p;
+  var c=$('mainContent');
+  c.innerHTML='<div style="text-align:center;padding:50px;color:var(--hint)">loading...</div>';
+  var fns={dashboard:loadDashboard,hazards:loadHazards,violations:loadViolations,equipment:loadEquip,vehicles:loadVehicles,responsibility:loadResp,training:loadTraining,inspections:loadInsp,accidents:loadAcc,entry:loadEntry,regulations:loadRegs};
+  if(fns[p]){await fns[p]();}
+}
 
-// ===== Dashboard =====
-async function loadDashboard(){const h=db('hazards'),v=db('violations'),ve=db('vehicles');const total=h.length,pending=h.filter(x=>['待整改','整改中'].includes(x.status)).length,rectified=h.filter(x=>x.status==='已验收').length,major=h.filter(x=>['重大隐患','紧急隐患'].includes(x.hazard_level)&&['待整改','整改中'].includes(x.status)).length,redV=ve.filter(x=>x.alertLevel==='red').length;$('mainContent').innerHTML=`<div class="stats"><div class="stat"><div class="num">${total}</div><div class="label">累计隐患</div></div><div class="stat red"><div class="num">${major}</div><div class="label">重大/紧急未闭环</div></div><div class="stat yellow"><div class="num">${pending}</div><div class="label">待整改/整改中</div></div><div class="stat green"><div class="num">${rectified}</div><div class="label">已验收</div></div><div class="stat red"><div class="num">${v.length}</div><div class="label">三违记录</div></div><div class="stat red"><div class="num">${redV}</div><div class="label">🔴 超期车辆</div></div><div class="stat green"><div class="num">${total>0?Math.round(rectified/total*100):0}%</div><div class="label">整改率</div></div></div><h4 style="color:var(--orange);margin-bottom:8px">📋 最近隐患</h4><div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>日期</th><th>位置</th><th>等级</th><th>描述</th><th>状态</th></tr></thead><tbody>${[...h].reverse().slice(0,8).map(x=>`<tr><td>${x.id}</td><td>${x.check_date||''}</td><td>${(x.check_location||'').slice(0,15)}</td><td><span class="badge ${x.hazard_level==='重大隐患'||x.hazard_level==='紧急隐患'?'br':'by'}">${x.hazard_level}</span></td><td>${(x.hazard_description||'').slice(0,35)}</td><td><span class="badge ${x.status==='已验收'?'bg':'bb'}">${x.status}</span></td></tr>`).join('')}</tbody></table></div>`}
+/* ===== DASHBOARD ===== */
+async function loadDashboard(){
+  var h=db('hazards'),v=db('violations'),ve=db('vehicles');
+  var total=h.length;
+  var pending=h.filter(function(x){return ['待整改','整改中'].indexOf(x.status)>=0;}).length;
+  var rectified=h.filter(function(x){return x.status==='已验收';}).length;
+  var major=h.filter(function(x){return (x.hazard_level==='重大隐患'||x.hazard_level==='紧急隐患')&&['待整改','整改中'].indexOf(x.status)>=0;}).length;
+  var redV=ve.filter(function(x){return x.alertLevel==='red';}).length;
+  $('mainContent').innerHTML=
+    '<div class="stats">'+
+    '<div class="stat"><div class="num">'+total+'</div><div class="label">累计隐患</div></div>'+
+    '<div class="stat red"><div class="num">'+major+'</div><div class="label">重大/紧急未闭环</div></div>'+
+    '<div class="stat yellow"><div class="num">'+pending+'</div><div class="label">待整改/整改中</div></div>'+
+    '<div class="stat green"><div class="num">'+rectified+'</div><div class="label">已验收</div></div>'+
+    '<div class="stat red"><div class="num">'+v.length+'</div><div class="label">三违记录</div></div>'+
+    '<div class="stat red"><div class="num">'+redV+'</div><div class="label">超期车辆</div></div>'+
+    '<div class="stat green"><div class="num">'+(total>0?Math.round(rectified/total*100):0)+'%</div><div class="label">整改率</div></div>'+
+    '</div>'+
+    '<h4 style="color:var(--orange);margin-bottom:8px">最近隐患</h4>'+
+    '<div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>日期</th><th>位置</th><th>等级</th><th>描述</th><th>状态</th></tr></thead><tbody>'+
+    h.slice().reverse().slice(0,8).map(function(x){
+      return '<tr><td>'+x.id+'</td><td>'+(x.check_date||'')+'</td><td>'+(x.check_location||'').slice(0,15)+'</td><td><span class="badge '+(x.hazard_level==='重大隐患'||x.hazard_level==='紧急隐患'?'br':'by')+'">'+x.hazard_level+'</span></td><td>'+(x.hazard_description||'').slice(0,35)+'</td><td><span class="badge '+(x.status==='已验收'?'bg':'bb')+'">'+x.status+'</span></td></tr>';
+    }).join('')+'</tbody></table></div>';
+}
 
-// ===== 隐患排查（含拍照上传+自动引用法规） =====
-async function loadHazards(){const h=db('hazards');$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showHazardForm()">📸 新增隐患</button></div><div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>日期</th><th>位置</th><th>等级</th><th>描述</th><th>照片</th><th>法规</th><th>状态</th><th>操作</th></tr></thead><tbody>${h.map(x=>`<tr><td>${x.id}</td><td>${x.check_date}</td><td>${(x.check_location||'').slice(0,12)}</td><td><span class="badge ${x.hazard_level==='重大隐患'||x.hazard_level==='紧急隐患'?'br':'by'}">${x.hazard_level}</span></td><td>${(x.hazard_description||'').slice(0,30)}</td><td>${x.photo?'<img src="'+x.photo+'" style="width:40px;height:30px;border-radius:3px;cursor:pointer" onclick="showPhoto(`'+x.photo+'`)">':'—'}</td><td style="font-size:10px;color:var(--orange)">${(x.matched_regs||[]).join(', ')||'—'}</td><td><span class="badge ${x.status==='已验收'?'bg':'bb'}">${x.status}</span></td><td><button class="btn bxs" onclick="editHazard(${x.id},'${x.status}')">改</button><button class="btn bxs bp" onclick="viewRect(${x.id})">整改</button><button class="btn bxs bd" onclick="delHazard(${x.id})">删</button></td></tr>`).join('')}</tbody></table></div>`}
-function showPhoto(url){showModal(`<div style="text-align:center"><img src="${url}" style="max-width:100%;max-height:70vh;border-radius:8px"></div><div class="ma"><button class="btn" onclick="closeModal()">关闭</button></div>`)}
-function showHazardForm(){showModal(`<h2>📸 新增隐患排查（拍照自动引用法规）</h2><form onsubmit="submitHazard(event)"><label>检查日期*</label><input type="date" name="check_date" value="${new Date().toISOString().split('T')[0]}" required><label>检查位置*</label><input type="text" name="check_location" required placeholder="如：1250中段掘进面"><label>隐患类型*</label><select name="hazard_type" onchange="autoMatch()"><option>顶板管理</option><option>通风防尘</option><option>电气安全</option><option>爆破安全</option><option>机械设备</option><option>运输安全</option><option>火灾防治</option><option>水害防治</option><option>安全管理</option><option>其他</option></select><label>隐患等级*</label><select name="hazard_level" required><option>一般隐患</option><option>重大隐患</option><option>紧急隐患</option></select><label>隐患描述*</label><textarea name="hazard_description" required placeholder="请详细描述隐患情况，系统将自动匹配法规" oninput="autoMatch()"></textarea><label>📷 拍照/上传照片</label><input type="file" accept="image/*" onchange="previewPhoto(this)" style="padding:6px"><div id="photoPreview"></div><input type="hidden" name="photo" id="hiddenPhoto"><label>🔗 自动匹配法规</label><div id="regMatchResult" style="background:rgba(245,166,35,.1);border-radius:6px;padding:8px;font-size:12px;color:var(--orange);min-height:24px">输入描述后自动匹配...</div><label>检查人*</label><input type="text" name="checker" value="${CUSER?.name||''}" required><hr style="border-color:rgba(255,255,255,.1);margin:10px 0"><h4 style="color:var(--orange);margin-bottom:6px">🔧 整改措施</h4><label>整改措施</label><textarea name="rect_measure"></textarea><label>责任人</label><input type="text" name="responsible_person"><label>责任部门</label><input type="text" name="responsible_dept"><label>整改期限</label><input type="date" name="deadline"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">✅ 提交隐患</button></div></form>`)}
+/* ===== HAZARDS with photo + auto regulation match ===== */
+async function loadHazards(){
+  var h=db('hazards');
+  var rows=h.map(function(x){
+    var hl=x.hazard_level==='重大隐患'||x.hazard_level==='紧急隐患'?'br':'by';
+    var st=x.status==='已验收'?'bg':'bb';
+    var photoCell=x.photo?'<img src="'+x.photo+'" style="width:40px;height:30px;border-radius:3px;cursor:pointer" onclick="showPhoto(this.src)">':'--';
+    var regs=(x.matched_regs&&x.matched_regs.length)?x.matched_regs.join(', '):'--';
+    return '<tr><td>'+x.id+'</td><td>'+(x.check_date||'')+'</td><td>'+(x.check_location||'').slice(0,12)+'</td><td><span class="'+hl+'">'+x.hazard_level+'</span></td><td>'+(x.hazard_description||'').slice(0,30)+'</td><td>'+photoCell+'</td><td style="font-size:10px;color:var(--orange)">'+regs+'</td><td><span class="'+st+'">'+x.status+'</span></td><td><button class="bxs" onclick="editHazard('+x.id+')">改</button><button class="bxs bp" onclick="viewRect('+x.id+')">整改</button><button class="bxs bd" onclick="delHazard('+x.id+')">删</button></td></tr>';
+  }).join('');
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showHazardForm()">新增隐患</button></div><div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>日期</th><th>位置</th><th>等级</th><th>描述</th><th>照片</th><th>法规</th><th>状态</th><th>操作</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function showPhoto(url){
+  showModal('<div style="text-align:center"><img src="'+url+'" style="max-width:100%;max-height:70vh;border-radius:8px"></div><div class="ma"><button class="btn" onclick="closeModal()">关闭</button></div>');
+}
+function showHazardForm(){
+  showModal('<h2>新增隐患（拍照自动引用法规）</h2><form onsubmit="submitHazard(event)"><label>检查日期*</label><input type="date" name="check_date" value="'+new Date().toISOString().split('T')[0]+'" required><label>检查位置*</label><input type="text" name="check_location" required placeholder="如：1250中段掘进面"><label>隐患类型*</label><select name="hazard_type" onchange="autoMatch()"><option>顶板管理</option><option>通风防尘</option><option>电气安全</option><option>爆破安全</option><option>机械设备</option><option>运输安全</option><option>火灾防治</option><option>水害防治</option><option>安全管理</option><option>其他</option></select><label>隐患等级*</label><select name="hazard_level" required><option>一般隐患</option><option>重大隐患</option><option>紧急隐患</option></select><label>隐患描述*</label><textarea name="hazard_description" required placeholder="请详细描述隐患情况" oninput="autoMatch()"></textarea><label>拍照上传照片</label><input type="file" accept="image/*" onchange="previewPhoto(this)" style="padding:6px"><div id="photoPreview"></div><input type="hidden" name="photo" id="hiddenPhoto"><label>自动匹配法规</label><div id="regMatchResult" style="background:rgba(245,166,35,.1);border-radius:6px;padding:8px;font-size:12px;color:var(--orange);min-height:24px">输入描述后自动匹配...</div><label>检查人*</label><input type="text" name="checker" value="'+(CUSER?CUSER.name:'')+'" required><hr style="border-color:rgba(255,255,255,.1);margin:10px 0"><h4 style="color:var(--orange);margin-bottom:6px">整改措施</h4><label>整改措施</label><textarea name="rect_measure"></textarea><label>责任人</label><input type="text" name="responsible_person"><label>责任部门</label><input type="text" name="responsible_dept"><label>整改期限</label><input type="date" name="deadline"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">提交隐患</button></div></form>');
+}
 function autoMatch(){
-  const desc=$('modalBox').querySelector('[name="hazard_description"]')?.value||'';
-  const type=$('modalBox').querySelector('[name="hazard_type"]')?.value||'';
-  const regs=matchRegs(desc,type);
-  const d=$('regMatchResult');if(d)d.innerHTML=regs.length?regs.map(r=>`<span class="badge bg">${r}</span>`).join(' '):'未匹配到相关法规';
+  var descEl=$('modalBox').querySelector('[name="hazard_description"]');
+  var typeEl=$('modalBox').querySelector('[name="hazard_type"]');
+  var desc=descEl?descEl.value:'';
+  var type=typeEl?typeEl.value:'';
+  var regs=matchRegs(desc,type);
+  var el=document.getElementById('regMatchResult');
+  if(el){
+    el.innerHTML=regs.length?regs.map(function(r){return '<span class="bg">'+r+'</span>';}).join(' '):'未匹配到相关法规';
+  }
 }
 function previewPhoto(input){
-  const f=input.files[0];if(!f)return;
-  const r=new FileReader();r.onload=function(e){
-    $('hiddenPhoto').value=e.target.result;
-    $('photoPreview').innerHTML=`<img src="${e.target.result}" class="photo-preview" style="max-width:300px;max-height:200px"><div style="font-size:11px;color:var(--green);margin-top:2px">✅ 照片已就绪</div>`;
-  };r.readAsDataURL(f);
+  var f=input.files[0];
+  if(!f){return;}
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    document.getElementById('hiddenPhoto').value=ev.target.result;
+    document.getElementById('photoPreview').innerHTML='<img src="'+ev.target.result+'" style="max-width:300px;max-height:200px"><div style="font-size:11px;color:var(--green);margin-top:2px">照片已就绪</div>';
+  };
+  reader.readAsDataURL(f);
 }
-async function submitHazard(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.status='待整改';d.created_by=CUSER?.username;d.created_at=new Date().toISOString();d.photo=$('hiddenPhoto').value||'';d.matched_regs=matchRegs(d.hazard_description,d.hazard_type);const r=addRow('hazards',d);if(d.rect_measure)addRow('rectifications',{hazard_id:r.id,rect_measure:d.rect_measure,responsible_person:d.responsible_person||'',responsible_dept:d.responsible_dept||'',deadline:d.deadline||'',status:'未完成'});closeModal();loadHazards();toast('✅ 隐患已登记，自动引用法规: '+d.matched_regs.join(', '))}
-async function editHazard(id,cur){const s=prompt('新状态: 待整改/整改中/已验收',cur);if(!s)return;updateRow('hazards',id,{status:s});loadHazards()}
-async function delHazard(id){if(!confirm('确定删除?'))return;let rs=db('rectifications');rs=rs.filter(x=>x.hazard_id!==id);save('rectifications',rs);delRow('hazards',id);loadHazards()}
-async function viewRect(hid){const rs=db('rectifications'),d=rs.find(r=>r.hazard_id===hid)||{};const bp=d.before_photo||'',ap=d.after_photo||'';showModal(`<h2>🔧 整改管理 #${hid}</h2><form onsubmit="submitRect(event,${hid})"><label>整改措施</label><textarea name="rect_measure">${d.rect_measure||''}</textarea><label>责任人</label><input type="text" name="responsible_person" value="${d.responsible_person||''}"><label>责任部门</label><input type="text" name="responsible_dept" value="${d.responsible_dept||''}"><label>期限</label><input type="date" name="deadline" value="${d.deadline||''}"><label>完成日期</label><input type="date" name="completed_date" value="${d.completed_date||''}"><label>费用(元)</label><input type="number" name="cost" value="${d.cost||0}"><hr style="border-color:rgba(255,255,255,.1);margin:10px 0"><h4 style="color:var(--orange)">📷 隐患闭环照片</h4><label>整改前照片</label>${bp?`<img src="${bp}" style="max-width:200px;max-height:150px;border-radius:6px;margin-bottom:4px"><br>`:''}<input type="file" accept="image/*" onchange="previewRectPhoto(this,'before')" style="padding:5px"><div id="beforePrev"></div><input type="hidden" name="before_photo" value="${bp}"><label>整改后照片</label>${ap?`<img src="${ap}" style="max-width:200px;max-height:150px;border-radius:6px;margin-bottom:4px"><br>`:''}<input type="file" accept="image/*" onchange="previewRectPhoto(this,'after')" style="padding:5px"><div id="afterPrev"></div><input type="hidden" name="after_photo" value="${ap}"><hr style="border-color:rgba(255,255,255,.1);margin:10px 0"><label>状态</label><select name="status"><option value="未完成" ${d.status==='未完成'?'selected':''}>未完成</option><option value="已完成" ${d.status==='已完成'?'selected':''}>已完成</option></select><label>验收人</label><input type="text" name="validator" value="${d.validator||CUSER?.name||''}"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">💾 保存</button></div></form>`);$('hiddenBeforePhoto').value=bp;$('hiddenAfterPhoto').value=ap}
-function previewRectPhoto(input,type){
-  const f=input.files[0];if(!f)return;
-  const r=new FileReader();r.onload=function(e){
-    $('modalBox').querySelector('[name="'+type+'_photo"]').value=e.target.result;
-    document.getElementById(type+'Prev').innerHTML=`<img src="${e.target.result}" style="max-width:200px;max-height:150px;border-radius:6px;margin-top:2px"><div style="font-size:10px;color:var(--green)">✅ 照片已就绪</div>`;
-  };r.readAsDataURL(f);
+async function submitHazard(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  d.status='待整改';
+  d.created_by=CUSER?CUSER.username:'';
+  d.created_at=new Date().toISOString();
+  d.photo=document.getElementById('hiddenPhoto').value||'';
+  d.matched_regs=matchRegs(d.hazard_description,d.hazard_type);
+  var r=addRow('hazards',d);
+  if(d.rect_measure){
+    addRow('rectifications',{hazard_id:r.id,rect_measure:d.rect_measure,responsible_person:d.responsible_person||'',responsible_dept:d.responsible_dept||'',deadline:d.deadline||'',status:'未完成'});
+  }
+  closeModal();
+  loadHazards();
+  toast('隐患已登记');
+}
+async function editHazard(id){
+  var s=prompt('新状态: 待整改/整改中/已验收');
+  if(!s){return;}
+  updateRow('hazards',id,{status:s});
+  loadHazards();
+}
+async function delHazard(id){
+  if(!confirm('确定删除？')){return;}
+  var rs=db('rectifications');
+  rs=rs.filter(function(x){return x.hazard_id!==id;});
+  save('rectifications',rs);
+  delRow('hazards',id);
+  loadHazards();
 }
 
-async function submitRect(e,hid){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.cost=+d.cost;d.hazard_id=hid;d.before_photo=d.before_photo||'';d.after_photo=d.after_photo||'';const rs=db('rectifications');const i=rs.findIndex(r=>r.hazard_id===hid);if(i>=0){Object.assign(rs[i],d);save('rectifications',rs)}else addRow('rectifications',d);if(d.status==='已完成')updateRow('hazards',hid,{status:'已验收'});closeModal();loadHazards();toast('整改已保存')}
+/* ===== RECTIFICATION with BEFORE/AFTER photos ===== */
+function previewRectPhoto(input,tp){
+  var f=input.files[0];
+  if(!f){return;}
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var box=$('modalBox');
+    var hf=box.querySelector('[name="'+tp+'_photo"]');
+    if(hf){hf.value=ev.target.result;}
+    document.getElementById(tp+'Prev').innerHTML='<img src="'+ev.target.result+'" style="max-width:200px;max-height:150px;border-radius:6px;margin-top:2px"><div style="font-size:10px;color:var(--green)">照片已就绪</div>';
+  };
+  reader.readAsDataURL(f);
+}
+async function viewRect(hid){
+  var rs=db('rectifications');
+  var d=rs.find(function(r){return r.hazard_id===hid;})||{};
+  var bp=d.before_photo||'',ap=d.after_photo||'';
+  var bpImg=bp?'<img src="'+bp+'" style="max-width:200px;max-height:150px;border-radius:6px;margin-bottom:4px"><br>':'';
+  var apImg=ap?'<img src="'+ap+'" style="max-width:200px;max-height:150px;border-radius:6px;margin-bottom:4px"><br>':'';
+  showModal('<h2>整改管理 #'+hid+'</h2><form onsubmit="submitRect(event,'+hid+')"><label>整改措施</label><textarea name="rect_measure">'+(d.rect_measure||'')+'</textarea><label>责任人</label><input type="text" name="responsible_person" value="'+(d.responsible_person||'')+'"><label>责任部门</label><input type="text" name="responsible_dept" value="'+(d.responsible_dept||'')+'"><label>期限</label><input type="date" name="deadline" value="'+(d.deadline||'')+'"><label>完成日期</label><input type="date" name="completed_date" value="'+(d.completed_date||'')+'"><label>费用(元)</label><input type="number" name="cost" value="'+(d.cost||0)+'"><hr style="border-color:rgba(255,255,255,.1);margin:10px 0"><h4 style="color:var(--orange)">隐患闭环照片</h4><label>整改前照片</label>'+bpImg+'<input type="file" accept="image/*" onchange="previewRectPhoto(this,\'before\')" style="padding:5px"><div id="beforePrev"></div><input type="hidden" name="before_photo" value="'+bp+'"><label>整改后照片</label>'+apImg+'<input type="file" accept="image/*" onchange="previewRectPhoto(this,\'after\')" style="padding:5px"><div id="afterPrev"></div><input type="hidden" name="after_photo" value="'+ap+'"><hr style="border-color:rgba(255,255,255,.1);margin:10px 0"><label>状态</label><select name="status"><option value="未完成" '+(d.status==='未完成'?'selected':'')+'>未完成</option><option value="已完成" '+(d.status==='已完成'?'selected':'')+'>已完成</option></select><label>验收人</label><input type="text" name="validator" value="'+(d.validator||(CUSER?CUSER.name:''))+'"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">保存</button></div></form>');
+}
+async function submitRect(e,hid){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  d.cost=parseFloat(d.cost)||0;
+  d.hazard_id=hid;
+  d.before_photo=d.before_photo||'';
+  d.after_photo=d.after_photo||'';
+  var rs=db('rectifications');
+  var i=rs.findIndex(function(r){return r.hazard_id===hid;});
+  if(i>=0){
+    Object.assign(rs[i],d);
+    save('rectifications',rs);
+  }else{
+    addRow('rectifications',d);
+  }
+  if(d.status==='已完成'){
+    updateRow('hazards',hid,{status:'已验收'});
+  }
+  closeModal();
+  loadHazards();
+  toast('整改已保存');
+}
 
-// ===== 三违 =====
-async function loadViolations(){const v=db('violations');$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showViolationForm()">➕ 新记录</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>姓名</th><th>类型</th><th>类别</th><th>详情</th><th>金额</th></tr></thead><tbody>${v.map(x=>`<tr><td>${x.violation_date}</td><td>${x.violator_name}</td><td><span class="badge ${x.violation_type==='违章指挥'?'br':x.violation_type==='违章作业'?'by':'bb'}">${x.violation_type}</span></td><td>${x.violation_category}</td><td>${(x.violation_detail||'').slice(0,35)}</td><td>${x.is_reward?'<span style="color:var(--green)">+¥'+x.reward_amount+'</span>':'<span style="color:var(--red)">-¥'+x.penalty_amount+'</span>'}</td></tr>`).join('')}</tbody></table></div>`}
-function showViolationForm(){showModal(`<h2>⚠️ 三违/奖励记录</h2><form onsubmit="submitViolation(event)"><label>姓名*</label><input type="text" name="violator_name" required><label>岗位</label><input type="text" name="violator_job"><label>日期*</label><input type="date" name="violation_date" value="${new Date().toISOString().split('T')[0]}" required><label>类型*</label><select name="violation_type" required><option>违章指挥</option><option>违章作业</option><option>违反劳动纪律</option></select><label>类别</label><select name="violation_category"><option>劳动防护用品</option><option>安全操作规程</option><option>现场安全管理</option><option>违反劳动纪律</option></select><label>详情*</label><textarea name="violation_detail" required></textarea><label>处罚/奖励</label><select name="is_reward"><option value="0">处罚</option><option value="1">奖励</option></select><label>金额(元)</label><input type="number" name="amount" value="0"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`)}
-async function submitViolation(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const isR=+d.is_reward;addRow('violations',{...d,penalty_amount:isR?0:+d.amount,reward_amount:isR?+d.amount:0,is_reward:isR,recorder:CUSER?.name,created_at:new Date().toISOString()});closeModal();loadViolations()}
+/* ===== VIOLATIONS ===== */
+async function loadViolations(){
+  var v=db('violations');
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showViolationForm()">新记录</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>姓名</th><th>类型</th><th>类别</th><th>详情</th><th>金额</th></tr></thead><tbody>'+v.map(function(x){
+    var vt=x.violation_type==='违章指挥'?'br':x.violation_type==='违章作业'?'by':'bb';
+    var amt=x.is_reward?'<span style="color:var(--green)">+'+x.reward_amount+'</span>':'<span style="color:var(--red")>-'+x.penalty_amount+'</span>';
+    return '<tr><td>'+(x.violation_date||'')+'</td><td>'+(x.violator_name||'')+'</td><td><span class="'+vt+'">'+x.violation_type+'</span></td><td>'+(x.violation_category||'')+'</td><td>'+(x.violation_detail||'').slice(0,35)+'</td><td>'+amt+'</td></tr>';
+  }).join('')+'</tbody></table></div>';
+}
+function showViolationForm(){
+  showModal('<h2>三违奖励记录</h2><form onsubmit="submitViolation(event)"><label>姓名*</label><input type="text" name="violator_name" required><label>岗位</label><input type="text" name="violator_job"><label>日期*</label><input type="date" name="violation_date" value="'+new Date().toISOString().split('T')[0]+'" required><label>类型*</label><select name="violation_type" required><option>违章指挥</option><option>违章作业</option><option>违反劳动纪律</option></select><label>类别</label><select name="violation_category"><option>劳动防护用品</option><option>安全操作规程</option><option>现场安全管理</option><option>违反劳动纪律</option></select><label>详情*</label><textarea name="violation_detail" required></textarea><label>处罚奖励</label><select name="is_reward"><option value="0">处罚</option><option value="1">奖励</option></select><label>金额(元)</label><input type="number" name="amount" value="0"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">提交</button></div></form>');
+}
+async function submitViolation(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  var isR=parseInt(d.is_reward)||0;
+  addRow('violations',Object.assign({},d,{
+    penalty_amount:isR?0:parseFloat(d.amount)||0,
+    reward_amount:isR?parseFloat(d.amount)||0:0,
+    is_reward:isR,
+    recorder:CUSER?CUSER.name:'',
+    created_at:new Date().toISOString()
+  }));
+  closeModal();
+  loadViolations();
+}
 
-// ===== 设备 =====
-async function loadEquip(){const eq=db('equipment');$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showEquipForm()">➕ 新设备</button></div><div class="g">${eq.map(e=>`<div class="card"><h4>🔧 ${e.name}</h4><div class="meta"><span>类型: ${e.equip_type}</span><span>规程: ${e.sop_summary||'—'}</span><span>状态: <span class="badge ${e.status==='正常'?'bg':'by'}">${e.status}</span></span></div><div class="a"><button class="btn bxs bp" onclick="quickMaint(${e.id})">🔧 保养</button><button class="btn bxs" onclick="editEquip(${e.id})">✏️ 编辑</button></div></div>`).join('')}</div>`}
-function showEquipForm(){showModal(`<h2>➕ 新设备</h2><form onsubmit="submitEquip(event)"><label>名称*</label><input type="text" name="name" required><label>类型*</label><select name="equip_type" required><option>采掘设备</option><option>运输设备</option><option>支护设备</option><option>通风设备</option><option>排水设备</option><option>动力设备</option><option>电气设备</option><option>其他设备</option></select><label>位置</label><input type="text" name="location"><label>负责人</label><input type="text" name="responsible_person"><label>操作规程</label><input type="text" name="sop_summary"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">添加</button></div></form>`)}
-async function submitEquip(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));addRow('equipment',{...d,status:'正常'});closeModal();loadEquip();toast('设备已添加')}
-async function quickMaint(id){updateRow('equipment',id,{last_maintenance_date:new Date().toISOString().split('T')[0],status:'正常'});loadEquip();toast('✅ 保养已记录')}
-function editEquip(id){const e=findRow('equipment',id);showModal(`<h2>✏️ 编辑: ${e.name}</h2><form onsubmit="submitEditEquip(event,${id})"><label>名称</label><input type="text" name="name" value="${e.name}" required><label>类型</label><input type="text" name="equip_type" value="${e.equip_type}" required><label>状态</label><select name="status"><option value="正常" ${e.status==='正常'?'selected':''}>正常</option><option value="待保养" ${e.status==='待保养'?'selected':''}>待保养</option><option value="故障" ${e.status==='故障'?'selected':''}>故障</option><option value="停用" ${e.status==='停用'?'selected':''}>停用</option></select><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">保存</button></div></form>`)}
-async function submitEditEquip(e,id){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));updateRow('equipment',id,d);closeModal();loadEquip()}
+/* ===== EQUIPMENT ===== */
+async function loadEquip(){
+  var eq=db('equipment');
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showEquipForm()">新设备</button></div><div class="g">'+eq.map(function(e){
+    var st=e.status==='正常'?'bg':'by';
+    return '<div class="card"><h4>'+e.name+'</h4><div class="meta"><span>类型: '+(e.equip_type||'')+'</span><span>规程: '+(e.sop_summary||'--')+'</span><span>状态: <span class="'+st+'">'+e.status+'</span></span></div><div class="a"><button class="bxs bp" onclick="quickMaint('+e.id+')">保养</button><button class="bxs" onclick="editEquip('+e.id+')">编辑</button></div></div>';
+  }).join('')+'</div>';
+}
+function showEquipForm(){
+  showModal('<h2>新设备</h2><form onsubmit="submitEquip(event)"><label>名称*</label><input type="text" name="name" required><label>类型*</label><select name="equip_type" required><option>采掘设备</option><option>运输设备</option><option>支护设备</option><option>通风设备</option><option>排水设备</option><option>动力设备</option><option>电气设备</option><option>其他设备</option></select><label>位置</label><input type="text" name="location"><label>负责人</label><input type="text" name="responsible_person"><label>操作规程</label><input type="text" name="sop_summary"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">添加</button></div></form>');
+}
+async function submitEquip(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  addRow('equipment',Object.assign({},d,{status:'正常'}));
+  closeModal();
+  loadEquip();
+  toast('设备已添加');
+}
+async function quickMaint(id){
+  updateRow('equipment',id,{last_maintenance_date:new Date().toISOString().split('T')[0],status:'正常'});
+  loadEquip();
+  toast('保养已记录');
+}
+function editEquip(id){
+  var e=findRow('equipment',id);
+  showModal('<h2>编辑: '+e.name+'</h2><form onsubmit="submitEditEquip(event,'+id+')"><label>名称</label><input type="text" name="name" value="'+e.name+'" required><label>类型</label><input type="text" name="equip_type" value="'+(e.equip_type||'')+'" required><label>状态</label><select name="status"><option value="normal">正常</option><option value="pending">待保养</option><option value="fault">故障</option><option value="stopped">停用</option></select><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">保存</button></div></form>');
+}
+async function submitEditEquip(e,id){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  updateRow('equipment',id,d);
+  closeModal();
+  loadEquip();
+}
 
-// ===== 车辆保养 =====
-async function loadVehicles(){const v=db('vehicles');const red=v.filter(x=>x.alertLevel==='red').length,yellow=v.filter(x=>x.alertLevel==='yellow').length;$('mainContent').innerHTML=`<div class="stats"><div class="stat"><div class="num">${v.length}</div><div class="label">车辆总数</div></div><div class="stat red"><div class="num">${red}</div><div class="label">🔴 超期未保养</div></div><div class="stat yellow"><div class="num">${yellow}</div><div class="label">🟡 即将到期</div></div><div class="stat green"><div class="num">${v.length-red-yellow}</div><div class="label">🟢 正常</div></div></div><div class="g">${v.map(x=>`<div class="card ${x.alertLevel==='red'?'rb':x.alertLevel==='yellow'?'yb':''}"><h4>🚛 ${x.name} <span class="badge ${x.alertLevel==='red'?'br':x.alertLevel==='yellow'?'by':'bg'}">${x.alertLevel==='red'?'超期!':x.alertLevel==='yellow'?'将到期':'正常'}</span></h4><div class="meta"><span>类型: ${x.type} | 编号: ${x.number||'—'}</span><span style="color:${x.alertLevel==='red'?'var(--red)':'var(--sub)'}">上次保养: ${x.lastMaintenance||'无'} (${x.daysSince>0?x.daysSince+'天前':'今日'})</span><span>保养次数: ${Array.isArray(x.maintenanceRecords)?x.maintenanceRecords.length/2:0}次 | 状态: ${x.status||'在用'}</span></div><div class="a"><button class="btn bxs bp" onclick="showVRecords(${x.id})">📋 记录</button><button class="btn bxs" onclick="addVMaint(${x.id},'${x.name.split("'").join("\\'")}')">🔧 保养</button></div></div>`).join('')}</div>`}
-async function showVRecords(vid){const v=findRow('vehicles',vid);if(!v)return;const recs=v.maintenanceRecords||[];let h='';recs.slice().reverse().forEach(r=>{const d=r.d||r.date,c=r.c||r.content,dr=r.r||r.driver,mats=(r.m||[]).map(function(m){return{mname:m.n||m.name,munit:m.u||m.unit,mqty:m.q||m.qty}});h+=`<div style="background:var(--surface);border-radius:8px;padding:10px;margin-bottom:8px"><strong>📅 ${d} — ${c}</strong><div style="font-size:11px;color:var(--hint);margin-top:2px">操作: ${dr||'—'}</div>${mats.length?`<div style="font-size:11px;color:var(--sub);margin-top:4px;padding:4px 6px;background:rgba(245,166,35,.1);border-radius:4px">🔩 配件: ${mats.map(function(m){return m.mname+' ×'+m.mqty+(m.munit||'')}).join(', ')}</div>`:''}</div>`})showModal(`<h2>🚛 ${v.name} 保养记录</h2>${h||'<p style="color:var(--hint);padding:20px">暂无保养记录</p>'}<div class="ma"><button class="btn bp" onclick="addVMaint(${vid},'${v.name.split("'").join("\\'")}')">🔧 添加保养</button><button class="btn" onclick="closeModal()">关闭</button></div>`)}
-function addVMaint(vid,vname){showModal(`<h2>🔧 保养 — ${vname}</h2><form onsubmit="submitVMaint(event,${vid})"><label>日期*</label><input type="date" name="rd" value="${new Date().toISOString().split('T')[0]}" required><label>保养内容*</label><input type="text" name="rc" required placeholder="如：500小时保养"><label>操作人</label><input type="text" name="rdr"><label>工时/运行小时</label><input type="text" name="rh"><button type="button" class="btn bxs" style="margin-top:8px" onclick="addPRow()">➕ 添加配件</button><div id="prs"></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">✅ 保存</button></div></form>`)}
-function addPRow(){const i=$('prs').children.length;$('prs').innerHTML+=`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4px;margin-top:4px"><input type="text" name="pn_${i}" placeholder="配件名称"><input type="text" name="ps_${i}" placeholder="规格"><input type="text" name="pu_${i}" placeholder="单位"><input type="number" name="pq_${i}" placeholder="数量" value="1" step="0.1"></div>`}
-async function submitVMaint(e,vid){e.preventDefault();const fd=new FormData(e.target);const v=findRow('vehicles',vid);if(!v)return;const recs=v.maintenanceRecords||[],parts=[];for(let i=0;;i++){const n=fd.get('pn_'+i);if(!n||!n.trim())break;parts.push({name:n.trim(),spec:fd.get('ps_'+i)||'',unit:fd.get('pu_'+i)||'',qty:+fd.get('pq_'+i)||1})}recs.push({d:fd.get('rd'),c:fd.get('rc'),r:fd.get('rdr'),m:parts});updateRow('vehicles',vid,{maintenance_records:recs,lastMaintenance:fd.get('rd'),daysSince:0,alertLevel:'green',status:'在用'});closeModal();loadVehicles();toast('✅ 保养已记录')}
+/* ===== VEHICLES (full data: 30 vehicles, 123 records, 399 parts) ===== */
+async function loadVehicles(){
+  var v=db('vehicles');
+  var red=v.filter(function(x){return x.alertLevel==='red';}).length;
+  var yellow=v.filter(function(x){return x.alertLevel==='yellow';}).length;
+  var statHtml='<div class="stats">';
+  statHtml+='<div class="stat"><div class="num">'+v.length+'</div><div class="label">车辆总数</div></div>';
+  statHtml+='<div class="stat red"><div class="num">'+red+'</div><div class="label">超期未保养</div></div>';
+  statHtml+='<div class="stat yellow"><div class="num">'+yellow+'</div><div class="label">即将到期</div></div>';
+  statHtml+='<div class="stat green"><div class="num">'+(v.length-red-yellow)+'</div><div class="label">正常</div></div></div>';
+  var cards=v.map(function(x){
+    var cls=x.alertLevel==='red'?'rb':x.alertLevel==='yellow'?'yb':'';
+    var bcls=x.alertLevel==='red'?'br':x.alertLevel==='yellow'?'by':'bg';
+    var btxt=x.alertLevel==='red'?'超期':x.alertLevel==='yellow'?'将到期':'正常';
+    var vn=x.name.replace(/'/g,"\\'");
+    var mcnt=Array.isArray(x.maintenanceRecords)?x.maintenanceRecords.length:0;
+    return '<div class="card '+cls+'"><h4>'+x.name+' <span class="'+bcls+'">'+btxt+'</span></h4><div class="meta"><span>类型: '+(x.type||'')+' | 编号: '+(x.number||'--')+'</span><span>上次保养: '+(x.lastMaintenance||'无')+' ('+(x.daysSince>0?x.daysSince+'天前':'今日')+')</span><span>保养次数: '+mcnt+'次 | 状态: '+(x.status||'在用')+'</span></div><div class="a"><button class="bxs bp" onclick="showVRecords('+x.id+')">记录</button><button class="bxs" onclick="addVMaint('+x.id+',\''+vn+'\')">保养</button></div></div>';
+  }).join('');
+  $('mainContent').innerHTML=statHtml+'<div class="g">'+cards+'</div>';
+}
+async function showVRecords(vid){
+  var v=findRow('vehicles',vid);
+  if(!v){return;}
+  var recs=v.maintenanceRecords||[];
+  var html='';
+  recs.slice().reverse().forEach(function(r){
+    var dt=r.d||r.date;
+    var ct=r.c||r.content;
+    var dr=r.r||r.driver||'';
+    var mats=(r.m||[]).map(function(m){
+      return {mn:m.n||m.name,mu:m.u||m.unit||'',mq:m.q||m.qty};
+    });
+    var partsHtml=mats.length?'<div style="font-size:11px;color:var(--sub);margin-top:4px;padding:4px 6px;background:rgba(245,166,35,.1);border-radius:4px">配件: '+mats.map(function(m){return m.mn+' x'+m.mq+(m.mu||'');}).join(', ')+'</div>':'';
+    html+='<div style="background:var(--surface);border-radius:8px;padding:10px;margin-bottom:8px"><strong>'+dt+' -- '+ct+'</strong><div style="font-size:11px;color:var(--hint);margin-top:2px">操作: '+dr+'</div>'+partsHtml+'</div>';
+  });
+  var vn=v.name.replace(/'/g,"\\'");
+  showModal('<h2>'+v.name+' 保养记录</h2>'+(html||'<p style="color:var(--hint);padding:20px">暂无保养记录</p>')+'<div class="ma"><button class="bp" onclick="addVMaint('+vid+',\''+vn+'\')">添加保养</button><button class="btn" onclick="closeModal()">关闭</button></div>');
+}
+function addVMaint(vid,vname){
+  showModal('<h2>保养 -- '+vname+'</h2><form onsubmit="submitVMaint(event,'+vid+')"><label>日期*</label><input type="date" name="rd" value="'+new Date().toISOString().split('T')[0]+'" required><label>保养内容*</label><input type="text" name="rc" required placeholder="如：500小时保养"><label>操作人</label><input type="text" name="rdr"><label>运行小时</label><input type="text" name="rh"><button type="button" class="bxs" style="margin-top:8px" onclick="addPRow()">添加配件</button><div id="prs"></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">保存</button></div></form>');
+}
+function addPRow(){
+  var c=document.getElementById('prs').children.length;
+  document.getElementById('prs').innerHTML+='<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4px;margin-top:4px"><input type="text" name="pn_'+c+'" placeholder="配件名称"><input type="text" name="ps_'+c+'" placeholder="规格"><input type="text" name="pu_'+c+'" placeholder="单位"><input type="number" name="pq_'+c+'" placeholder="数量" value="1" step="0.1"></div>';
+}
+async function submitVMaint(e,vid){
+  e.preventDefault();
+  var fd=new FormData(e.target);
+  var v=findRow('vehicles',vid);
+  if(!v){return;}
+  var recs=v.maintenanceRecords||[];
+  var parts=[];
+  for(var i=0;;i++){
+    var n=fd.get('pn_'+i);
+    if(!n||!n.trim()){break;}
+    parts.push({name:n.trim(),spec:fd.get('ps_'+i)||'',unit:fd.get('pu_'+i)||'',qty:parseFloat(fd.get('pq_'+i))||1});
+  }
+  recs.push({d:fd.get('rd'),c:fd.get('rc'),r:fd.get('rdr')||'',m:parts});
+  updateRow('vehicles',vid,{maintenanceRecords:recs,lastMaintenance:fd.get('rd'),daysSince:0,alertLevel:'green',status:'在用'});
+  closeModal();
+  loadVehicles();
+  toast('保养已记录');
+}
 
-// ===== 责任制 =====
-async function loadResp(){const r=db('responsibilities');$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showAssess()">➕ 新考核</button></div><div class="g">${r.map(x=>`<div class="card"><h4>👤 ${x.position_name}</h4><div class="meta"><span>上次考核: ${x.last_assessment_date||'—'}</span><span>周期: ${x.assessment_cycle}</span></div><div class="a"><button class="btn bxs bp" onclick="showAssess('${x.position_name}')">📝 考核</button></div></div>`).join('')}</div>`}
-function showAssess(pos=''){showModal(`<h2>📝 责任制考核</h2><form onsubmit="submitAssess(event)"><label>岗位*</label><input type="text" name="position_name" value="${pos}" required><label>被考核人*</label><input type="text" name="person_name" required><label>日期*</label><input type="date" name="assessment_date" value="${new Date().toISOString().split('T')[0]}" required><label>周期</label><select name="assessment_period"><option>月度</option><option>季度</option><option>年度</option></select><label>得分(满分100)</label><input type="number" name="score" value="100" min="0" max="100" required><label>扣分原因</label><textarea name="deduction_reasons"></textarea><label>考核人</label><input type="text" name="assessor" value="${CUSER?.name||''}" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`)}
-async function submitAssess(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.score=+d.score;d.is_qualified=d.score>=60?1:0;addRow('assessments',d);const nd=new Date(Date.now()+30*86400000).toISOString().split('T')[0],rp=db('responsibilities'),ri=rp.findIndex(x=>x.position_name===d.position_name);if(ri>=0){rp[ri].last_assessment_date=d.assessment_date;rp[ri].next_assessment_date=nd;save('responsibilities',rp)}closeModal();loadResp();toast('考核已提交')}
+/* ===== RESPONSIBILITY ===== */
+async function loadResp(){
+  var r=db('responsibilities');
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showAssess()">新考核</button></div><div class="g">'+r.map(function(x){
+    return '<div class="card"><h4>'+x.position_name+'</h4><div class="meta"><span>上次考核: '+(x.last_assessment_date||'--')+'</span><span>周期: '+(x.assessment_cycle||'')+'</span></div><div class="a"><button class="bxs bp" onclick="showAssess(\''+x.position_name+'\')">考核</button></div></div>';
+  }).join('')+'</div>';
+}
+function showAssess(pos){
+  showModal('<h2>责任制考核</h2><form onsubmit="submitAssess(event)"><label>岗位*</label><input type="text" name="position_name" value="'+(pos||'')+'" required><label>被考核人*</label><input type="text" name="person_name" required><label>日期*</label><input type="date" name="assessment_date" value="'+new Date().toISOString().split('T')[0]+'" required><label>周期</label><select name="assessment_period"><option>月度</option><option>季度</option><option>年度</option></select><label>得分(满分100)</label><input type="number" name="score" value="100" min="0" max="100" required><label>扣分原因</label><textarea name="deduction_reasons"></textarea><label>考核人</label><input type="text" name="assessor" value="'+(CUSER?CUSER.name:'')+'" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">提交</button></div></form>');
+}
+async function submitAssess(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  d.score=parseFloat(d.score)||0;
+  d.is_qualified=d.score>=60?1:0;
+  addRow('assessments',d);
+  var nd=new Date(Date.now()+30*86400000).toISOString().split('T')[0];
+  var rp=db('responsibilities');
+  var ri=rp.findIndex(function(x){return x.position_name===d.position_name;});
+  if(ri>=0){
+    rp[ri].last_assessment_date=d.assessment_date;
+    rp[ri].next_assessment_date=nd;
+    save('responsibilities',rp);
+  }
+  closeModal();
+  loadResp();
+  toast('考核已提交');
+}
 
-// ===== 培训 =====
-async function loadTraining(){const t=db('trainings');$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showTrainingForm()">➕ 新培训</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>主题</th><th>讲师</th><th>学时</th><th>人数</th></tr></thead><tbody>${t.map(x=>`<tr><td>${x.training_date}</td><td>${x.training_type}</td><td>${x.training_topic}</td><td>${x.trainer||'—'}</td><td>${x.training_hours}h</td><td>${x.attendees_count}人</td></tr>`).join('')}</tbody></table></div>`}
-function showTrainingForm(){showModal(`<h2>📚 安全培训</h2><form onsubmit="submitTraining(event)"><label>日期*</label><input type="date" name="training_date" value="${new Date().toISOString().split('T')[0]}" required><label>类型*</label><select name="training_type" required><option>三级安全教育</option><option>一般安全教育</option><option>调岗培训</option><option>特种作业</option><option>管理人员</option><option>应急培训</option></select><label>主题*</label><input type="text" name="training_topic" required><label>讲师</label><input type="text" name="trainer"><label>学时</label><input type="number" name="training_hours" value="2" step="0.5"><label>参加人数</label><input type="number" name="attendees_count" value="0"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`)}
-async function submitTraining(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.training_hours=+d.training_hours;d.attendees_count=+d.attendees_count;addRow('trainings',d);closeModal();loadTraining()}
+/* ===== TRAINING ===== */
+async function loadTraining(){
+  var t=db('trainings');
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showTrainingForm()">新培训</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>主题</th><th>讲师</th><th>学时</th><th>人数</th></tr></thead><tbody>'+t.map(function(x){
+    return '<tr><td>'+(x.training_date||'')+'</td><td>'+(x.training_type||'')+'</td><td>'+(x.training_topic||'')+'</td><td>'+(x.trainer||'--')+'</td><td>'+(x.training_hours||0)+'h</td><td>'+(x.attendees_count||0)+'人</td></tr>';
+  }).join('')+'</tbody></table></div>';
+}
+function showTrainingForm(){
+  showModal('<h2>安全培训</h2><form onsubmit="submitTraining(event)"><label>日期*</label><input type="date" name="training_date" value="'+new Date().toISOString().split('T')[0]+'" required><label>类型*</label><select name="training_type" required><option>三级安全教育</option><option>一般安全教育</option><option>调岗培训</option><option>特种作业</option><option>管理人员</option><option>应急培训</option></select><label>主题*</label><input type="text" name="training_topic" required><label>讲师</label><input type="text" name="trainer"><label>学时</label><input type="number" name="training_hours" value="2" step="0.5"><label>参加人数</label><input type="number" name="attendees_count" value="0"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">提交</button></div></form>');
+}
+async function submitTraining(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  d.training_hours=parseFloat(d.training_hours)||0;
+  d.attendees_count=parseInt(d.attendees_count)||0;
+  addRow('trainings',d);
+  closeModal();
+  loadTraining();
+}
 
-// ===== 检查 =====
-async function loadInsp(){const i=db('inspections');$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showInspForm()">➕ 新检查</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>区域</th><th>检查人</th><th>合格/总数</th></tr></thead><tbody>${i.map(x=>`<tr><td>${x.inspection_date}</td><td>${x.inspection_type}</td><td>${x.inspection_area}</td><td>${x.inspector}</td><td>${(x.items_checked||0)-(x.items_unqualified||0)}/${x.items_checked||0}</td></tr>`).join('')}</tbody></table></div>`}
-function showInspForm(){showModal(`<h2>✅ 安全检查</h2><form onsubmit="submitInsp(event)"><label>日期*</label><input type="date" name="inspection_date" value="${new Date().toISOString().split('T')[0]}" required><label>类型*</label><select name="inspection_type" required><option>日常检查</option><option>专项检查</option><option>综合检查</option><option>季节性检查</option><option>节假日检查</option></select><label>区域*</label><input type="text" name="inspection_area" required><label>检查人*</label><input type="text" name="inspector" value="${CUSER?.name||''}" required><label>检查项数</label><input type="number" name="items_checked" value="0"><label>不合格项</label><input type="number" name="items_unqualified" value="0"><label>发现问题</label><textarea name="findings"></textarea><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">提交</button></div></form>`)}
-async function submitInsp(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.items_checked=+d.items_checked;d.items_unqualified=+d.items_unqualified;addRow('inspections',d);closeModal();loadInsp()}
+/* ===== INSPECTIONS ===== */
+async function loadInsp(){
+  var insp=db('inspections');
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showInspForm()">新检查</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>区域</th><th>检查人</th><th>合格/总数</th></tr></thead><tbody>'+insp.map(function(x){
+    return '<tr><td>'+(x.inspection_date||'')+'</td><td>'+(x.inspection_type||'')+'</td><td>'+(x.inspection_area||'')+'</td><td>'+(x.inspector||'')+'</td><td>'+((x.items_checked||0)-(x.items_unqualified||0))+'/'+(x.items_checked||0)+'</td></tr>';
+  }).join('')+'</tbody></table></div>';
+}
+function showInspForm(){
+  showModal('<h2>安全检查</h2><form onsubmit="submitInsp(event)"><label>日期*</label><input type="date" name="inspection_date" value="'+new Date().toISOString().split('T')[0]+'" required><label>类型*</label><select name="inspection_type" required><option>日常检查</option><option>专项检查</option><option>综合检查</option><option>季节性检查</option><option>节假日检查</option></select><label>区域*</label><input type="text" name="inspection_area" required><label>检查人*</label><input type="text" name="inspector" value="'+(CUSER?CUSER.name:'')+'" required><label>检查项数</label><input type="number" name="items_checked" value="0"><label>不合格项</label><input type="number" name="items_unqualified" value="0"><label>发现问题</label><textarea name="findings"></textarea><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">提交</button></div></form>');
+}
+async function submitInsp(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  d.items_checked=parseInt(d.items_checked)||0;
+  d.items_unqualified=parseInt(d.items_unqualified)||0;
+  addRow('inspections',d);
+  closeModal();
+  loadInsp();
+}
 
-// ===== 事故 =====
-async function loadAcc(){const a=db('accidents');$('mainContent').innerHTML=`<div class="tb"><button class="btn bd" onclick="showAccForm()">🚨 报告事故</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>地点</th><th>严重</th><th>描述</th></tr></thead><tbody>${a.length?a.map(x=>`<tr><td>${x.accident_date}</td><td>${x.accident_type}</td><td>${x.accident_location}</td><td><span class="badge ${x.severity==='死亡'||x.severity==='重伤'?'br':'by'}">${x.severity}</span></td><td>${(x.accident_description||'').slice(0,30)}</td></tr>`).join(''):'<tr><td colspan="5" style="color:var(--green);text-align:center;padding:20px">✅ 无事故记录</td></tr>'}</tbody></table></div>`}
-function showAccForm(){showModal(`<h2>🚨 事故报告</h2><form onsubmit="submitAcc(event)"><label>日期*</label><input type="date" name="accident_date" required><label>时间</label><input type="time" name="accident_time"><label>地点*</label><input type="text" name="accident_location" required><label>类型*</label><select name="accident_type" required><option>冒顶片帮</option><option>爆破</option><option>运输</option><option>触电</option><option>机械伤害</option><option>高处坠落</option><option>火灾</option><option>中毒窒息</option><option>水害</option><option>其他</option></select><label>严重等级*</label><select name="severity" required><option>未遂事故</option><option>轻伤</option><option>重伤</option><option>死亡</option><option>财产损失</option></select><label>受伤人数</label><input type="number" name="injured_count" value="0"><label>死亡人数</label><input type="number" name="fatality_count" value="0"><label>描述*</label><textarea name="accident_description" required></textarea><label>直接原因</label><textarea name="direct_cause"></textarea><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bd">🚨 提交事故报告</button></div></form>`)}
-async function submitAcc(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.injured_count=+d.injured_count;d.fatality_count=+d.fatality_count;addRow('accidents',d);closeModal();loadAcc()}
+/* ===== ACCIDENTS ===== */
+async function loadAcc(){
+  var a=db('accidents');
+  var rows=a.length?a.map(function(x){
+    var sv=x.severity==='死亡'||x.severity==='重伤'?'br':'by';
+    return '<tr><td>'+(x.accident_date||'')+'</td><td>'+(x.accident_type||'')+'</td><td>'+(x.accident_location||'')+'</td><td><span class="'+sv+'">'+x.severity+'</span></td><td>'+(x.accident_description||'').slice(0,30)+'</td></tr>';
+  }).join(''):'<tr><td colspan="5" style="color:var(--green);text-align:center;padding:20px">无事故记录</td></tr>';
+  $('mainContent').innerHTML='<div class="tb"><button class="bd" onclick="showAccForm()">报告事故</button></div><div style="overflow-x:auto"><table><thead><tr><th>日期</th><th>类型</th><th>地点</th><th>严重</th><th>描述</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function showAccForm(){
+  showModal('<h2>事故报告</h2><form onsubmit="submitAcc(event)"><label>日期*</label><input type="date" name="accident_date" required><label>时间</label><input type="time" name="accident_time"><label>地点*</label><input type="text" name="accident_location" required><label>类型*</label><select name="accident_type" required><option>冒顶片帮</option><option>爆破</option><option>运输</option><option>触电</option><option>机械伤害</option><option>高处坠落</option><option>火灾</option><option>中毒窒息</option><option>水害</option><option>其他</option></select><label>严重等级*</label><select name="severity" required><option>未遂事故</option><option>轻伤</option><option>重伤</option><option>死亡</option><option>财产损失</option></select><label>受伤人数</label><input type="number" name="injured_count" value="0"><label>死亡人数</label><input type="number" name="fatality_count" value="0"><label>描述*</label><textarea name="accident_description" required></textarea><label>直接原因</label><textarea name="direct_cause"></textarea><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bd">提交事故报告</button></div></form>');
+}
+async function submitAcc(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  d.injured_count=parseInt(d.injured_count)||0;
+  d.fatality_count=parseInt(d.fatality_count)||0;
+  addRow('accidents',d);
+  closeModal();
+  loadAcc();
+}
 
-// ===== 出入井 =====
-async function loadEntry(){const e=db('entry_exit');const underground=e.filter(x=>!x.exit_time);$('mainContent').innerHTML=`<div class="tb"><button class="btn bp" onclick="showEntryForm()">➕ 入井登记</button><span style="font-size:13px;color:var(--orange);margin-left:8px">目前井下: <strong>${underground.length}</strong> 人</span></div><div style="overflow-x:auto"><table><thead><tr><th>姓名</th><th>入井时间</th><th>出井时间</th><th>自救器</th><th>检测仪</th><th>矿灯</th><th>操作</th></tr></thead><tbody>${e.slice(-50).reverse().map(x=>`<tr><td>${x.person_name}</td><td>${(x.entry_time||'').slice(11,19)}</td><td>${x.exit_time?x.exit_time.slice(11,19):'<span class="badge by">● 井下</span>'}</td><td>${x.has_self_rescuer?'✅':'❌'}</td><td>${x.has_gas_detector?'✅':'❌'}</td><td>${x.has_cap_lamp?'✅':'❌'}</td><td>${x.exit_time?'—':`<button class="btn bxs bp" onclick="recExit(${x.id})">⬆️ 出井</button>`}</td></tr>`).join('')}</tbody></table></div>`}
-function showEntryForm(){showModal(`<h2>🚪 入井登记</h2><form onsubmit="submitEntry(event)"><label>姓名*</label><input type="text" name="person_name" required><label>定位卡编号</label><input type="text" name="card_id"><label>自救器</label><select name="has_self_rescuer"><option value="1">✅ 携带</option><option value="0">❌ 未携带</option></select><label>气体检测仪</label><select name="has_gas_detector"><option value="1">✅ 携带</option><option value="0">❌ 未携带</option></select><label>矿灯</label><select name="has_cap_lamp"><option value="1">✅ 携带</option><option value="0">❌ 未携带</option></select><label>车辆编号</label><input type="text" name="vehicle_id" placeholder="如无可不填"><label>入井目的</label><input type="text" name="purpose"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">✅ 确认入井</button></div></form>`)}
-async function submitEntry(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));['has_self_rescuer','has_gas_detector','has_cap_lamp'].forEach(k=>d[k]=+d[k]);d.entry_time=new Date().toISOString();addRow('entry_exit',d);closeModal();loadEntry()}
-async function recExit(id){updateRow('entry_exit',id,{exit_time:new Date().toISOString()});loadEntry();toast('已出井')}
+/* ===== ENTRY/EXIT ===== */
+async function loadEntry(){
+  var entries=db('entry_exit');
+  var underground=entries.filter(function(x){return !x.exit_time;});
+  $('mainContent').innerHTML='<div class="tb"><button class="bp" onclick="showEntryForm()">入井登记</button><span style="font-size:13px;color:var(--orange);margin-left:8px">目前井下: <strong>'+underground.length+'</strong> 人</span></div><div style="overflow-x:auto"><table><thead><tr><th>姓名</th><th>入井时间</th><th>出井时间</th><th>自救器</th><th>检测仪</th><th>矿灯</th><th>操作</th></tr></thead><tbody>'+entries.slice(-50).reverse().map(function(x){
+    return '<tr><td>'+(x.person_name||'')+'</td><td>'+(x.entry_time||'').slice(11,19)+'</td><td>'+(x.exit_time?x.exit_time.slice(11,19):'<span class="by">井下</span>')+'</td><td>'+(x.has_self_rescuer?'Y':'N')+'</td><td>'+(x.has_gas_detector?'Y':'N')+'</td><td>'+(x.has_cap_lamp?'Y':'N')+'</td><td>'+(x.exit_time?'--':'<button class="bxs bp" onclick="recExit('+x.id+')">出井</button>')+'</td></tr>';
+  }).join('')+'</tbody></table></div>';
+}
+function showEntryForm(){
+  showModal('<h2>入井登记</h2><form onsubmit="submitEntry(event)"><label>姓名*</label><input type="text" name="person_name" required><label>定位卡编号</label><input type="text" name="card_id"><label>自救器</label><select name="has_self_rescuer"><option value="1">携带</option><option value="0">未携带</option></select><label>气体检测仪</label><select name="has_gas_detector"><option value="1">携带</option><option value="0">未携带</option></select><label>矿灯</label><select name="has_cap_lamp"><option value="1">携带</option><option value="0">未携带</option></select><label>车辆编号</label><input type="text" name="vehicle_id" placeholder="如可不填"><label>入井目的</label><input type="text" name="purpose"><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="bp">确认入井</button></div></form>');
+}
+async function submitEntry(e){
+  e.preventDefault();
+  var d={};
+  new FormData(e.target).forEach(function(v,k){d[k]=v;});
+  ['has_self_rescuer','has_gas_detector','has_cap_lamp'].forEach(function(k){d[k]=parseInt(d[k])||0;});
+  d.entry_time=new Date().toISOString();
+  addRow('entry_exit',d);
+  closeModal();
+  loadEntry();
+}
+async function recExit(id){
+  updateRow('entry_exit',id,{exit_time:new Date().toISOString()});
+  loadEntry();
+  toast('已出井');
+}
 
-// ===== 法规库（86部完整版） =====
-async function loadRegs(){const r=db('regulations');const cats={};r.forEach(x=>{if(!cats[x.category])cats[x.category]=[];cats[x.category].push(x)});let h='<div class="stats"><div class="stat"><div class="num">'+r.length+'</div><div class="label">法规标准总数</div></div><div class="stat green"><div class="num">'+r.filter(x=>x.category.includes('法律')).length+'</div><div class="label">法律</div></div><div class="stat"><div class="num">'+r.filter(x=>x.category.includes('国家标准')).length+'</div><div class="label">国家标准</div></div><div class="stat"><div class="num">'+r.filter(x=>x.category.includes('行业标准')).length+'</div><div class="label">行业标准</div></div><div class="stat yellow"><div class="num">'+r.filter(x=>x.category.includes('部门规章')).length+'</div><div class="label">部门规章</div></div><div class="stat"><div class="num">'+r.filter(x=>x.category.includes('企业制度')).length+'</div><div class="label">企业制度</div></div></div>';for(const[c,items]of Object.entries(cats)){h+=`<h4 style="color:var(--orange);margin:12px 0 6px;font-size:14px">${c}（${items.length}部）</h4>`;items.forEach(i=>{h+=`<div style="background:var(--surface);border-radius:6px;padding:8px 12px;margin-bottom:3px;font-size:12px"><strong style="color:var(--orange)">${i.code}</strong> — ${i.name}</div>`})}$('mainContent').innerHTML=h}
+/* ===== REGULATIONS (86 items) ===== */
+async function loadRegs(){
+  var r=db('regulations');
+  var cats={};
+  r.forEach(function(x){
+    if(!cats[x.category]){cats[x.category]=[];}
+    cats[x.category].push(x);
+  });
+  var html='<div class="stats">';
+  html+='<div class="stat"><div class="num">'+r.length+'</div><div class="label">法规总数</div></div>';
+  var catNames=Object.keys(cats);
+  catNames.forEach(function(cn){
+    var items=cats[cn];
+    html+='<div class="stat"><div class="num">'+items.length+'</div><div class="label">'+cn+'</div></div>';
+  });
+  html+='</div>';
+  catNames.forEach(function(cn){
+    var items=cats[cn];
+    html+='<h4 style="color:var(--orange);margin:12px 0 6px;font-size:14px">'+cn+' ('+items.length+'部)</h4>';
+    items.forEach(function(item){
+      html+='<div style="background:var(--surface);border-radius:6px;padding:8px 12px;margin-bottom:3px;font-size:12px"><strong style="color:var(--orange)">'+item.code+'</strong> -- '+item.name+'</div>';
+    });
+  });
+  $('mainContent').innerHTML=html;
+}
 
-const su=localStorage.getItem('_savedUser');if(su)$('loginUser').value=su;
+/* ===== INIT ===== */
+var savedUser=localStorage.getItem('_savedUser');
+if(savedUser){$('loginUser').value=savedUser;}
 </script>
+<script src="data.js"></script>
 </body>
 </html>
