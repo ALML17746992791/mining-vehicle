@@ -8,29 +8,29 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0A1628;--header:#1A3A5C;--card:#14273E;--surface:#1C3552;--orange:#F5A623;--text:#F5F5F5;--sub:#B0BEC5;--hint:#78909C;--red:#E53935;--yellow:#FFC107;--green:#4CAF50}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:19px}
 .topbar{background:var(--header);padding:12px 16px;display:flex;align-items:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3);gap:10px}
-.topbar h1{font-size:16px;font-weight:600;flex:1;line-height:1.4;min-width:0}
-.topbar .right{display:flex;align-items:center;gap:8px;font-size:13px;white-space:nowrap;flex-shrink:0}
-.topbar .right button{background:rgba(255,255,255,.1);border:none;color:var(--text);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:12px}
+.topbar h1{font-size:18px;font-weight:600;flex:1;line-height:1.4;min-width:0}
+.topbar .right{display:flex;align-items:center;gap:8px;font-size:15px;white-space:nowrap;flex-shrink:0}
+.topbar .right button{background:rgba(255,255,255,.1);border:none;color:var(--text);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:14px}
 #syncStatus{font-size:14px;padding:3px 6px;border-radius:4px;margin-right:4px}
 .sync-ok{color:#4CAF50}.sync-ing{color:#FFC107}.sync-err{color:#E53935}
 .nav{background:var(--card);padding:6px 10px;display:flex;overflow-x:auto;gap:2px;position:sticky;top:52px;z-index:199;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav button{background:none;border:none;color:var(--sub);padding:8px 12px;border-radius:6px;font-size:13px;white-space:nowrap;cursor:pointer;transition:.2s}
+.nav button{background:none;border:none;color:var(--sub);padding:8px 12px;border-radius:6px;font-size:15px;white-space:nowrap;cursor:pointer;transition:.2s}
 .nav button.active{background:var(--orange);color:#000;font-weight:600}
 .content{padding:14px;max-width:1200px;margin:0 auto}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .stat{background:var(--card);border-radius:10px;padding:14px;border-left:4px solid var(--orange)}
 .stat.red{border-color:var(--red)}.stat.yellow{border-color:var(--yellow)}.stat.green{border-color:var(--green)}
-.stat .num{font-size:1.8em;font-weight:700}.stat .label{color:var(--hint);font-size:12px;margin-top:2px}
+.stat .num{font-size:2.2em;font-weight:700}.stat .label{color:var(--hint);font-size:12px;margin-top:2px}
 .g{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .card{background:var(--card);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.06)}
 .card.rb{border:2px solid var(--red)}.card.yb{border:2px solid var(--yellow)}
-.card h4{color:var(--orange);margin-bottom:6px;font-size:15px}
+.card h4{color:var(--orange);margin-bottom:6px;font-size:17px}
 .card .meta{font-size:13px;color:var(--sub);line-height:1.6}
 .card .a{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
-.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:13px;font-weight:600}
 .br{background:var(--red);color:#fff}.by{background:var(--yellow);color:#000}.bg{background:var(--green);color:#fff}.bb{background:#1976D2;color:#fff}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{background:var(--surface);padding:8px 10px;text-align:left;font-weight:600;color:var(--orange);white-space:nowrap}
@@ -59,40 +59,40 @@ td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}tr:hover{backg
 <body>
 <div id="loginPage" class="lp">
   <div class="lc">
-    <h2>&#9935;&#65039; 安全生产系统管理平台</h2>
+    <h2>⛏️ 安全生产系统管理平台</h2>
     <div class="sub">浙江中炭建设集团有限公司驻宝玉石项目部</div>
     <input type="text" id="loginUser" placeholder="用户名" autofocus>
     <input type="password" id="loginPass" placeholder="密码">
     <label style="font-size:12px;color:var(--hint)"><input type="checkbox" id="rememberMe" style="width:auto;margin-right:4px"> 记住密码</label>
-    <button class="lbtn" onclick="doLogin()">&#128274; 登录</button>
+    <button class="lbtn" onclick="doLogin()">🔑 登录</button>
     <div style="margin-top:12px;font-size:11px;color:var(--hint)">默认: admin / admin123（超级管理员）</div>
   </div>
 </div>
 
 <div id="appPage" class="hidden">
   <div class="topbar">
-    <h1>&#9935;&#65039; 安全生产系统管理平台<br><small style="font-size:10px;color:var(--hint);font-weight:400">浙江中炭建设集团有限公司驻宝玉石项目部</small></h1>
+    <h1>⛏️ 安全生产系统管理平台<br><small style="font-size:10px;color:var(--hint);font-weight:400">浙江中炭建设集团有限公司驻宝玉石项目部</small></h1>
     <div class="right">
-      <span id="syncStatus" class="sync-ok">&#9729;&#65039;</span>
+      <span id="syncStatus" class="sync-ok">☂️</span>
       <span id="userName" style="color:var(--orange);font-size:13px"></span>
-      <button onclick="showAdmin()" id="adminBtn">&#128101;</button>
-      <button onclick="showPwd()">&#128273;</button>
-      <button onclick="manualSync()" title="同步">&#8635;</button>
+      <button onclick="showAdmin()" id="adminBtn">👥</button>
+      <button onclick="showPwd()">🔓</button>
+      <button onclick="manualSync()" title="同步">🔄</button>
       <button onclick="doLogout()">退出</button>
     </div>
   </div>
   <div class="nav" id="navBar">
-    <button class="active" data-page="dashboard">&#128202; 工作台</button>
-    <button data-page="hazards">&#128269; 隐患</button>
-    <button data-page="violations">&#9888;&#65039; 三违</button>
-    <button data-page="equipment">&#128295; 设备</button>
-    <button data-page="vehicles">&#128663; 车辆保养</button>
-    <button data-page="responsibility">&#128100; 责任制</button>
-    <button data-page="training">&#128218; 培训</button>
-    <button data-page="inspections">&#9989; 检查</button>
-    <button data-page="accidents">&#128682; 事故</button>
-    <button data-page="entry">&#128682; 出入井</button>
-    <button data-page="regulations">&#128220; 法规</button>
+    <button class="active" data-page="dashboard">📊 工作台</button>
+    <button data-page="hazards">🔍 隐患</button>
+    <button data-page="violations">⚠️️ 三违</button>
+    <button data-page="equipment">🔧 设备</button>
+    <button data-page="vehicles">🚗 车辆保养</button>
+    <button data-page="responsibility">👤 责任制</button>
+    <button data-page="training">📚 培训</button>
+    <button data-page="inspections">✅ 检查</button>
+    <button data-page="accidents">🚨 事故</button>
+    <button data-page="entry">🚨 出入井</button>
+    <button data-page="regulations">📓 法规</button>
   </div>
   <div class="content" id="mainContent"></div>
 </div>
@@ -145,7 +145,7 @@ async function ghPush(data){
 function setSync(st){
   var el=$('syncStatus');
   el.className=st==='ok'?'sync-ok':st==='ing'?'sync-ing':'sync-err';
-  el.textContent=st==='ok'?'&#9729;&#65039;':st==='ing'?'&#8635;':'&#10060;';
+  el.innerHTML=st==='ok'?'\u26A1\uFE0F':st==='ing'?'\u21BB':'\u274C';
 }
 
 async function pullAndMerge(){
@@ -237,51 +237,35 @@ function initDB(){
     save('vehicles',vs);
     _idSeq.vehicles=vs.length+1;
   }
-  if(!localStorage.getItem('db_equipment')){
-    save('equipment',[
-      {id:1,name:'挖掘机',equip_type:'采掘设备',sop_summary:'启动前鸣笛示警，铲斗臂杆履带上严禁站人',status:'正常'},
-      {id:2,name:'凿岩台车',equip_type:'采掘设备',sop_summary:'作业前检查钻臂钻杆管路电气制动防护',status:'正常'},
-      {id:3,name:'铲运机',equip_type:'采掘设备',sop_summary:'启动前检查轮胎制动转向铲斗液压灯光',status:'正常'},
-      {id:4,name:'无轨胶轮运输矿车',equip_type:'运输设备',sop_summary:'严格按核定载重量，严禁超载偏载，不得人货混装',status:'正常'},
-      {id:5,name:'无轨胶轮运输人车',equip_type:'运输设备',sop_summary:'严格核定载客人数严禁超员，入井必须佩戴安全带',status:'正常'},
-      {id:6,name:'撬毛台车',equip_type:'支护设备',sop_summary:'由外向内由上向下逐块清理浮石，撬毛时下方严禁站人',status:'正常'},
-      {id:7,name:'探矿钻机',equip_type:'勘探设备',sop_summary:'钻机稳固放置工作平台平整坚实，操作人员持证上岗',status:'正常'},
-      {id:8,name:'空压机',equip_type:'动力设备',sop_summary:'每2小时检查电压电流温度压力，储气罐定期排水',status:'正常'},
-      {id:9,name:'通风机',equip_type:'通风设备',sop_summary:'主通风机连续运转不得随意停机，备用风机保持完好',status:'正常'},
-      {id:10,name:'水泵',equip_type:'排水设备',sop_summary:'运行中监测水位流量电机温度，水仓定期清淤',status:'正常'},
-      {id:11,name:'电焊机',equip_type:'维修设备',sop_summary:'持证上岗作业不少于两人，动火作业必须办理审批',status:'正常'},
-      {id:12,name:'配电柜变压器',equip_type:'电气设备',sop_summary:'配电室地面铺绝缘胶垫，严禁非电气人员操作',status:'正常'},
-      {id:13,name:'钢筋调直机',equip_type:'加工设备',sop_summary:'开机前检查防护罩接地刀片，钢筋调直时两侧禁站人',status:'正常'},
-      {id:14,name:'钢筋切断机',equip_type:'加工设备',sop_summary:'禁止超规格切断，断料时手离刀口不少于15cm',status:'正常'},
-      {id:15,name:'钢筋弯曲机',equip_type:'加工设备',sop_summary:'弯曲钢筋时禁站弯曲方向，更换模具必须断电',status:'正常'},
-      {id:16,name:'混凝土搅拌机',equip_type:'施工设备',sop_summary:'运转中禁手入搅拌筒，清理料斗时必须停机断电',status:'正常'},
-      {id:17,name:'混凝土泵机',equip_type:'施工设备',sop_summary:'泵送中严禁拆接管路，堵管时先泄压后处理',status:'正常'}
-    ]);
-    _idSeq.equipment=18;
+  /* Equipment from SEED_EQUIP */
+  if(!localStorage.getItem('db_equipment') && typeof SEED_EQUIP!=='undefined'){
+    var eqs=SEED_EQUIP.map(function(e,i){return {id:i+1,name:e.n,equip_type:e.t,model_spec:e.m||'',location:e.l||'',responsible_person:e.rp||'',sop_summary:e.s||'',status:'正常'};});
+    save('equipment',eqs);
+    _idSeq.equipment=eqs.length+1;
   }
-  if(!localStorage.getItem('db_responsibilities')){
-    var posList='主要负责人,安全经理,生产经理,安全员,采矿技术员,地质技术员,测量技术员,机电技术员,焊工,空压工,维修工,通风工,排水工,电工,凿岩工,支柱工,安全检查工,铲运机司机,挖掘机司机,运输车司机,撬毛台车司机,探矿钻工,辅助工,仓库管理员,采购员,保洁员,食堂厨师,爆破员'.split(',');
-    save('responsibilities',posList.map(function(n,i){return {id:i+1,position_name:n,responsibility_list:n+'安全生产责任',assessment_cycle:'月度'};}));
-    _idSeq.responsibilities=posList.length+1;
+  /* Responsibilities from SEED_RESP */
+  if(!localStorage.getItem('db_responsibilities') && typeof SEED_RESP!=='undefined'){
+    var rps=SEED_RESP.map(function(r,i){return {id:i+1,position_name:r.p,responsibility_list:r.r,assessment_cycle:'月度'};});
+    save('responsibilities',rps);
+    _idSeq.responsibilities=rps.length+1;
   }
-  if(!localStorage.getItem('db_regulations')){
+  /* Regulations from SEED_REGS */
+  if(!localStorage.getItem('db_regulations') && typeof SEED_REGS!=='undefined'){
     save('regulations',SEED_REGS);
     _idSeq.regulations=SEED_REGS.length+1;
   }
-  if(!localStorage.getItem('db_hazard_sources')){
-    save('hazard_sources',[
-      {id:1,source_name:'爆破器材库',source_type:'爆炸物品',location:'爆破器材库房',risk_level:'一级',monitoring_method:'视频监控+人工巡检每日',responsible_person:'爆破安全员',status:'受控'},
-      {id:2,source_name:'空压机储气罐',source_type:'压力容器',location:'空压机房',risk_level:'二级',monitoring_method:'压力表+安全阀定期校验',status:'受控'},
-      {id:3,source_name:'1250中段顶板不稳定区',source_type:'顶板灾害',location:'1250中段',risk_level:'二级',monitoring_method:'顶板离层仪+人工巡检',status:'受控'},
-      {id:4,source_name:'主变电所',source_type:'电气火灾',location:'主变电所',risk_level:'二级',monitoring_method:'温度监测+人工巡检',status:'受控'},
-      {id:5,source_name:'井下动火作业区',source_type:'火灾',location:'井下作业区域',risk_level:'二级',monitoring_method:'动火审批+专人监护',status:'受控'},
-      {id:6,source_name:'探矿钻探区',source_type:'高处坠落',location:'探矿工作面',risk_level:'三级',monitoring_method:'防护栏+安全带+监护',status:'受控'},
-      {id:7,source_name:'斜坡道运输',source_type:'运输事故',location:'斜坡道全程',risk_level:'三级',monitoring_method:'限速标识+防撞设施',status:'受控'}
-    ]);
+  /* Hazard sources from SEED_HAZSRC */
+  if(!localStorage.getItem('db_hazard_sources') && typeof SEED_HAZSRC!=='undefined'){
+    var hzs=SEED_HAZSRC.map(function(h,i){return {id:i+1,source_name:h.n,source_type:h.t,location:h.l||'',risk_level:h.rl,monitoring_method:h.mm||'',responsible_person:h.rp||'',status:'受控'};});
+    save('hazard_sources',hzs);
   }
-}
-
-/* ===== TOAST / MODAL ===== */
+  /* Violation rules from SEED_VIOL */
+  if(!localStorage.getItem('db_violations') && typeof SEED_VIOL!=='undefined'){
+    var vls=SEED_VIOL.map(function(v,i){return {id:i+1,category:v.c,behavior:v.b,penalty:v.p,reward:v.rw,is_reward:v.ir,status:'active'};});
+    save('violations',vls);
+    _idSeq.violations=vls.length+1;
+  }
+}/* ===== TOAST / MODAL ===== */
 function toast(msg,t){if(typeof t!=='number'){t=2500;}var el=$('toast');el.textContent=msg;el.style.display='block';setTimeout(function(){el.style.display='none';},t);}
 function showModal(html){$('modalBox').innerHTML=html;$('modal').classList.remove('hidden');}
 function closeModal(){$('modal').classList.add('hidden');}
@@ -301,7 +285,7 @@ async function doLogin(){
   if($('rememberMe').checked){localStorage.setItem('_savedUser',u);}
   $('loginPage').classList.add('hidden');
   $('appPage').classList.remove('hidden');
-  $('userName').textContent='&#128100; '+user.name;
+  $('userName').innerHTML='\uD83D\uDC64 '+user.name;
   $('adminBtn').classList.remove('hidden');
   initNav();
   setTimeout(function(){
@@ -310,7 +294,7 @@ async function doLogin(){
 }
 function doLogout(){CUSER=null;$('loginPage').classList.remove('hidden');$('appPage').classList.add('hidden');}
 function showPwd(){
-  showModal('<h2>&#128273; 修改密码</h2><form onsubmit="submitPwd(event)"><label>原密码</label><input type="password" name="old" required><label>新密码</label><input type="password" name="new" required minlength="6"><label>确认</label><input type="password" name="confirm" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">修改</button></div></form>');
+  showModal('<h2>🔓 修改密码</h2><form onsubmit="submitPwd(event)"><label>原密码</label><input type="password" name="old" required><label>新密码</label><input type="password" name="new" required minlength="6"><label>确认</label><input type="password" name="confirm" required><div class="ma"><button type="button" class="btn" onclick="closeModal()">取消</button><button type="submit" class="btn bp">修改</button></div></form>');
 }
 async function submitPwd(e){
   e.preventDefault();
@@ -330,7 +314,7 @@ async function showAdmin(){
   var rows=users.map(function(u){
     return '<tr><td>'+u.username+'</td><td>'+u.name+'</td><td>'+u.role+'</td><td>'+u.status+'</td><td>'+(u.username!=='admin'?'<button class="btn bxs bd" onclick="delUser('+u.id+')">删除</button><button class="btn bxs" onclick="toggleUser('+u.id+')">'+(u.status==='active'?'禁用':'启用')+'</button>':'—')+'</td></tr>';
   }).join('');
-  showModal('<h2>&#128101; 用户管理</h2><div style="overflow-x:auto"><table><thead><tr><th>用户名</th><th>姓名</th><th>角色</th><th>状态</th><th>操作</th></tr></thead><tbody>'+rows+'</tbody></table></div><hr style="border-color:rgba(255,255,255,.1);margin:12px 0"><h3 style="color:var(--orange)">添加用户</h3><form onsubmit="addUser(event)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>用户名*</label><input type="text" name="username" required></div><div><label>姓名*</label><input type="text" name="name" required></div><div><label>密码*</label><input type="password" name="password" required></div><div><label>角色</label><select name="role"><option value="user">普通用户</option><option value="admin">管理员</option><option value="super_admin">超级管理员</option></select></div></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">关闭</button><button type="submit" class="btn bp">添加</button></div></form>');
+  showModal('<h2>👥 用户管理</h2><div style="overflow-x:auto"><table><thead><tr><th>用户名</th><th>姓名</th><th>角色</th><th>状态</th><th>操作</th></tr></thead><tbody>'+rows+'</tbody></table></div><hr style="border-color:rgba(255,255,255,.1);margin:12px 0"><h3 style="color:var(--orange)">添加用户</h3><form onsubmit="addUser(event)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>用户名*</label><input type="text" name="username" required></div><div><label>姓名*</label><input type="text" name="name" required></div><div><label>密码*</label><input type="password" name="password" required></div><div><label>角色</label><select name="role"><option value="user">普通用户</option><option value="admin">管理员</option><option value="super_admin">超级管理员</option></select></div></div><div class="ma"><button type="button" class="btn" onclick="closeModal()">关闭</button><button type="submit" class="btn bp">添加</button></div></form>');
 }
 async function addUser(e){
   e.preventDefault();
